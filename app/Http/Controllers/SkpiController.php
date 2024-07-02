@@ -10,9 +10,7 @@ use PhpOffice\PhpWord\TemplateProcessor;
 use Illuminate\Support\Facades\Storage;
 
 
-/**
- * @method static string url(string $path)
- */
+
 
 class SkpiController extends Controller
 {
@@ -121,7 +119,7 @@ class SkpiController extends Controller
         $ttd = Carbon::now()->isoFormat('D MMMM YYYY');
 
         // dd($ttd, $terbit_bulan, $terbit_tahun);
-
+// dd( $jumlah_pencapaian = count($request->input('pencapaian')));
         Skpi::create([
             'nama' => strtoupper($request->input('nama')),
             'tempat_lahir' => ucfirst($request->input('tempat_lahir')),
@@ -174,15 +172,19 @@ class SkpiController extends Controller
         $templateProcessor->cloneBlock('block_name3', count($request->input('beasiswa')), true, true);
         $templateProcessor->cloneBlock('block_name4', count($request->input('organisasi')), true, true);
 
-
         $i = 0;
         foreach ($request->input('pencapaian') as $key => $value) {
             if (empty($value) || $value == '-') {
                 $templateProcessor->setValue('no#' . $i + 1, '-');
                 $templateProcessor->setValue('pencapaian#' . $i + 1, '');
             } else {
-                $templateProcessor->setValue('no#' . $i + 1,  $i + 1 . '&#8228; ');
-                $templateProcessor->setValue('pencapaian#' . $i + 1,  $value . '&#8228;');
+                if (count($request->input('pencapaian')) > 1) {
+                    $templateProcessor->setValue('no#' . $i + 1,  $i + 1 . '&#8228; ');
+                    $templateProcessor->setValue('pencapaian#' . $i + 1,  $value . '&#8228;');
+                }else{
+                    $templateProcessor->setValue('no#' . $i + 1, '');
+                    $templateProcessor->setValue('pencapaian#' . $i + 1,  $value . '&#8228;');
+                }
             }
             $i++;
         }
@@ -192,8 +194,13 @@ class SkpiController extends Controller
                 $templateProcessor->setValue('no2#' . $i + 1, '-');
                 $templateProcessor->setValue('sertifikasi#' . $i + 1, '');
             } else {
-                $templateProcessor->setValue('no2#' . $i + 1,  $i + 1 . '&#8228; ');
-                $templateProcessor->setValue('sertifikasi#' . $i + 1,  $value . '&#8228;');
+                if (count($request->input('sertifikasi')) > 1) {
+                    $templateProcessor->setValue('no2#' . $i + 1,  $i + 1 . '&#8228; ');
+                    $templateProcessor->setValue('sertifikasi#' . $i + 1,  $value . '&#8228;');
+                }else{
+                    $templateProcessor->setValue('no2#' . $i + 1, '');
+                    $templateProcessor->setValue('sertifikasi#' . $i + 1,  $value . '&#8228;');
+                }
             }
             $i++;
         }
@@ -203,8 +210,13 @@ class SkpiController extends Controller
                 $templateProcessor->setValue('no3#' . $i + 1, '-');
                 $templateProcessor->setValue('beasiswa#' . $i + 1, '');
             } else {
-                $templateProcessor->setValue('no3#' . $i + 1,  $i + 1 . '&#8228; ');
-                $templateProcessor->setValue('beasiswa#' . $i + 1,  $value . '&#8228;');
+                if (count($request->input('beasiswa')) > 1) {
+                    $templateProcessor->setValue('no3#' . $i + 1,  $i + 1 . '&#8228; ');
+                    $templateProcessor->setValue('beasiswa#' . $i + 1,  $value . '&#8228;');
+                }else{
+                    $templateProcessor->setValue('no3#' . $i + 1, '');
+                    $templateProcessor->setValue('beasiswa#' . $i + 1,  $value . '&#8228;');
+                }
             }
             $i++;
         }
@@ -214,8 +226,13 @@ class SkpiController extends Controller
                 $templateProcessor->setValue('no4#' . $i + 1, '-');
                 $templateProcessor->setValue('organisasi#' . $i + 1, '');
             } else {
-                $templateProcessor->setValue('no4#' . $i + 1,  $i + 1 . '&#8228; ');
-                $templateProcessor->setValue('organisasi#' . $i + 1,  $value . '&#8228;');
+                if (count($request->input('organisasi')) > 1) {
+                    $templateProcessor->setValue('no4#' . $i + 1,  $i + 1 . '&#8228; ');
+                    $templateProcessor->setValue('organisasi#' . $i + 1,  $value . '&#8228;');
+                }else{
+                    $templateProcessor->setValue('no4#' . $i + 1, '');
+                    $templateProcessor->setValue('organisasi#' . $i + 1,  $value . '&#8228;');
+                }
             }
             $i++;
         }
@@ -236,7 +253,7 @@ class SkpiController extends Controller
 
         Storage::disk('google')->put($fileName, $content);
 
-        Alert::success('Sipp', 'Data udah kekirim..!');
+        // Alert::success('Sipp', 'Data udah kekirim..!');
         return back();
     }
 
@@ -298,7 +315,6 @@ class SkpiController extends Controller
         $data_skpi = Skpi::find($id);
         $fileName = $data_skpi->nim . '_' . strtoupper($data_skpi->nama) . '_' . $data_skpi->program_studi . '_SKPI.docx';
 
-        dd(Storage::disk('google')->get($fileName));
         $url = Storage::disk('google')->url($fileName);
 
         // ekstrak file id di google drive

@@ -6,7 +6,7 @@
             <p class="card-category m-2">Formulir Pengisisan Surat Keterangan Pendamping Ijazah</p>
         </div>
         <div class="card-body">
-            <table id="datatable" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+            <table id="skpi" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                 <thead>
                     <tr>
                         <th>NIM</th>

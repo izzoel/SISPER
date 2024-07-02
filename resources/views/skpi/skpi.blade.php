@@ -7,7 +7,7 @@
         </div>
         <div class="card-body">
 
-            <form action="{{ route('kirim') }}" method="POST" class="needs-validation" novalidate>
+            <form action="{{ route('kirim') }}" id="skpiForm" method="POST" class="needs-validation" novalidate>
                 @csrf
                 <div class="row input-group">
 
@@ -114,7 +114,7 @@
                         </label>
                     </div>
                     <div class="col input-group-prepend">
-                        <input type="text" class="datepicker3 form-control" name="tanggal_lulus" placeholder="..."
+                        <input type="text" class="datepicker form-control" name="tanggal_lulus" placeholder="..."
                             required>
                         <div class="invalid-tooltip ">Tanggal lulus kosong!</div>
                     </div>
@@ -161,7 +161,7 @@
                     <div class="col-sm-2 input-group-prepend">
                         <label class="text-dark">
                             Pencapaian / Penghargaan Kejuaraan <br>
-                            <span class="required text-danger"><i>isi '-' jika tidak
+                            <span class="required text-danger"><i>kosongkan jika tidak
                                     ada</i></span>
                         </label>
                     </div>
@@ -196,7 +196,7 @@
                     <div class="col-sm-2 input-group-prepend">
                         <label class="text-dark">
                             Sertifikat profesi / kompetensi<br>
-                            <span class="required text-danger"><i>isi '-' jika tidak
+                            <span class="required text-danger"><i>kosongkan jika tidak
                                     ada</i></span>
                         </label>
                     </div>
@@ -229,7 +229,7 @@
                     <div class="col-sm-2 input-group-prepend">
                         <label class="text-dark">
                             Beasiswa selama kuliah<br>
-                            <span class="required text-danger"><i>isi '-' jika tidak
+                            <span class="required text-danger"><i>kosongkan jika tidak
                                     ada</i></span>
                         </label>
                     </div>
@@ -262,7 +262,7 @@
                     <div class="col-sm-2 input-group-prepend">
                         <label class="text-dark">
                             Pengalaman Organisasi<br>
-                            <span class="required text-danger"><i>isi '-' jika tidak
+                            <span class="required text-danger"><i>kosongkan jika tidak
                                     ada</i></span>
                         </label>
                     </div>
