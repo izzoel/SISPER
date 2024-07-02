@@ -26,7 +26,8 @@
                             <td>{{ $skpi->nama }}</td>
                             <td>{{ $skpi->program_studi }}</td>
                             <td>{{ $skpi->updated_at }}</td>
-                            <td><span class="badge badge-{{ $skpi->status_warna }}">{{ $skpi->status_keterangan }}</span>
+                            <td><span id="status{{ $skpi->id }}"
+                                    class="badge badge-{{ $skpi->status_warna }}">{{ $skpi->status_keterangan }}</span>
                             </td>
                             <td>
                                 <a href="{{ route('cek', $skpi->id) }}" id="cek{{ $skpi->id }}" onclick="cek()"
@@ -38,7 +39,6 @@
                         </tr>
                     @endforeach
                 </tbody>
-                {{-- <iframe src="https://docs.google.com/document/d/1GUUh0_o5WTmquXLGEnLnEzVJZlCsJY2W/"></iframe> --}}
 
             </table>
 

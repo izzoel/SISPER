@@ -43,7 +43,6 @@ class SkpiController extends Controller
     public function store(Request $request)
     {
         Carbon::setLocale('id');
-
         $bulan = [
             "Januari",
             "Februari",

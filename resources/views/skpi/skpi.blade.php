@@ -9,6 +9,7 @@
 
             <form action="{{ route('kirim') }}" id="skpiForm" method="POST" class="needs-validation" novalidate>
                 @csrf
+                <input type="hidden" name="today" value="{{ date('Y-m-d') }}">
                 <div class="row input-group">
 
                     <div class="col-sm-2 input-group-prepend">
@@ -72,7 +73,6 @@
                     </div>
                 </div>
 
-
                 <div class="row input-group">
                     <div class="col-sm-2 input-group-prepend">
                         <label class="label-align text-dark">
@@ -95,7 +95,6 @@
                         <div class="invalid-tooltip ">Lama studi kosong!</div>
                     </div>
                 </div>
-
 
                 <div class="row input-group">
                     <div class="col-sm-2 input-group-prepend">
@@ -120,7 +119,6 @@
                     </div>
                 </div>
 
-
                 <div class="row input-group">
 
                     <div class="col-sm-2 input-group-prepend">
@@ -133,7 +131,6 @@
                         <div class="invalid-tooltip ">Judul Skripsi / Tugas Akhir kosong!</div>
                     </div>
                 </div>
-
 
                 <div class="row input-group">
                     <div class="col-sm-2 input-group-prepend">
@@ -170,7 +167,6 @@
                     </div>
 
                 </div>
-
 
                 <div class="row input-group mt-1">
 

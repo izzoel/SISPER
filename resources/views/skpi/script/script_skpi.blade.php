@@ -71,7 +71,7 @@
                     inputPlaceholder: 'Saya bersedia menanggung biaya dan konsekuensi jika terjadi kesalahan pada pengisian',
                     confirmButtonText: 'Lanjutkan <i class="fa fa-arrow-right"></i>',
                     inputValidator: (result) => {
-                        return !result && "Anda harus menyetujui syarat dan ketentuan";
+                        return !result && "Kamu harus menyetujui syarat dan ketentuan";
                     }
                 });
 
