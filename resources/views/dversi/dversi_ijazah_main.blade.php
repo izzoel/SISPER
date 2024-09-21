@@ -9,10 +9,16 @@
             @csrf
             <div class="row">
                 @foreach ($data_dversi as $ijazah)
-                    <div class="col-lg mb-3" style="height: 150%">
-                        <iframe src="https://drive.google.com/file/d/{{ $ijazah->ijazah }}/preview" style="width: 100%; height: 100%" scolling="auto" frameborder="0"
+                    <div class="col-lg mb-3 embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://drive.google.com/file/d/{{ $ijazah->ijazah }}/preview" allowfullscreen scolling="auto" frameborder="0"
                             onload="iframeLoaded()" onerror="iframeError()"></iframe>
                     </div>
+
+
+                    {{-- <div class="col-lg mb-3 embed-responsive" style="width: 100%;height: 175%">
+                        <iframe src="https://drive.google.com/file/d/{{ $ijazah->ijazah }}/preview" scolling="auto" frameborder="0" onload="iframeLoaded()"
+                            onerror="iframeError()"></iframe>
+                    </div> --}}
 
 
                     <div class="col-lg">
