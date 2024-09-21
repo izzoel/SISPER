@@ -9,32 +9,13 @@
             @csrf
             <div class="row">
                 @foreach ($data_dversi as $ijazah)
-                    <div class="col-lg-6">
-                        <iframe src="https://drive.google.com/file/d/{{ $ijazah->ijazah }}/preview" class="iframe-container" frameborder="0" onload="iframeLoaded()"
-                            onerror="iframeError()"></iframe>
+                    <div class="col-lg mb-3" style="height: 150%">
+                        <iframe src="https://drive.google.com/file/d/{{ $ijazah->ijazah }}/preview" style="width: 100%; height: 100%" scolling="auto" frameborder="0"
+                            onload="iframeLoaded()" onerror="iframeError()"></iframe>
                     </div>
 
-                    <style>
-                        .iframe-container {
-                            position: relative;
-                            width: 100%;
-                            height: 100%;
-                            /* padding-top: 75%; */
-                            /* 4:3 aspect ratio */
-                            overflow: hidden;
-                        }
 
-                        .iframe-container iframe {
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            width: 100%;
-                            height: 100%;
-                        }
-                    </style>
-
-
-                    <div class="col-lg-6">
+                    <div class="col-lg">
                         <input type="hidden" class="form-control" name="pisn" value="{{ $ijazah->pisn }}">
                         <input type="hidden" class="form-control" name="verifikasi" value="{{ now()->format('d-m-Y H:i:s') }}">
                         <input type="hidden" class="form-control" name="ijazah" value="https://drive.google.com/uc?id={{ $ijazah->ijazah }}">
