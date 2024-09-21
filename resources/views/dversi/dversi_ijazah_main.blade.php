@@ -9,10 +9,29 @@
             @csrf
             <div class="row">
                 @foreach ($data_dversi as $ijazah)
-                    <div class="col-auto">
-                        <iframe src="https://docs.google.com/viewer?url=https://drive.google.com/uc?id={{ $ijazah->ijazah }}&embedded=true" {{-- <iframe src="https://docs.google.com/viewer?url=https://drive.google.com/uc?id=1_w3hA5HwCCFGCF_WnqpfuSYYEdY4gMkR&embedded=true" --}}
-                            style="width:600px; height:500px;" frameborder="0" onload="iframeLoaded()" onerror="iframeError()"></iframe>
+                    <div class="col">
+                        <iframe src="https://drive.google.com/file/d/{{ $ijazah->ijazah }}/preview" class="iframe-container" frameborder="0" onload="iframeLoaded()"
+                            onerror="iframeError()"></iframe>
                     </div>
+
+                    <style>
+                        .iframe-container {
+                            position: relative;
+                            width: 100%;
+                            /* padding-top: 75%; */
+                            /* 4:3 aspect ratio */
+                            overflow: hidden;
+                        }
+
+                        .iframe-container iframe {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                        }
+                    </style>
+
 
                     <div class="col">
                         <input type="hidden" class="form-control" name="pisn" value="{{ $ijazah->pisn }}">
