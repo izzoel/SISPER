@@ -9,7 +9,7 @@
             @csrf
             <div class="row">
                 @foreach ($data_dversi as $ijazah)
-                    <div class="col">
+                    <div class="col-lg-6">
                         <iframe src="https://drive.google.com/file/d/{{ $ijazah->ijazah }}/preview" class="iframe-container" frameborder="0" onload="iframeLoaded()"
                             onerror="iframeError()"></iframe>
                     </div>
@@ -34,7 +34,7 @@
                     </style>
 
 
-                    <div class="col">
+                    <div class="col-lg-6">
                         <input type="hidden" class="form-control" name="pisn" value="{{ $ijazah->pisn }}">
                         <input type="hidden" class="form-control" name="verifikasi" value="{{ now()->format('d-m-Y H:i:s') }}">
                         <input type="hidden" class="form-control" name="ijazah" value="https://drive.google.com/uc?id={{ $ijazah->ijazah }}">
