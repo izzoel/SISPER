@@ -21,6 +21,7 @@
     <link href='{{ asset('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}' rel="stylesheet">
     {{-- Custom CSS --}}
     <link href='{{ asset('build/css/custom.min.css') }}' rel="stylesheet">
+
 </head>
 
 <body style="background-color: #5a0707">
