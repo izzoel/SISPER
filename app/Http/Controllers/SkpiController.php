@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Skpi;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
-use Carbon\Carbon;
-use PhpOffice\PhpWord\TemplateProcessor;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpWord\TemplateProcessor;
+use RealRashid\SweetAlert\Facades\Alert;
 
 
 
@@ -32,6 +32,22 @@ class SkpiController extends Controller
     public function create()
     {
         //
+    }
+    public function d()
+    {
+        $filename = 'a.pdf';
+        $path = storage_path('app/' . $filename); // Ensure the correct path
+
+        if (!file_exists($path)) {
+            abort(404); // Handle the case where the file doesn't exist
+        }
+
+        return response()->make(file_get_contents($path), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $filename . '"',
+        ]);
+
+        // return view('/layout/content');
     }
 
     /**
@@ -118,7 +134,7 @@ class SkpiController extends Controller
         $ttd = Carbon::now()->isoFormat('D MMMM YYYY');
 
         // dd($ttd, $terbit_bulan, $terbit_tahun);
-// dd( $jumlah_pencapaian = count($request->input('pencapaian')));
+        // dd( $jumlah_pencapaian = count($request->input('pencapaian')));
         Skpi::create([
             'nama' => strtoupper($request->input('nama')),
             'tempat_lahir' => ucfirst($request->input('tempat_lahir')),
@@ -180,7 +196,7 @@ class SkpiController extends Controller
                 if (count($request->input('pencapaian')) > 1) {
                     $templateProcessor->setValue('no#' . $i + 1,  $i + 1 . '&#8228; ');
                     $templateProcessor->setValue('pencapaian#' . $i + 1,  $value . '&#8228;');
-                }else{
+                } else {
                     $templateProcessor->setValue('no#' . $i + 1, '');
                     $templateProcessor->setValue('pencapaian#' . $i + 1,  $value . '&#8228;');
                 }
@@ -196,7 +212,7 @@ class SkpiController extends Controller
                 if (count($request->input('sertifikasi')) > 1) {
                     $templateProcessor->setValue('no2#' . $i + 1,  $i + 1 . '&#8228; ');
                     $templateProcessor->setValue('sertifikasi#' . $i + 1,  $value . '&#8228;');
-                }else{
+                } else {
                     $templateProcessor->setValue('no2#' . $i + 1, '');
                     $templateProcessor->setValue('sertifikasi#' . $i + 1,  $value . '&#8228;');
                 }
@@ -212,7 +228,7 @@ class SkpiController extends Controller
                 if (count($request->input('beasiswa')) > 1) {
                     $templateProcessor->setValue('no3#' . $i + 1,  $i + 1 . '&#8228; ');
                     $templateProcessor->setValue('beasiswa#' . $i + 1,  $value . '&#8228;');
-                }else{
+                } else {
                     $templateProcessor->setValue('no3#' . $i + 1, '');
                     $templateProcessor->setValue('beasiswa#' . $i + 1,  $value . '&#8228;');
                 }
@@ -228,7 +244,7 @@ class SkpiController extends Controller
                 if (count($request->input('organisasi')) > 1) {
                     $templateProcessor->setValue('no4#' . $i + 1,  $i + 1 . '&#8228; ');
                     $templateProcessor->setValue('organisasi#' . $i + 1,  $value . '&#8228;');
-                }else{
+                } else {
                     $templateProcessor->setValue('no4#' . $i + 1, '');
                     $templateProcessor->setValue('organisasi#' . $i + 1,  $value . '&#8228;');
                 }
@@ -251,9 +267,10 @@ class SkpiController extends Controller
         ob_end_clean();
 
         Storage::disk('google')->put($fileName, $content);
-
+        dd('done');
         // Alert::success('Sipp', 'Data udah kekirim..!');
-        return back();
+        // return back();
+        return redirect('/landing');
     }
 
     /**

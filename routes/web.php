@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SkpiController;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\SkpiController;
+use App\Http\Controllers\DversiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,14 @@ Route::get('/', function () {
 Route::get('/landing', function () {
     return view('landing');
 })->name('landing');
+
+
+Route::get('/dversi/{nim}/{nik}', [DversiController::class, 'show'])->name('dversi');
+Route::get('/dversi/admin', [DversiController::class, 'admin'])->name('dversi-admin');
+
+
 Route::get('/skpi', function () {
-    return view('/skpi/skpi');
+    return view('/layout/content');
 })->name('skpi');
 Route::get('/skpi/admin', function () {
     return view('/skpi/admin');
@@ -30,4 +37,5 @@ Route::get('/skpi/admin', function () {
 
 Route::get('/skpi/cek/{id}', [SkpiController::class, 'cek'])->name('cek');
 Route::get('/skpi/admin', [SkpiController::class, 'admin'])->name('admin');
-Route::post('/kirim', [SkpiController::class, 'store'])->name('kirim');
+Route::post('/skpi/kirim', [SkpiController::class, 'store'])->name('kirim');
+Route::post('/dversi/kirim', [DversiController::class, 'store'])->name('dversi-ijazah-kirim');

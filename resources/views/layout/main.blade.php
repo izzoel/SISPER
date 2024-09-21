@@ -37,7 +37,18 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col m-2 mt-4 mb-4">
-                    @yield('contain')
+                    @if (Request::segment(1) === 'skpi')
+                        @yield('skpi')
+                    @endif
+                    @if (Request::segment(1) === 'skpi' && Request::segment(2) === 'admin')
+                        @yield('admin-skpi')
+                    @endif
+                    @if (Request::segment(1) === 'dversi')
+                        @yield('ijazah')
+                    @endif
+                    @if (Request::segment(1) === 'dversi' && Request::segment(2) === 'admin')
+                        @yield('admin-dversi')
+                    @endif
                 </div>
             </div>
         </div>
@@ -57,6 +68,11 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-@include('skpi.script.script_skpi')
+
+@if (Request::segment(1) === 'skpi')
+    @include('skpi.script.script_skpi')
+@elseif (Request::segment(1) === 'dversi')
+    @include('dversi.script.script_ijazah')
+@endif
 
 </html>

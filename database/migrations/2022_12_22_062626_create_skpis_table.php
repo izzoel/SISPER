@@ -43,6 +43,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skpis');
+        if (Schema::hasTable('skpi')) {
+            Schema::dropIfExists('skpi');
+        }
     }
 };
