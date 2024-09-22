@@ -10,7 +10,7 @@
             <div class="row">
                 @foreach ($data_dversi as $ijazah)
                     <div class="col-lg mb-3 embed-responsive embed-responsive-16by9">
-                        <iframe class="embed-responsive-item" src="https://drive.google.com/file/d/{{ $ijazah->ijazah }}/preview" allowfullscreen scolling="auto" frameborder="0"
+                        <iframe class="embed-responsive-item" src="https://drive.google.com/file/d/{{ $ijazah->ijazah }}/preview" allowfullscreen frameborder="0"
                             onload="iframeLoaded()" onerror="iframeError()"></iframe>
                     </div>
 
