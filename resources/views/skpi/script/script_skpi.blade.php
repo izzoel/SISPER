@@ -129,11 +129,11 @@
     function addPencapaian() {
         var html = '';
 
-        html += '<div class="row input-group mb-0">';
+        html += '<div class="row input-group">';
         html +=
             '<div class="col-sm-2 input-group-prepend"><label class="label-align text-dark"><span class="required text-danger"></span></label></div>';
         html +=
-            '<div class="col  input-group-prepend"><input type="text" id="inputPencapaian" class="form-control" name="pencapaian[]" placeholder="pencapaian">';
+            '<div class="col input-group-prepend"><input type="text" id="inputPencapaian" class="form-control" name="pencapaian[]" placeholder="pencapaian">';
 
         $('#newRow').append(html).insertAfter(".a");
     }
@@ -147,7 +147,7 @@
     function addSertifikasi() {
         var html = '';
 
-        html += '<div class="row input-group mb-0">';
+        html += '<div class="row input-group">';
         html +=
             '<div class="col-sm-2 input-group-prepend"><label class="label-align text-dark"><span class="required text-danger"></span></label></div>';
         html +=
@@ -164,7 +164,7 @@
     function addBeasiswa() {
         var html = '';
 
-        html += '<div class="row input-group mb-0">';
+        html += '<div class="row input-group">';
         html +=
             '<div class="col-sm-2 input-group-prepend"><label class="label-align text-dark"><span class="required text-danger"></span></label></div>';
         html +=
@@ -181,7 +181,7 @@
     function addOrganisasi() {
         var html = '';
 
-        html += '<div class="row input-group mb-0">';
+        html += '<div class="row input-group">';
         html +=
             '<div class="col-sm-2 input-group-prepend"><label class="label-align text-dark"><span class="required text-danger"></span></label></div>';
         html +=

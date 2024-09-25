@@ -267,7 +267,7 @@ class SkpiController extends Controller
         ob_end_clean();
 
         Storage::disk('google')->put($fileName, $content);
-        dd('done');
+        // dd('done');
         // Alert::success('Sipp', 'Data udah kekirim..!');
         // return back();
         return redirect('/landing');

@@ -148,10 +148,10 @@
             </div>
 
             {{-- Pencapaian --}}
-            <div class="row input-group a mb-0">
+            <div class="row input-group a">
 
                 <div class="col-sm-2 input-group-prepend">
-                    <label class="text-dark">
+                    <label class="text-dark mb-0 mb-0">
                         Pencapaian / Penghargaan Kejuaraan <br>
                         <span class="required text-danger"><i>kosongkan jika tidak
                                 ada</i></span>
@@ -181,9 +181,9 @@
 
 
             {{-- Sertifikasi --}}
-            <div class="row input-group b mb-0">
+            <div class="row input-group b">
                 <div class="col-sm-2 input-group-prepend">
-                    <label class="text-dark">
+                    <label class="text-dark mb-0">
                         Sertifikat profesi / kompetensi<br>
                         <span class="required text-danger"><i>kosongkan jika tidak
                                 ada</i></span>
@@ -212,9 +212,9 @@
             {{--  --}}
 
             {{-- Beasiswa --}}
-            <div class="row input-group c mb-0">
+            <div class="row input-group c">
                 <div class="col-sm-2 input-group-prepend">
-                    <label class="text-dark">
+                    <label class="text-dark mb-0">
                         Beasiswa selama kuliah<br>
                         <span class="required text-danger"><i>kosongkan jika tidak
                                 ada</i></span>
@@ -242,9 +242,9 @@
             {{--  --}}
 
             {{-- Organisasi --}}
-            <div class="row input-group d mb-0">
+            <div class="row input-group d">
                 <div class="col-sm-2 input-group-prepend">
-                    <label class="text-dark">
+                    <label class="text-dark mb-0">
                         Pengalaman Organisasi<br>
                         <span class="required text-danger"><i>kosongkan jika tidak
                                 ada</i></span>
