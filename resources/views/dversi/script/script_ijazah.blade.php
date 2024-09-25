@@ -97,5 +97,7 @@
         });
     });
 
-    $('#dversi').DataTable({});
+    $('#dversi').DataTable({
+        responsive: true
+    });
 </script>
