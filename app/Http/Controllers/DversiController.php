@@ -47,7 +47,10 @@ class DversiController extends Controller
      */
     public function store(Request $request)
     {
-        DversiVerifikasi::create($request->all());
+        DversiVerifikasi::updateOrCreate(
+            ['nim' => $request->input('nim'), 'nik' => $request->input('nik')],
+            $request->all()
+        );
         return redirect('/landing');
     }
 
