@@ -63,6 +63,13 @@ class DversiController extends Controller
     public function show(Dversi $dversi, $nim, $nik)
     {
         $data_dversi = Dversi::where('nim', $nim)->where('nik', $nik)->get();
+        if (!Dversi::where('nim', $nim)->where('nik', $nik)->first()) {
+            return redirect()->back()->with('error', 'Ehh.. NIM atau NIK gak ditemukan..!');
+        } elseif (DversiVerifikasi::where('nim', $nim)->get('verifikasi')->first()) {
+            return redirect()->back()->with('info', 'Kamu sudah pernah ngirim..!');
+        }
+
+
         return view('/layout/content', compact('data_dversi'));
     }
 

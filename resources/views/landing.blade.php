@@ -34,7 +34,7 @@
                     <form>
                         <h1 class="text-light">Sistem Persuratan</h1>
 
-                        <a name="" id="" class="btn btn-light" href="{{ route('skpi') }}" role="button" style="text-decoration:none">
+                        <a id="skpi" class="btn btn-light" href="" role="button" style="text-decoration:none">
                             <i class="fa fa-file-text-o" style="font-size: 1.5rem"></i>
                             &nbsp;
                             <span class="align-text-bottom">SKPI</span>
@@ -83,6 +83,56 @@
 
 <script src='{{ asset('vendors/jquery/dist/jquery.js') }}'></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // Error check on page load
+    $(document).ready(function() {
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: "{{ session('error') }}",
+            });
+        @endif
+        @if (session('info'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Udah ngisi',
+                text: "{{ session('info') }}",
+            });
+        @endif
+    });
+</script>
+<script>
+    $("#skpi").on("click", async (event) => {
+        event.preventDefault(); // Prevent default action
+
+        const {
+            value: formValues
+        } = await Swal.fire({
+            title: "Surat Keterangan Pendamping Ijazah (SKPI)",
+            html: `
+            <input id="swal-input1" class="swal2-input" placeholder="NIM">
+            <input id="swal-input2" class="swal2-input" placeholder="PISN">
+        `,
+            focusConfirm: false,
+            preConfirm: () => {
+                const nim = document.getElementById("swal-input1").value;
+                const pisn = document.getElementById("swal-input2").value;
+                if (!nim || !pisn) {
+                    Swal.showValidationMessage("Harap isikan NIM dan pisn.");
+                    return false; // Prevent submission
+                }
+                return [nim, pisn];
+            }
+        });
+
+        if (formValues) {
+            const [nim, pisn] = formValues; // Destructure form values
+            // Redirect to the Laravel route
+            window.location.href = `{{ route('skpi', ['nim' => '__nim__', 'pisn' => '__pisn__']) }}`.replace('__nim__', nim).replace('__pisn__', pisn);
+        }
+    });
+</script>
 <script>
     $("#dversi").on("click", async (event) => {
         event.preventDefault(); // Prevent default action

@@ -133,9 +133,11 @@ class SkpiController extends Controller
 
         $ttd = Carbon::now()->isoFormat('D MMMM YYYY');
 
-        // dd($ttd, $terbit_bulan, $terbit_tahun);
-        // dd( $jumlah_pencapaian = count($request->input('pencapaian')));
-        Skpi::create([
+        // if (Skpi::where('nim', $request->input('nim'))->exists()) {
+        //     dd("sudah ada")
+        // }
+
+        Skpi::updateOrCreate([
             'nama' => strtoupper($request->input('nama')),
             'tempat_lahir' => ucfirst($request->input('tempat_lahir')),
             'tanggal_lahir' => $tanggal_lahir,
@@ -279,9 +281,14 @@ class SkpiController extends Controller
      * @param  \App\Models\Skpi  $skpi
      * @return \Illuminate\Http\Response
      */
-    public function show(Skpi $skpi)
+    public function show(Skpi $skpi, $nim, $pisn)
     {
-        //
+        $data_skpi = ['nim' => $nim, 'ijazah' => $pisn];
+        if (Skpi::where('nim', $nim)->get('nama')->first()) {
+            return redirect()->back()->with('info', 'Kamu sudah pernah ngirim..!');
+        }
+
+        return view('/layout/content', compact('data_skpi'));
     }
 
     /**

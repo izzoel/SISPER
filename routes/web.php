@@ -28,9 +28,7 @@ Route::get('/dversi/{nim}/{nik}', [DversiController::class, 'show'])->name('dver
 Route::get('/dversi/admin', [DversiController::class, 'admin'])->name('dversi-admin');
 
 
-Route::get('/skpi', function () {
-    return view('/layout/content');
-})->name('skpi');
+Route::get('/skpi/{nim}/{pisn}', [SkpiController::class, 'show'])->name('skpi');
 Route::get('/skpi/admin', function () {
     return view('/skpi/admin');
 })->name('admin');

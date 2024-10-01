@@ -73,11 +73,11 @@
             <div class="row input-group">
                 <div class="col-sm-2 input-group-prepend">
                     <label class="label-align text-dark">
-                        Nomor Induk Mahasiswa<span class="required text-danger">*</span>
+                        Nomor Induk Mahasiswa
                     </label>
                 </div>
                 <div class="col mb-1 pb-1 input-group-prepend">
-                    <input class="form-control rounded" name="nim" placeholder="..." required />
+                    <input class="form-control rounded" name="nim" placeholder="..." required disabled value="{{ $data_skpi['nim'] }}" />
                     <div class="invalid-tooltip ">NIM kosong!</div>
                 </div>
 
@@ -134,7 +134,7 @@
                     </label>
                 </div>
                 <div class="col mb-1 pb-1 input-group-prepend">
-                    <input class="form-control rounded" name="ijazah" placeholder="..." />
+                    <input class="form-control rounded" name="ijazah" placeholder="..." disabled value="{{ $data_skpi['ijazah'] }}" />
                 </div>
 
                 <div class="col-sm-2 input-group-prepend">
