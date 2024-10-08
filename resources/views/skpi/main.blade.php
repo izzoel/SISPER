@@ -77,7 +77,8 @@
                     </label>
                 </div>
                 <div class="col mb-1 pb-1 input-group-prepend">
-                    <input class="form-control rounded" name="nim" placeholder="..." required disabled value="{{ $data_skpi['nim'] }}" />
+                    <input class="form-control rounded" placeholder="..." required disabled value="{{ $data_skpi['nim'] }}" />
+                    <input type="hidden" name="nim" value="{{ $data_skpi['nim'] }}" />
                     <div class="invalid-tooltip ">NIM kosong!</div>
                 </div>
 
@@ -134,7 +135,8 @@
                     </label>
                 </div>
                 <div class="col mb-1 pb-1 input-group-prepend">
-                    <input class="form-control rounded" name="ijazah" placeholder="..." disabled value="{{ $data_skpi['ijazah'] }}" />
+                    <input class="form-control rounded" placeholder="..." required value="{{ $data_skpi['ijazah'] }}" />
+                    <input type="hidden" name="ijazah" value="{{ $data_skpi['ijazah'] }}" />
                 </div>
 
                 <div class="col-sm-2 input-group-prepend">
