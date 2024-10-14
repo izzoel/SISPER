@@ -105,7 +105,16 @@
 
     $('#dversi').DataTable({
         responsive: true,
-        dom: 'Bfrtip',
+        dom: 'B<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex flex-row-reverse"f>><"row mb-2"<"col-sm-12">><"row mb-2"<"col-sm-12"t>><"row mb-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex flex-row-reverse"p>>',
+        language: {
+            info: "Showing _START_ to _END_ of _TOTAL_ entries", // Custom showing text
+            infoEmpty: "Tidak ada data",
+            infoFiltered: "(filtered from _MAX_ total entries)",
+            lengthMenu: "Show _MENU_ entries", // Showing entries menu
+            search: "Cari:",
+            zeroRecords: "Data tidak ditemukan",
+        },
+        lengthMenu: [10, 20, 50, 100],
         buttons: [{
                 extend: 'pdfHtml5',
                 text: 'PDF',
@@ -240,9 +249,10 @@
                         },
                         layout: 'noBorders' // Remove borders from the signature table
                     });
-                }
+                },
+
             },
-            'excel'
+            'excel', 'colvis'
         ]
     });
 </script>
