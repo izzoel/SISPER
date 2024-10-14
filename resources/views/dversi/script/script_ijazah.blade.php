@@ -316,7 +316,6 @@
                             row.append('<c t="inlineStr"><is><t>Eny Hastuti, S.KM., M.Pd., M.PH</t></is></c>');
                             row.append('<c t="inlineStr"><is><t>NIK. 020418099</t></is></c>');
                             // Add the long number directly
-                            row.append('<c t="inlineStr"><is><t>6309021510010004</t></is></c>');
                         }
                     });
 
