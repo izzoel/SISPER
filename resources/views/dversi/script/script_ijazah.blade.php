@@ -263,11 +263,10 @@
                     format: {
                         body: function(data, row, column, node) {
                             // Check if the current column is 3 or 4
-                            if (column === 2 || column === 3 || column === 4) {
+                            if (column === "1" || column === 4 || column === 5) {
                                 // Return the formula without additional quotes
 
                                 return "\0" + data; // Adjust as needed to concatenate other cell references
-                                // return '=CONCATENATE(' + data + ')'; // Adjust as needed to concatenate other cell references
                             }
                             return data; // Return data as is for other columns
                         }
