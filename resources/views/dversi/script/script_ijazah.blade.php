@@ -135,7 +135,7 @@
                     });
 
                     if (tableNode) {
-                        tableNode.margin = [50, 0, 0, 0];
+                        tableNode.margin = [20, 0, 0, 0];
                         // Center the table
                         tableNode.alignment = 'center'; // Center the table
                         // Apply the grid-style layout to the found table
