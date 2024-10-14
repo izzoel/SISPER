@@ -259,7 +259,7 @@
                 text: 'Excel',
                 title: '',
                 exportOptions: {
-                    columns: [2, 3, 1, 4, 5],
+                    columns: ':visible',
                     format: {
                         body: function(data, row, column, node) {
                             // Check if the current column is 3 or 4
