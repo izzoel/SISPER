@@ -97,17 +97,26 @@
         });
     });
 
+    var dynamicDate = new Date().toLocaleDateString('id-ID', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+
     $('#dversi').DataTable({
         responsive: true,
         dom: 'Bfrtip',
         buttons: [{
                 extend: 'pdfHtml5',
                 text: 'PDF',
-                title: 'SISPER | DVERSI (Digital Verifikasi)',
+                title: 'SISPER | DVERSI (Digital Verifikasi) -- Administrasi Rumah Sakit',
                 exportOptions: {
-                    columns: [0, 1, 2, 4, 7] // Export only specific columns
+                    columns: [0, 1, 2, 3, 4, 5, 8] // Export only specific columns
                 },
+                orientation: 'landscape', // Set the orientation to landscape
+                pageSize: 'A4',
                 customize: function(doc) {
+                    // Add a small header in the upper-left corner
                     doc.content.unshift({
                         text: 'Biro Administrasi Akademik dan Kemahasiswaan (BAAK) -- Universitas Borneo Lestari -- Digital Verifikasi',
                         alignment: 'left',
@@ -126,6 +135,9 @@
                     });
 
                     if (tableNode) {
+                        tableNode.margin = [50, 0, 0, 0];
+                        // Center the table
+                        tableNode.alignment = 'center'; // Center the table
                         // Apply the grid-style layout to the found table
                         tableNode.layout = {
                             hLineWidth: function(i, node) {
@@ -153,7 +165,81 @@
                                 return 5;
                             }
                         };
+
+
                     }
+
+                    // Add signature slots at the bottom
+                    doc.content.push({
+                        margin: [0, 20, 0, 0], // Margin for spacing above the signature slots
+                        table: {
+                            widths: ['*', '*'], // Two equal-width columns for signatures
+                            body: [
+                                [{
+                                        text: 'Ketua Program Studi',
+                                        alignment: 'center',
+                                        border: [false, true, false, false]
+                                    },
+                                    {
+                                        text: "Banjarbaru, " + dynamicDate,
+                                        alignment: 'center',
+                                        border: [false, true, false, false]
+                                    }
+                                ],
+                                [{
+                                        text: 'Administrasi Rumah Sakit',
+                                        alignment: 'center',
+                                        border: [false, false, false, false]
+                                    }, // Placeholder for signature 1
+                                    {
+                                        text: 'Kabid. Akademik dan Kemahasiswaan',
+                                        alignment: 'center',
+                                        border: [false, false, false, false]
+                                    } // Placeholder for signature 2
+                                ],
+                                [{
+                                        text: '',
+                                        alignment: 'center',
+                                        border: [false, false, false, false],
+                                        margin: [0, 40, 0, 0]
+                                    }, // Placeholder for signature 1
+                                    {
+                                        text: '',
+                                        alignment: 'center',
+                                        border: [false, false, false, false],
+                                        margin: [0, 40, 0, 0]
+                                    } // Placeholder for signature 2
+                                ],
+                                [{
+                                        text: 'Hj. Liana Fitriani Hasymi, S.Pi, M.Kes',
+                                        alignment: 'center',
+                                        border: [false, false, false, false],
+                                        margin: [0, 10, 0, 0]
+                                    }, // Placeholder for signature 1
+                                    {
+                                        text: 'Ibrahim Rully Effendy, S.Kom, MM',
+                                        alignment: 'center',
+                                        border: [false, false, false, false],
+                                        margin: [0, 10, 0, 0]
+                                    } // Placeholder for signature 2
+                                ],
+                                [{
+                                        text: 'NIK. 010915075',
+                                        alignment: 'center',
+                                        border: [false, false, false, false],
+                                        margin: [0, 0, 0, 0]
+                                    }, // Placeholder for signature 1
+                                    {
+                                        text: 'NIK. 010313041',
+                                        alignment: 'center',
+                                        border: [false, false, false, false],
+                                        margin: [0, 0, 0, 0]
+                                    } // Placeholder for signature 2
+                                ]
+                            ]
+                        },
+                        layout: 'noBorders' // Remove borders from the signature table
+                    });
                 }
             },
             'excel'

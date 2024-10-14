@@ -9,6 +9,7 @@
             <table id="dversi" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th>NIM</th>
                         <th>Nama</th>
                         <th>TTL</th>
@@ -24,6 +25,7 @@
                 <tbody>
                     @foreach ($admin_dversi as $dversi)
                         <tr>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $dversi->nim }}</td>
                             <td>{{ $dversi->nama }}</td>
                             <td>{{ $dversi->ttl }}</td>
