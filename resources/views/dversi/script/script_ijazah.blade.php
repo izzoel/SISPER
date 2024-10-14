@@ -98,6 +98,65 @@
     });
 
     $('#dversi').DataTable({
-        responsive: true
+        responsive: true,
+        dom: 'Bfrtip',
+        buttons: [{
+                extend: 'pdfHtml5',
+                text: 'PDF',
+                title: 'SISPER | DVERSI (Digital Verifikasi)',
+                exportOptions: {
+                    columns: [0, 1, 2, 4, 7] // Export only specific columns
+                },
+                customize: function(doc) {
+                    doc.content.unshift({
+                        text: 'Biro Administrasi Akademik dan Kemahasiswaan (BAAK) -- Universitas Borneo Lestari -- Digital Verifikasi',
+                        alignment: 'left',
+                        margin: [0, 10, 0, 30], // [left, top, right, bottom]
+                        fontSize: 9, // Small font size for the header
+                        italics: true,
+                        color: '#555' // Optional: Grey color for a subtle look
+                    });
+
+                    // Ensure the title is centered
+                    doc.content[1].alignment = 'center';
+
+                    // Find the table within doc.content dynamically
+                    var tableNode = doc.content.find(function(node) {
+                        return node.table; // Locate the table node
+                    });
+
+                    if (tableNode) {
+                        // Apply the grid-style layout to the found table
+                        tableNode.layout = {
+                            hLineWidth: function(i, node) {
+                                return (i === 0 || i === node.table.body.length) ? 1 : 0.5;
+                            },
+                            vLineWidth: function() {
+                                return 0.5;
+                            },
+                            hLineColor: function() {
+                                return '#aaa';
+                            },
+                            vLineColor: function() {
+                                return '#aaa';
+                            },
+                            paddingLeft: function() {
+                                return 8;
+                            },
+                            paddingRight: function() {
+                                return 8;
+                            },
+                            paddingTop: function() {
+                                return 5;
+                            },
+                            paddingBottom: function() {
+                                return 5;
+                            }
+                        };
+                    }
+                }
+            },
+            'excel'
+        ]
     });
 </script>
