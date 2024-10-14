@@ -257,9 +257,9 @@
             {
                 extend: 'excelHtml5',
                 text: 'Excel',
-                title: 'SISPER | DVERSI (Digital Verifikasi) -- Administrasi Rumah Sakit',
+                title: '',
                 exportOptions: {
-                    columns: ':visible',
+                    columns: [2, 3, 1, 4, 5],
                     format: {
                         body: function(data, row, column, node) {
                             // Check if the current column is 3 or 4
@@ -278,20 +278,20 @@
                 customize: function(xlsx) {
                     var sheet = xlsx.xl.worksheets['sheet1.xml'];
 
-                    // Remove header row containing any merged cells
-                    $('row c[r^="A1"]', sheet).closest('row').remove();
+                    // // Remove header row containing any merged cells
+                    // // $('row c[r^="A1"]', sheet).closest('row').remove();
 
-                    // Reindex rows to avoid gaps
-                    $('row', sheet).each(function(index) {
-                        var row = $(this);
-                        $(this).attr('r', index + 1); // Reassign row numbers
-                        $(this).find('c').each(function() {
-                            var cellRef = $(this).attr('r');
-                            if (cellRef) {
-                                $(this).attr('r', cellRef.replace(/\d+/, index + 1)); // Adjust cell references
-                            }
-                        });
-                    });
+                    // // Reindex rows to avoid gaps
+                    // $('row', sheet).each(function(index) {
+                    //     var row = $(this);
+                    //     $(this).attr('r', index + 1); // Reassign row numbers
+                    //     $(this).find('c').each(function() {
+                    //         var cellRef = $(this).attr('r');
+                    //         if (cellRef) {
+                    //             $(this).attr('r', cellRef.replace(/\d+/, index + 1)); // Adjust cell references
+                    //         }
+                    //     });
+                    // });
 
                     // Append custom data in each row
                     $('row', sheet).each(function(index) {
@@ -321,7 +321,7 @@
                     });
 
                     // Remove any merged cell attributes to prevent merging issues
-                    $('mergeCells', sheet).remove(); // Delete merged cells section
+                    // $('mergeCells', sheet).remove(); // Delete merged cells section
                 }
             },
             'colvis'
