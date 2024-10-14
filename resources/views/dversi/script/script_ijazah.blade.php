@@ -103,7 +103,7 @@
         day: 'numeric'
     });
 
-    $('#dversi').DataTable({
+    var tableDversi = $('#dversi').DataTable({
         responsive: true,
         dom: 'B<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex flex-row-reverse"f>><"row mb-2"<"col-sm-12">><"row mb-2"<"col-sm-12"t>><"row mb-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex flex-row-reverse"p>>',
         language: {
@@ -253,6 +253,20 @@
 
             },
             'excel', 'colvis'
-        ]
+        ],
+        initComplete: function() {
+            // Populate the Prodi filter dropdown with unique values
+            var column = this.api().column(6); // Change the index to match the "Prodi" column
+            column.data().unique().sort().each(function(d, j) {
+                $('#prodiFilter').append('<option value="' + d + '">' + d + '</option>');
+            });
+        }
+    });
+
+    // Apply the filter
+    $('#prodiFilter').on('change', function() {
+        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+        // alert(val);
+        tableDversi.column(6).search(val ? '^' + val + '$' : '', true, false).draw(); // Adjust the index for the "Prodi" column
     });
 </script>

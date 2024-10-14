@@ -6,6 +6,13 @@
             <p class="card-category m-2">Verifikasi Identitas Pemilik Ijazah</p>
         </div>
         <div class="card-body">
+            <div class="row m-0 p-0">
+                <div class="col-3 m-0 p-0">
+                    <select id="prodiFilter" class="mb-2 custom-select custom-select-sm">
+                        <option value="all">Semua Prodi</option>
+                    </select>
+                </div>
+            </div>
             <table id="dversi" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                 <thead>
                     <tr>
