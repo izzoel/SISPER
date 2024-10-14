@@ -18,13 +18,13 @@
                     <tr>
                         <th>#</th>
                         <th>NIM</th>
-                        <th>Nama</th>
+                        <th>NAMA</th>
                         <th>TTL</th>
                         <th>NIK</th>
                         <th>PISN</th>
-                        <th>Prodi</th>
-                        <th>Ijazah</th>
-                        <th>verifikasi</th>
+                        <th>PRODI</th>
+                        <th>IJAZAH</th>
+                        <th>VERIFIKASI</th>
                     </tr>
                 </thead>
 

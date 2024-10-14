@@ -103,6 +103,8 @@
         day: 'numeric'
     });
 
+
+
     var tableDversi = $('#dversi').DataTable({
         responsive: true,
         dom: 'B<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6 d-flex flex-row-reverse"f>><"row mb-2"<"col-sm-12">><"row mb-2"<"col-sm-12"t>><"row mb-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex flex-row-reverse"p>>',
@@ -252,7 +254,77 @@
                 },
 
             },
-            'excel', 'colvis'
+            {
+                extend: 'excelHtml5',
+                text: 'Excel',
+                title: 'SISPER | DVERSI (Digital Verifikasi) -- Administrasi Rumah Sakit',
+                exportOptions: {
+                    columns: ':visible',
+                    format: {
+                        body: function(data, row, column, node) {
+                            // Check if the current column is 3 or 4
+                            if (column === 2 || column === 3 || column === 4) {
+                                // Return the formula without additional quotes
+
+                                return "\0" + data; // Adjust as needed to concatenate other cell references
+                                // return '=CONCATENATE(' + data + ')'; // Adjust as needed to concatenate other cell references
+                            }
+                            return data; // Return data as is for other columns
+                        }
+
+
+                    }
+                },
+                customize: function(xlsx) {
+                    var sheet = xlsx.xl.worksheets['sheet1.xml'];
+
+                    // Remove header row containing any merged cells
+                    $('row c[r^="A1"]', sheet).closest('row').remove();
+
+                    // Reindex rows to avoid gaps
+                    $('row', sheet).each(function(index) {
+                        var row = $(this);
+                        $(this).attr('r', index + 1); // Reassign row numbers
+                        $(this).find('c').each(function() {
+                            var cellRef = $(this).attr('r');
+                            if (cellRef) {
+                                $(this).attr('r', cellRef.replace(/\d+/, index + 1)); // Adjust cell references
+                            }
+                        });
+                    });
+
+                    // Append custom data in each row
+                    $('row', sheet).each(function(index) {
+                        var row = $(this);
+                        if (index === 0) { // For header row
+                            row.append('<c t="inlineStr"><is><t>FAKULTAS</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>PRODI</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>AKREDITASI</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>NAKREDITASI</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>LULUS</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>GELAR</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>DEKAN</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>DNIK</t></is></c>');
+                        } else {
+                            // Append specific data for each student
+                            row.append('<c t="inlineStr"><is><t>ILMU KESEHATAN DAN SAINS TEKNOLOGI</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>ADMINISTRASI RUMAH SAKIT</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>Terakreditasi Baik oleh LAM-PTKes</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>Nomor 0312/LAM-PTKes/Akr/Sar/IV/2023</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>30 AGUSTUS 2024</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>Sarjana Kesehatan (S.Kes)</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>Eny Hastuti, S.KM., M.Pd., M.PH</t></is></c>');
+                            row.append('<c t="inlineStr"><is><t>NIK. 020418099</t></is></c>');
+                            // Add the long number directly
+                            row.append('<c t="inlineStr"><is><t>6309021510010004</t></is></c>');
+                        }
+                    });
+
+                    // Remove any merged cell attributes to prevent merging issues
+                    $('mergeCells', sheet).remove(); // Delete merged cells section
+                }
+            },
+            'colvis'
         ],
         initComplete: function() {
             // Populate the Prodi filter dropdown with unique values
