@@ -126,7 +126,7 @@
         buttons: [{
                 extend: 'pdfHtml5',
                 text: 'PDF',
-                title: 'SISPER | DVERSI (Digital Verifikasi) -- ' + ,
+                title: 'SISPER | DVERSI (Digital Verifikasi)',
                 exportOptions: {
                     columns: ':visible' // Export only specific columns
                 },
