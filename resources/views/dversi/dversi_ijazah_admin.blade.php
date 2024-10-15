@@ -7,9 +7,9 @@
         </div>
         <div class="card-body">
             <div class="row m-0 p-0">
-                <div class="col-3 m-0 p-0">
-                    <select id="prodiFilter" class="mb-2 custom-select custom-select-sm">
-                        <option value="all">Semua Prodi</option>
+                <div class="col-2 m-0 p-0">
+                    <select id="jenjangFilter" class="mb-2 custom-select custom-select-sm">
+                        <option value="all">-- Semua --</option>
                     </select>
                 </div>
             </div>
@@ -22,6 +22,7 @@
                         <th>TTL</th>
                         <th>NIK</th>
                         <th>PISN</th>
+                        <th>JENJANG</th>
                         <th>PRODI</th>
                         <th>IJAZAH</th>
                         <th>VERIFIKASI</th>
@@ -38,9 +39,10 @@
                             <td>{{ $dversi->ttl }}</td>
                             <td>{{ $dversi->nik }}</td>
                             <td>{{ $dversi->pisn }}</td>
+                            <td>{{ $dversi->jenjang }}</td>
                             <td>{{ $dversi->prodi }}</td>
                             <td>
-                                <a href="{{ $dversi->ijazah }}" target="_blank">[VERIFIKASI] -- {{ $dversi->nim }}</a>
+                                <a href="https://drive.google.com/uc?id={{ $dversi->ijazah }}" target="_blank">[VERIFIKASI] -- {{ $dversi->nim }}</a>
                             </td>
                             <td>{{ $dversi->verifikasi }}</td>
                         </tr>

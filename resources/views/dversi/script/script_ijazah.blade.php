@@ -103,6 +103,9 @@
         day: 'numeric'
     });
 
+    $('#jenjangFilter').on('change', function() {
+        var jenjang = $(this).val();
+    })
 
 
     var tableDversi = $('#dversi').DataTable({
@@ -116,13 +119,16 @@
             search: "Cari:",
             zeroRecords: "Data tidak ditemukan",
         },
-        lengthMenu: [10, 20, 50, 100],
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+        ],
         buttons: [{
                 extend: 'pdfHtml5',
                 text: 'PDF',
-                title: 'SISPER | DVERSI (Digital Verifikasi) -- Administrasi Rumah Sakit',
+                title: 'SISPER | DVERSI (Digital Verifikasi) -- ' + ,
                 exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5, 8] // Export only specific columns
+                    columns: ':visible' // Export only specific columns
                 },
                 orientation: 'landscape', // Set the orientation to landscape
                 pageSize: 'A4',
@@ -277,27 +283,11 @@
                 customize: function(xlsx) {
                     var sheet = xlsx.xl.worksheets['sheet1.xml'];
 
-                    // // Remove header row containing any merged cells
-                    // // $('row c[r^="A1"]', sheet).closest('row').remove();
 
-                    // // Reindex rows to avoid gaps
-                    // $('row', sheet).each(function(index) {
-                    //     var row = $(this);
-                    //     $(this).attr('r', index + 1); // Reassign row numbers
-                    //     $(this).find('c').each(function() {
-                    //         var cellRef = $(this).attr('r');
-                    //         if (cellRef) {
-                    //             $(this).attr('r', cellRef.replace(/\d+/, index + 1)); // Adjust cell references
-                    //         }
-                    //     });
-                    // });
-
-                    // Append custom data in each row
                     $('row', sheet).each(function(index) {
                         var row = $(this);
                         if (index === 0) { // For header row
                             row.append('<c t="inlineStr"><is><t>FAKULTAS</t></is></c>');
-                            row.append('<c t="inlineStr"><is><t>PRODI</t></is></c>');
                             row.append('<c t="inlineStr"><is><t>AKREDITASI</t></is></c>');
                             row.append('<c t="inlineStr"><is><t>NAKREDITASI</t></is></c>');
                             row.append('<c t="inlineStr"><is><t>LULUS</t></is></c>');
@@ -306,37 +296,65 @@
                             row.append('<c t="inlineStr"><is><t>DNIK</t></is></c>');
                         } else {
                             // Append specific data for each student
-                            row.append('<c t="inlineStr"><is><t>ILMU KESEHATAN DAN SAINS TEKNOLOGI</t></is></c>');
-                            row.append('<c t="inlineStr"><is><t>ADMINISTRASI RUMAH SAKIT</t></is></c>');
-                            row.append('<c t="inlineStr"><is><t>Terakreditasi Baik oleh LAM-PTKes</t></is></c>');
-                            row.append('<c t="inlineStr"><is><t>Nomor 0312/LAM-PTKes/Akr/Sar/IV/2023</t></is></c>');
-                            row.append('<c t="inlineStr"><is><t>30 AGUSTUS 2024</t></is></c>');
-                            row.append('<c t="inlineStr"><is><t>Sarjana Kesehatan (S.Kes)</t></is></c>');
-                            row.append('<c t="inlineStr"><is><t>Eny Hastuti, S.KM., M.Pd., M.PH</t></is></c>');
-                            row.append('<c t="inlineStr"><is><t>NIK. 020418099</t></is></c>');
-                            // Add the long number directly
+                            var prodi = row.children('c').eq(7).text();
+
+                            if ($("#jenjangFilter").val() === "DIPLOMA" && prodi === "FARMASI") {
+                                row.append('<c t="inlineStr"><is><t>FARMASI</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Terakreditasi Baik Sekali oleh LAM-PTKes</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Nomor 0068/LAM-PTKes/Akr/Dip/I/2023</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>30 SEPTEMBER 2024</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Ahli Madya Farmasi (A.Md.Farm)</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>apt. Eka Fitri Susiani, M.Sc.</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>NIK. 010512024</t></is></c>');
+                            }
+                            if ($("#jenjangFilter").val() === "DIPLOMA" && prodi === "ANALIS KESEHATAN") {
+                                row.append('<c t="inlineStr"><is><t>ILMU KESEHATAN DAN SAINS TEKNOLOGI</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Terakreditasi Baik Sekali oleh LAM-PTKes</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Nomor 0619/LAM-PTKes/Akr/Dip/Khs/VII/2022</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>30 SEPTEMBER 2024</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Ahli Madya Analis Kesehatan (A.Md.AK)</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Eny Hastuti, S.KM., M.Pd., M.PH</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>NIK. 020418099</t></is></c>');
+                            }
+                            if ($("#jenjangFilter").val() === "SARJANA" && prodi === "ADMINISTRASI RUMAH SAKIT") {
+                                row.append('<c t="inlineStr"><is><t>ILMU KESEHATAN DAN SAINS TEKNOLOGI</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Terakreditasi Baik oleh LAM-PTKes</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Nomor 0312/LAM-PTKes/Akr/Sar/IV/2023</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>30 AGUSTUS 2024</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Sarjana Kesehatan (S.Kes)</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Eny Hastuti, S.KM., M.Pd., M.PH</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>NIK. 020418099</t></is></c>');
+                            }
+                            if ($("#jenjangFilter").val() === "SARJANA" && prodi === "FARMASI") {
+                                row.append('<c t="inlineStr"><is><t>FARMASI</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Terakreditasi Baik Sekali oleh LAM-PTKes</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Nomor 0287/LAM-PTKes/Akr/Sar/V/2024</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>31 AGUSTUS 2024</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>Sarjana Farmasi (S.Farm)</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>apt. Eka Fitri Susiani, M.Sc.</t></is></c>');
+                                row.append('<c t="inlineStr"><is><t>NIK. 010512024</t></is></c>');
+                            }
                         }
                     });
-
-                    // Remove any merged cell attributes to prevent merging issues
-                    // $('mergeCells', sheet).remove(); // Delete merged cells section
                 }
             },
             'colvis'
         ],
         initComplete: function() {
             // Populate the Prodi filter dropdown with unique values
-            var column = this.api().column(6); // Change the index to match the "Prodi" column
-            column.data().unique().sort().each(function(d, j) {
-                $('#prodiFilter').append('<option value="' + d + '">' + d + '</option>');
+            var columnJenjang = this.api().column(6); // Change the index to match the "Prodi" column
+            // var columnJenjang
+            columnJenjang.data().unique().sort().each(function(d, j) {
+                $('#jenjangFilter').append('<option value="' + d + '">' + d + '</option>');
             });
         }
     });
 
     // Apply the filter
-    $('#prodiFilter').on('change', function() {
+    $('#jenjangFilter').on('change', function() {
         var val = $.fn.dataTable.util.escapeRegex($(this).val());
         // alert(val);
         tableDversi.column(6).search(val ? '^' + val + '$' : '', true, false).draw(); // Adjust the index for the "Prodi" column
+
     });
 </script>
