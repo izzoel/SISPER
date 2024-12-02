@@ -33,7 +33,8 @@ Route::get('/skpi/admin', function () {
     return view('/skpi/admin');
 })->name('admin');
 
-Route::get('/skpi/cek/{id}', [SkpiController::class, 'cek'])->name('cek');
+Route::get('/cek/{id}', [SkpiController::class, 'cek'])->name('cek');
+
 Route::get('/skpi/admin', [SkpiController::class, 'admin'])->name('admin');
 Route::post('/skpi/kirim', [SkpiController::class, 'store'])->name('kirim');
 Route::post('/dversi/kirim', [DversiController::class, 'store'])->name('dversi-ijazah-kirim');

@@ -36,7 +36,7 @@
                             <td><span id="status{{ $skpi->id }}" class="badge badge-{{ $skpi->status_warna }}">{{ $skpi->status_keterangan }}</span>
                             </td>
                             <td>
-                                <a href="{{ route('cek', $skpi->id) }}" id="cek{{ $skpi->id }}" onclick="cek()" target="_blank" role="button" class="btn btn-sm text-white"
+                                <a href="{{ route('cek', $skpi->id) }}" id="cek{{ $skpi->id }}" target="_blank" role="button" class="btn btn-sm text-white"
                                     style="background-color: #7066e0">
                                     <i class="fa fa-eye"></i> Cek
                                 </a>

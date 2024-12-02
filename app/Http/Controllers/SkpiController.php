@@ -7,7 +7,6 @@ use App\Models\Skpi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpWord\TemplateProcessor;
-use RealRashid\SweetAlert\Facades\Alert;
 
 
 
@@ -333,12 +332,15 @@ class SkpiController extends Controller
         return view('/skpi/admin')->with('data_skpi', $data_skpi);
     }
 
+
     public function cek($id)
     {
         $data_skpi = Skpi::find($id);
+
         $fileName = $data_skpi->nim . '_' . strtoupper($data_skpi->nama) . '_' . $data_skpi->program_studi . '_SKPI.docx';
 
         $url = Storage::disk('google')->url($fileName);
+
 
         // ekstrak file id di google drive
         $starting_word = 'https://drive.google.com/uc?id=';
