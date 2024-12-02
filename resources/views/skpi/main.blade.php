@@ -144,7 +144,7 @@
                         Nilai TOEFL<span class="required text-danger">*</span </label>
                 </div>
                 <div class="col input-group-prepend">
-                    <input class="form-control rounded" name="toefl" placeholder="..." required />
+                    <input class="form-control rounded" name="toefl" placeholder="..." />
                     <div class="invalid-tooltip ">Nilai TOEFL kosong!</div>
                 </div>
             </div>
