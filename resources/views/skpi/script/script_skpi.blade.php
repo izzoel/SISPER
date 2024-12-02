@@ -7,7 +7,6 @@
             } = await Swal.fire({
                 title: 'Hai Admin!',
                 input: 'password',
-                // inputLabel: 'Password',
                 inputPlaceholder: 'ssst..',
                 confirmButtonText: 'Sew!',
                 showLoaderOnConfirm: true,
@@ -31,9 +30,7 @@
 
                 location.reload();
             }
-
         })()
-
     }
 
     //Cek Validasi
@@ -93,9 +90,25 @@
 
     });
 
-
     //Datatables
-    $('#skpi').DataTable({});
+    var tableSkpi = $('#skpi').DataTable({
+        responsive: true,
+        initComplete: function() {
+            // Populate the Prodi filter dropdown with unique values
+            var columnJenjang = this.api().column(2); // Change the index to match the "Prodi" column
+            // var columnJenjang
+            columnJenjang.data().unique().sort().each(function(d, j) {
+                $('#jenjangFilterSkpi').append('<option value="' + d + '">' + d + '</option>');
+            });
+        }
+    });
+
+    $('#jenjangFilterSkpi').on('change', function() {
+        var val = $.fn.dataTable.util.escapeRegex($(this).val());
+        // alert(val);
+        tableSkpi.column(2).search(val ? '^' + val + '$' : '', true, false).draw(); // Adjust the index for the "Prodi" column
+
+    });
 
     $.fn.datepicker.dates['id'] = {
         days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],

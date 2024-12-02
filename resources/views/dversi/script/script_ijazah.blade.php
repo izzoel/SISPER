@@ -1,12 +1,46 @@
 <script>
-    Swal.fire({
-        title: 'Bentar yaa...',
-        text: 'Lagi nyari dokumen...',
-        didOpen: () => {
-            Swal.showLoading();
-        }
-    });
+    //Cek admin login
+    if (window.location.href.indexOf("admin") > -1) {
+        (async () => {
+            const {
+                value: password
+            } = await Swal.fire({
+                title: 'Hai Admin!',
+                input: 'password',
+                inputPlaceholder: 'ssst..',
+                confirmButtonText: 'Sew!',
+                showLoaderOnConfirm: true,
 
+                inputAttributes: {
+                    maxlength: 10,
+                    autocapitalize: 'off',
+                    autocorrect: 'off'
+                },
+                allowOutsideClick: () => Swal.isLoading()
+            })
+
+            if (password != 'luz') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Eiit salah..!',
+                    showConfirmButton: false
+                })
+                allowOutsideClick: () => Swal.isLoading()
+
+                location.reload();
+            }
+        })()
+    } else {
+
+        Swal.fire({
+            title: 'Bentar yaa...',
+            text: 'Lagi nyari dokumen...',
+            didOpen: () => {
+                Swal.showLoading();
+            }
+        });
+    }
     // Function to handle the iframe loading
     function iframeLoaded() {
         // Close the loading alert once the iframe is loaded

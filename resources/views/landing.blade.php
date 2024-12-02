@@ -45,18 +45,6 @@
                             &nbsp;
                             <span class="align-text-bottom">DVERSI</span>
                         </a>
-                        {{-- <a name="" id="" class="btn btn-light" href="{{ route('dversi') }}" role="button" style="text-decoration:none" data-bs-toggle="modal"
-                            data-bs-target="#dversi-login">
-                            <i class="fa fa-file-text-o" style="font-size: 1.5rem"></i>
-                            &nbsp;
-                            <span class="align-text-bottom">D-VERSI</span>
-                        </a> --}}
-
-                        {{-- <button type="button" name="" id="" class="btn btn-light" btn-lg btn-block" disabled>
-                            <i class="fa fa-file-text-o" style="font-size: 1.5rem"></i>
-                            &nbsp;
-                            <span class="align-text-bottom">Verifikasi</span>
-                        </button> --}}
 
                         <button type="button" name="" id="" class="btn btn-light" btn-lg btn-block" disabled>
                             <i class="fa fa-file-text-o" style="font-size: 1.5rem"></i>
@@ -84,7 +72,6 @@
 <script src='{{ asset('vendors/jquery/dist/jquery.js') }}'></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    // Error check on page load
     $(document).ready(function() {
         @if (session('error'))
             Swal.fire({
@@ -104,7 +91,7 @@
 </script>
 <script>
     $("#skpi").on("click", async (event) => {
-        event.preventDefault(); // Prevent default action
+        event.preventDefault();
 
         const {
             value: formValues
@@ -120,22 +107,21 @@
                 const pisn = document.getElementById("swal-input2").value;
                 if (!nim || !pisn) {
                     Swal.showValidationMessage("Harap isikan NIM dan pisn.");
-                    return false; // Prevent submission
+                    return false;
                 }
                 return [nim, pisn];
             }
         });
 
         if (formValues) {
-            const [nim, pisn] = formValues; // Destructure form values
-            // Redirect to the Laravel route
+            const [nim, pisn] = formValues;
             window.location.href = `{{ route('skpi', ['nim' => '__nim__', 'pisn' => '__pisn__']) }}`.replace('__nim__', nim).replace('__pisn__', pisn);
         }
     });
 </script>
 <script>
     $("#dversi").on("click", async (event) => {
-        event.preventDefault(); // Prevent default action
+        event.preventDefault();
 
         const {
             value: formValues
@@ -151,15 +137,14 @@
                 const nik = document.getElementById("swal-input2").value;
                 if (!nim || !nik) {
                     Swal.showValidationMessage("Harap isikan NIM dan NIK.");
-                    return false; // Prevent submission
+                    return false;
                 }
                 return [nim, nik];
             }
         });
 
         if (formValues) {
-            const [nim, nik] = formValues; // Destructure form values
-            // Redirect to the Laravel route
+            const [nim, nik] = formValues;
             window.location.href = `{{ route('dversi', ['nim' => '__nim__', 'nik' => '__nik__']) }}`.replace('__nim__', nim).replace('__nik__', nik);
         }
     });

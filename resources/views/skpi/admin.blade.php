@@ -6,6 +6,13 @@
             <p class="card-category m-2">Formulir Pengisisan Surat Keterangan Pendamping Ijazah</p>
         </div>
         <div class="card-body">
+            <div class="row m-0 p-0">
+                <div class="col-2 m-0 p-0">
+                    <select id="jenjangFilterSkpi" class="mb-2 custom-select custom-select-sm">
+                        <option value="all">-- Semua --</option>
+                    </select>
+                </div>
+            </div>
             <table id="skpi" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                 <thead>
                     <tr>
