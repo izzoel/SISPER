@@ -20,6 +20,10 @@ class Sidebar extends Component
                 $this->version = '3.0';
                 $this->description = 'Formulir Pengajuan Surat Keterangan Pendamping Ijazah';
             }
+            if (request()->routeIs('forbela')) {
+                $this->version = '1.0';
+                $this->description = 'Formulir Pengajuan Surat Keterangan Bebas Lab';
+            }
             $this->logo = Route::currentRouteName();
             $this->menu = strtoupper(Route::currentRouteName());
         }
