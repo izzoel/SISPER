@@ -15,7 +15,7 @@
                                     <div class="row mt-5">
                                         <label for="nama" class="col-md-2 col-form-label">Nama Lengkap</label>
                                         <div class="col">
-                                            <input type="text" class="form-control" placeholder="Ketik sesuatu..." id="nama" name="nama">
+                                            <input type="text" class="form-control" placeholder="..." id="nama" name="nama">
                                         </div>
                                     </div>
 
