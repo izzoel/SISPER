@@ -27,13 +27,17 @@
         <div class="card h-100">
             <img class="card-img-top" src="{{ asset('img/logo/' . $logo . '.svg') }}" alt="{{ strtoupper($logo) }}">
             <div class="card-body">
-                <h3 class="card-title">{{ $menu }}</h3>
+                <div class="d-flex justify-content-start align-items-baseline">
+                    <h3 class="card-title m-0">{{ $menu }}</h3>
+                    <span class="text-secondary"><small>&nbsp;v{{ $version }}</small></span>
+                </div>
                 <p class="card-text">
                     Formulir Pengajuan Surat Keterangan Pendamping Ijazah
                 </p>
                 <a href="{{ route('landing') }}" class="btn btn-outline-primary">Kembali</a>
             </div>
         </div>
+
         {{-- <img style="filter: drop-shadow(0 0 0.5rem rgb(0, 0, 0, 0.2));" src="{{ asset('img/logo/' . $logo . '.svg') }}" alt="{{ strtoupper($logo) }}"> --}}
         {{-- <div class="bg-dark">&nbsp;</div> --}}
         {{-- <div class="container">
