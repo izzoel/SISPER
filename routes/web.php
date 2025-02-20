@@ -24,4 +24,4 @@ Route::get('/', function () {
 Route::get('/forpi', Forpi::class)->name('forpi');
 
 // Route::get('/bird', BirdForm::class);
-// Route::get('/lazy', Lazy::class)->lazy();
+Route::get('/lazy', Lazy::class)->lazy();

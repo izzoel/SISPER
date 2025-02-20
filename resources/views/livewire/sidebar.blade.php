@@ -1,9 +1,10 @@
 <div>
     <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-        <div class="app-brand demo">
-            <a href="" class="app-brand-link">
-                {{-- <span class="app-brand-logo demo">
-                    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
+        {{-- <div class="app-brand demo"> --}}
+
+        {{-- <a href="" class="app-brand-link"> --}}
+        {{-- <span class="app-brand-logo demo"> --}}
+        {{-- <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180">
                         <path
                             d="M0 0 C15.43474242 13.14999437 25.75956653 29.76512223 27.75 50.25 C29.14036119 72.42129535 22.7512933 90.87088037 8.66015625 107.75390625 C-3.55824111 120.83692018 -21.45394781 129.80244817 -39.4140625 130.5859375 C-41.23418402 130.61534493 -43.05464322 130.62788666 -44.875 130.625 C-45.83269287 130.62483887 -46.79038574 130.62467773 -47.77709961 130.62451172 C-57.00041891 130.4777051 -65.44348745 128.86677885 -73.90234375 125.0546875 C-76.64135557 124.11585816 -77.56501173 124.28951444 -80.25 125.25 C-81.92051683 126.52971151 -81.92051683 126.52971151 -83.4387207 128.19335938 C-84.03646805 128.81069946 -84.63421539 129.42803955 -85.25007629 130.06408691 C-85.88555893 130.73387573 -86.52104156 131.40366455 -87.17578125 132.09375 C-88.54319749 133.49910894 -89.91104972 134.90404377 -91.27929688 136.30859375 C-93.42460953 138.52832309 -95.5648724 140.75248392 -97.69702148 142.98486328 C-99.76000238 145.13863726 -101.84139107 147.27321771 -103.92578125 149.40625 C-104.55519119 150.07603882 -105.18460114 150.74582764 -105.83308411 151.43591309 C-109.78293866 155.45170392 -112.36194317 157.16968781 -118.25 157.25 C-127.74021793 155.34873393 -135.61943381 147.01513406 -140.8125 139.3125 C-143.72302087 134.63752739 -145.41227669 130.87514141 -144.25 125.25 C-139.03278763 117.23041898 -130.58959465 110.47840466 -123.8125 103.75 C-122.5915631 102.53408886 -121.37085808 101.31794484 -120.15039062 100.1015625 C-117.18625987 97.14835034 -114.21901042 94.19830602 -111.25 91.25 C-111.44770996 90.67064697 -111.64541992 90.09129395 -111.84912109 89.49438477 C-119.37252238 67.22980473 -120.8294757 45.61376586 -110.33203125 24.046875 C-100.6572958 5.64287897 -84.27479894 -6.65126664 -64.66015625 -12.83984375 C-42.29391898 -18.80929768 -18.38634169 -13.99771411 0 0 Z "
                             fill="#212944" transform="translate(150.25,19.75)" scale="0.5" />
@@ -16,18 +17,32 @@
                         <path
                             d="M0 0 C0 3 0 3 -1.53125 4.82421875 C-2.1809375 5.43910156 -2.830625 6.05398437 -3.5 6.6875 C-4.1496875 7.31011719 -4.799375 7.93273437 -5.46875 8.57421875 C-5.9740625 9.04472656 -6.479375 9.51523437 -7 10 C-7.66 9.67 -8.32 9.34 -9 9 C-7.87895467 7.68412059 -6.75303035 6.37239647 -5.625 5.0625 C-4.99851562 4.33160156 -4.37203125 3.60070312 -3.7265625 2.84765625 C-2 1 -2 1 0 0 Z "
                             fill="#DE8048" transform="translate(58,22)" scale="0.5" />
-                    </svg>
-                </span>
-                <span class="app-brand-text demo menu-text fw-bolder ms-0">IVO</span> --}}
-                <a name="" id="" class="btn btn-primary" href="{{ route('landing') }}" role="button">Kembali</a>
-            </a>
+                    </svg> --}}
+        {{-- </span> --}}
+        {{-- <span class="app-brand-text demo menu-text fw-bolder ms-0">IVO</span> --}}
+        {{-- </a> --}}
 
-            <a href="" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-                <i class="bx bx-chevron-left bx-sm align-middle"></i>
-            </a>
+
+        {{-- </div> --}}
+        <div class="card h-100">
+            <img class="card-img-top" src="{{ asset('img/logo/' . $logo . '.svg') }}" alt="{{ strtoupper($logo) }}">
+            <div class="card-body">
+                <h3 class="card-title">{{ $menu }}</h3>
+                <p class="card-text">
+                    Formulir Pengajuan Surat Keterangan Pendamping Ijazah
+                </p>
+                <a href="{{ route('landing') }}" class="btn btn-outline-primary">Kembali</a>
+            </div>
         </div>
-
-        <div class="menu-inner-shadow"></div>
+        {{-- <img style="filter: drop-shadow(0 0 0.5rem rgb(0, 0, 0, 0.2));" src="{{ asset('img/logo/' . $logo . '.svg') }}" alt="{{ strtoupper($logo) }}"> --}}
+        {{-- <div class="bg-dark">&nbsp;</div> --}}
+        {{-- <div class="container">
+            <a name="" id="" class="btn btn-primary" href="{{ route('landing') }}" role="button">Kembali</a>
+        </div> --}}
+        {{-- <a href="" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+            <i class="bx bx-chevron-left bx-sm align-middle"></i>
+        </a>
+        <div class="menu-inner-shadow"></div> --}}
 
         <ul class="menu-inner py-1">
             <!-- Dashboard -->

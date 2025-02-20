@@ -83,7 +83,7 @@
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img class="card-img img-fluid w-100 h-100 object-fit-cover" src="{{ asset('img/fpi.svg') }}" alt="Card image"
+                                    <img class="card-img img-fluid w-100 h-100 object-fit-cover" src="{{ asset('img/logo/forpi.svg') }}" alt="FORPI"
                                         style="border-top-right-radius: 0rem; border-bottom-right-radius: 0rem">
                                 </div>
                                 <div class="col-md-8">
@@ -103,7 +103,7 @@
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img class="card-img img-fluid w-100 h-100 object-fit-cover" src="{{ asset('img/fbl.svg') }}" alt="Card image"
+                                    <img class="card-img img-fluid w-100 h-100 object-fit-cover" src="{{ asset('img/logo/forbela.svg') }}" alt="FORBELA"
                                         style="border-top-right-radius: 0rem; border-bottom-right-radius: 0rem">
                                 </div>
                                 <div class="col-md-8">
@@ -123,7 +123,7 @@
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img class="card-img img-fluid w-100 h-100 object-fit-cover" src="{{ asset('img/dvs.svg') }}" alt="Card image"
+                                    <img class="card-img img-fluid w-100 h-100 object-fit-cover" src="{{ asset('img/logo/dversi.svg') }}" alt="DVERSI"
                                         style="border-top-right-radius: 0rem; border-bottom-right-radius: 0rem">
                                 </div>
                                 <div class="col-md-8">
@@ -155,7 +155,7 @@
                             <div class="row d-flex align-items-center flex-nowrap">
                                 <!-- Gambar -->
                                 <div class="col">
-                                    <img class="card-img img-fluid object-fit-cover w-70 h-70" src="{{ asset('img/fpi.svg') }}" alt="Card image">
+                                    <img class="card-img img-fluid object-fit-cover w-70 h-70" src="{{ asset('img/logo/forpi.svg') }}" alt="FORPI">
                                 </div>
                                 <!-- Tombol -->
                                 <div class="col">
@@ -176,7 +176,7 @@
                             <div class="row d-flex align-items-center flex-nowrap">
                                 <!-- Gambar -->
                                 <div class="col">
-                                    <img class="card-img img-fluid object-fit-cover w-70 h-70" src="{{ asset('img/fbl.svg') }}" alt="Card image">
+                                    <img class="card-img img-fluid object-fit-cover w-70 h-70" src="{{ asset('img/logo/forbela.svg') }}" alt="FORBELA">
                                 </div>
                                 <!-- Tombol -->
                                 <div class="col">
@@ -197,7 +197,7 @@
                             <div class="row d-flex align-items-center flex-nowrap">
                                 <!-- Gambar -->
                                 <div class="col">
-                                    <img class="card-img img-fluid object-fit-cover w-70 h-70" src="{{ asset('img/dvs.svg') }}" alt="Card image">
+                                    <img class="card-img img-fluid object-fit-cover w-70 h-70" src="{{ asset('img/logo/dversi.svg') }}" alt="DVERSI">
                                 </div>
                                 <!-- Tombol -->
                                 <div class="col">
