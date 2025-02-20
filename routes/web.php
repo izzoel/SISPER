@@ -1,5 +1,9 @@
 <?php
 
+use App\Livewire\Lazy;
+use App\Livewire\Forpi;
+use App\Livewire\Counter;
+use App\Livewire\BirdForm;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +18,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('guest.landing');
+})->name('landing');
+
+Route::get('/forpi', Forpi::class)->name('forpi');
+
+// Route::get('/bird', BirdForm::class);
+// Route::get('/lazy', Lazy::class)->lazy();
