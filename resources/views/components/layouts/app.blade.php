@@ -62,7 +62,8 @@
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
 
-                    @livewire('forpi')
+                    @livewire(Route::currentRouteName())
+                    {{-- @livewire('forpi') --}}
 
                     {{-- @yield(Route::currentRouteName() ? Str::replace('.', '-', Route::currentRouteName()) : 'content') --}}
                 </div>
