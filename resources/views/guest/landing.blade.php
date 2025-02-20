@@ -72,7 +72,7 @@
     <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
         <!-- Untuk layar besar (default -100px) -->
         <div class="container d-none d-md-block">
-            <div class="d-flex flex-column justify-content-start" data-aos="zoom-out" data-aos-duration="1000">
+            <div class="d-flex flex-column justify-content-start" data-aos="zoom-out" data-aos-duration="1000" id="sisper">
                 <div class="d-flex justify-content-center align-items-center py-5">
                     <img class="img-fluid" src="{{ asset('img/logo.png') }}" alt="sisper" width="500">
                 </div>
@@ -142,10 +142,10 @@
         </div>
 
         <!-- Untuk layar kecil (translateY -250px) -->
-        <div class="container d-block d-md-none" style="transform: translateY(-15rem);">
-            <div class="d-flex flex-column justify-content-start" data-aos="fade-in">
-                <div class="d-flex justify-content-center align-items-center p-5">
-                    <img class="img-fluid" src="{{ asset('img/logo.png') }}" alt="sisper" width="500">
+        <div class="container d-block d-md-none" style="transform: translateY(-8rem);">
+            <div class="d-flex flex-column justify-content-start" data-aos="fade-in" id="sisper-mobile">
+                <div class="d-flex justify-content-center align-items-center p-4">
+                    <img class="img-fluid" src="{{ asset('img/logo.png') }}" alt="sisper" width="">
                 </div>
             </div>
             <div class="row">
@@ -213,47 +213,6 @@
                     </a>
                 </div>
 
-                {{-- <div class="col-lg-6">
-                    <a name="" id="banner1" class="btn text-start p-0" href="#" role="button">
-                        <div class="card mb-3">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img class="card-img img-fluid w-100 h-100 object-fit-cover" src="{{ asset('img/forbela.svg') }}" alt="Card image"
-                                        style="border-top-right-radius: 0rem; border-bottom-right-radius: 0rem">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body text-start">
-                                        <button id="forbela" type="button" class="btn btn-danger mb-2" style="background-color: #0f8500; border-color: #0f8500">
-                                            FORBELA
-                                        </button>
-                                        <p class="card-text"><small>Formulir Keterangan Bebas Lab</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6">
-                    <a name="" id="banner1" class="btn text-start p-0" href="#" role="button">
-                        <div class="card mb-3">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img class="card-img img-fluid w-100 h-100 object-fit-cover" src="{{ asset('img/dversi.svg') }}" alt="Card image"
-                                        style="border-top-right-radius: 0rem; border-bottom-right-radius: 0rem">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body text-start">
-                                        <button id="dversi" type="button" class="btn btn-danger mb-2">
-                                            DVERSI
-                                        </button>
-                                        <p class="card-text"><small>Digital Verifikasi Biodata Ijazah</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div> --}}
-
             </div>
         </div>
     </section>
@@ -273,9 +232,6 @@
 
     <!-- AOS JS -->
     <script src="{{ asset('vendor/aos/js/aos.js') }}"></script>
-    <script>
-        AOS.init();
-    </script>
 
     <!-- Popover JS -->
     <script src="{{ asset('vendor/sneat/js/ui-popover.js') }}"></script>
@@ -283,8 +239,34 @@
     <!-- Toast JS -->
     <script src="{{ asset('vendor/sneat/js/ui-toasts.js') }}"></script>
 
+    <!-- GSAP JS -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+        AOS.init();
+    </script>
+
+    <script>
+        gsap.to("#sisper", {
+            y: -50,
+            duration: 3,
+            yoyo: true,
+            repeat: -1,
+            ease: "power1.inOut"
+        });
+        gsap.to("#sisper-mobile", {
+            y: -20,
+            duration: 2,
+            yoyo: true,
+            repeat: -1,
+            ease: "power1.inOut"
+        });
+    </script>
+
+
 </body>
 
 </html>

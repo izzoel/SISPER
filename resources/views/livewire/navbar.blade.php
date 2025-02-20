@@ -14,8 +14,8 @@
                 <li>
                     <a class="nav-link">{{ $menu }}</a>
                 </li>
-                <div class="text-muted fw-semibold px-2 fs-5"> / </div>
-                <li class="nav-link text-nowrap">{{ $description }}</li>
+                <div class="d-none d-sm-block text-muted fw-semibold px-2 fs-5"> / </div>
+                <li class="d-none d-sm-block nav-link text-nowrap ">{{ $description }}</li>
             </ul>
         </div>
         <div class="navbar-nav-right d-flex align-items-center ms-auto" id="navbar-collapse-right">
