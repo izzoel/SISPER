@@ -3,6 +3,7 @@
 use App\Livewire\Lazy;
 use App\Livewire\Forpi;
 use App\Livewire\Counter;
+use App\Livewire\Forbela;
 use App\Livewire\BirdForm;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,7 @@ Route::get('/', function () {
 })->name('landing');
 
 Route::get('/forpi', Forpi::class)->name('forpi');
+Route::get('/forbela', Forbela::class)->name('forbela');
 
 // Route::get('/bird', BirdForm::class);
 Route::get('/lazy', Lazy::class)->lazy();

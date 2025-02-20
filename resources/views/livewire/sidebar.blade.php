@@ -32,7 +32,7 @@
                     <span class="text-secondary"><small>&nbsp;v{{ $version }}</small></span>
                 </div>
                 <p class="card-text">
-                    Formulir Pengajuan Surat Keterangan Pendamping Ijazah
+                    {{ $description }}
                 </p>
                 <a href="{{ route('landing') }}" class="btn btn-outline-primary">Kembali</a>
             </div>

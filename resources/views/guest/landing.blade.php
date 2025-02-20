@@ -55,12 +55,12 @@
             transition: transform 0.3s ease-in-out;
         }
 
-        #fpi:hover {
+        #forpi:hover {
             background-color: #bc5d23 !important;
             border-color: #bc5d23 !important;
         }
 
-        #fbl:hover {
+        #forbela:hover {
             background-color: #0d6501 !important;
             border-color: #0d6501 !important;
         }
@@ -88,7 +88,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body text-start">
-                                        <button id="fpi" type="button" class="btn btn-danger mb-2" style="background-color: #ff7a27; border-color: #ff7a27">
+                                        <button id="forpi" type="button" class="btn btn-danger mb-2" style="background-color: #ff7a27; border-color: #ff7a27">
                                             FORPI
                                         </button>
                                         <p class="card-text"><small>Formulir Surat Keterangan Pendamping Ijazah</small></p>
@@ -99,7 +99,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6" data-aos="fade-down" data-aos-delay="200">
-                    <a name="" id="banner1" class="btn text-start p-0" href="#" role="button">
+                    <a name="" id="banner1" class="btn text-start p-0" href="{{ route('forbela') }}" role="button">
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body text-start">
-                                        <button id="fbl" type="button" class="btn btn-danger mb-2" style="background-color: #0f8500; border-color: #0f8500">
+                                        <button id="forbela" type="button" class="btn btn-danger mb-2" style="background-color: #0f8500; border-color: #0f8500">
                                             FORBELA
                                         </button>
                                         <p class="card-text"><small>Formulir Keterangan Bebas Lab</small></p>
@@ -128,7 +128,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body text-start">
-                                        <button id="dvs" type="button" class="btn btn-danger mb-2">
+                                        <button id="dversi" type="button" class="btn btn-danger mb-2">
                                             DVERSI
                                         </button>
                                         <p class="card-text"><small>Digital Verifikasi Biodata Ijazah</small></p>
@@ -160,7 +160,7 @@
                                 <!-- Tombol -->
                                 <div class="col">
                                     <div class="card-body p-0">
-                                        <button id="fpi" type="button" class="btn btn-danger" style="background-color: #ff7a27; border-color: #ff7a27">
+                                        <button id="forpi" type="button" class="btn btn-danger" style="background-color: #ff7a27; border-color: #ff7a27">
                                             FORPI
                                         </button>
                                         <p class="card-text mt-1 me-3" style="font-size: 12px; line-height: 1.2"><small>Formulir Surat Keterangan Pendamping Ijazah</small></p>
@@ -171,7 +171,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6">
-                    <a name="" id="banner1" class="btn text-start p-0 w-100" href="#" role="button">
+                    <a name="" id="banner1" class="btn text-start p-0 w-100" href="{{ route('forbela') }}" role="button">
                         <div class="card mb-3">
                             <div class="row d-flex align-items-center flex-nowrap">
                                 <!-- Gambar -->
@@ -181,7 +181,7 @@
                                 <!-- Tombol -->
                                 <div class="col">
                                     <div class="card-body p-0">
-                                        <button id="fbl" type="button" class="btn btn-danger" style="background-color: #0f8500; border-color: #0f8500">
+                                        <button id="forbela" type="button" class="btn btn-danger" style="background-color: #0f8500; border-color: #0f8500">
                                             FORBELA
                                         </button>
                                         <p class="card-text mt-1 me-3" style="font-size: 12px; line-height: 1.2"><small>Formulir Surat Keterangan Bebas Lab</small></p>
@@ -202,7 +202,7 @@
                                 <!-- Tombol -->
                                 <div class="col">
                                     <div class="card-body p-0">
-                                        <button id="dvs" type="button" class="btn btn-danger mb-2">
+                                        <button id="dversi" type="button" class="btn btn-danger mb-2">
                                             DVERSI
                                         </button>
                                         <p class="card-text mt-1 me-3" style="font-size: 12px; line-height: 1.2"><small>Digital Verifikasi Biodata Ijazah</small></p>
@@ -218,12 +218,12 @@
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img class="card-img img-fluid w-100 h-100 object-fit-cover" src="{{ asset('img/fbl.svg') }}" alt="Card image"
+                                    <img class="card-img img-fluid w-100 h-100 object-fit-cover" src="{{ asset('img/forbela.svg') }}" alt="Card image"
                                         style="border-top-right-radius: 0rem; border-bottom-right-radius: 0rem">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body text-start">
-                                        <button id="fbl" type="button" class="btn btn-danger mb-2" style="background-color: #0f8500; border-color: #0f8500">
+                                        <button id="forbela" type="button" class="btn btn-danger mb-2" style="background-color: #0f8500; border-color: #0f8500">
                                             FORBELA
                                         </button>
                                         <p class="card-text"><small>Formulir Keterangan Bebas Lab</small></p>
@@ -238,12 +238,12 @@
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img class="card-img img-fluid w-100 h-100 object-fit-cover" src="{{ asset('img/dvs.svg') }}" alt="Card image"
+                                    <img class="card-img img-fluid w-100 h-100 object-fit-cover" src="{{ asset('img/dversi.svg') }}" alt="Card image"
                                         style="border-top-right-radius: 0rem; border-bottom-right-radius: 0rem">
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body text-start">
-                                        <button id="dvs" type="button" class="btn btn-danger mb-2">
+                                        <button id="dversi" type="button" class="btn btn-danger mb-2">
                                             DVERSI
                                         </button>
                                         <p class="card-text"><small>Digital Verifikasi Biodata Ijazah</small></p>
