@@ -12,10 +12,10 @@
                 </li>
                 <div class="text-muted fw-semibold px-2 fs-5"> / </div>
                 <li>
-                    <a class="nav-link">FORPI</a>
+                    <a class="nav-link">{{ $menu }}</a>
                 </li>
                 <div class="text-muted fw-semibold px-2 fs-5"> / </div>
-                <li class="nav-link text-nowrap">Formulir Surat Keterangan Pendamping Ijazah</li>
+                <li class="nav-link text-nowrap">{{ $description }}</li>
             </ul>
         </div>
         <div class="navbar-nav-right d-flex align-items-center ms-auto" id="navbar-collapse-right">
