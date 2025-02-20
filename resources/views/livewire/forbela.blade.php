@@ -9,24 +9,30 @@
                                 <div class="card-title mb-3">
                                     <div class="text-center">
                                         <h4>Formulir Pengajuan Surat Keterangan Bebas Lab</h4>
-                                        <h5 class="card-subtitle text-muted">Unit Depo UNBL</h5>
+                                        <h5 class="card-subtitle text-muted">Unit Depo Universitas Borneo Lestari</h5>
                                     </div>
 
                                     <div class="row mt-5">
                                         <label for="nama" class="col-md-2 col-form-label">Nama Lengkap</label>
                                         <div class="col">
-                                            <input type="text" class="form-control" placeholder="Ketik sesuatu..." id="nama" name="nama">
+                                            <input type="text" class="form-control" placeholder="..." id="nama" name="nama">
+                                        </div>
+                                        <label for="nim" class="col-md-2 col-form-label">Nomor Induk Mahasiswa (NIM)</label>
+                                        <div class="col">
+                                            <input class="form-control" type="text" placeholder="..." id="nim" name="nim">
                                         </div>
                                     </div>
-
                                     <div class="row mt-3">
-                                        <label for="tempat" class="col-md-2 col-form-label">Tempat Lahir</label>
+                                        <label for="email" class="col-md-2 col-form-label">Email</label>
                                         <div class="col">
-                                            <input class="form-control" type="text" placeholder="..." id="tempat" name="tempat">
+                                            <input class="form-control" type="email" placeholder="..." id="email" name="email">
                                         </div>
-                                        <label for="tanggal" class="col-md-2 col-form-label">Tanggal Lahir</label>
+
+                                        <label for="telepon" class="col-md-2 col-form-label">Telepon (WA)</label>
                                         <div class="col">
-                                            <input class="form-control" type="date" placeholder="..." id="tanggal" name="tanggal">
+                                            <input class="form-control" type="tel" placeholder="089712301231" id="telepon" name="telepon" pattern="[0-9]*" inputmode="numeric"
+                                                title="Hanya menerima nomor">
+
                                         </div>
                                     </div>
 
@@ -43,96 +49,36 @@
                                     </div>
 
                                     <div class="row mt-3">
-                                        <label for="nim" class="col-md-2 col-form-label">Nomor Induk Mahasiswa (NIM)</label>
-                                        <div class="col">
-                                            <input class="form-control" type="text" placeholder="..." id="nim" name="nim" disabled>
-                                        </div>
-                                        <label for="studi" class="col-md-2 col-form-label">Lama Studi</label>
-                                        <div class="col">
-                                            <input class="form-control" type="number" placeholder="..." id="studi" name="studi">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <label for="judul" class="col-md-2 col-form-label">Judul Skripsi / LTA / KTI</label>
+                                        <label for="judul" class="col-md-2 col-form-label">Judul Penelitian</label>
                                         <div class="col">
                                             <textarea class="form-control" placeholder="..." id="judul" rows="2"></textarea>
                                         </div>
                                     </div>
 
                                     <div class="row mt-3">
-                                        <label for="pisn" class="col-md-2 col-form-label">Nomor Ijazah (PISN)</label>
+                                        <label for="waktu" class="col-md-2 col-form-label">Waktu Penelitian</label>
                                         <div class="col">
-                                            <input class="form-control" type="text" placeholder="..." id="pisn" name="pisn" disabled>
+                                            <input class="form-control" type="date" placeholder="..." id="waktu" name="waktu">
                                         </div>
-                                        <label for="toefl" class="col-md-2 col-form-label">Nilai TOEFL</label>
+                                        <label for="tempat" class="col-md-2 col-form-label">Tempat Penelitian</label>
                                         <div class="col">
-                                            <input class="form-control" type="text" placeholder="..." id="toefl" name="toefl">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <label for="pencapaian" class="col-md-2 col-form-label">Pencapaian / Penghargaan Kejuaraan</label>
-                                        <div class="col">
-                                            <input class="form-control mb-1" type="text" placeholder="JUARA 1 LOMBA KARYA TULIS ILMIAH TINGKAT NASIONAL" id="pencapaian"
-                                                name="pencapaian[]">
-                                        </div>
-                                        <label for="no_pencapaian" class="col-md-2 col-form-label">Nomor</label>
-                                        <div class="col">
-                                            <input class="form-control" type="text" placeholder="120/KTI/Nas/2022" id="no_pencapaian" name="no_pencapaian[]">
-                                            <div class="row mt-1">
-                                                <div class="col text-end">
-                                                    <a class="btn btn-xs btn-primary" href="#" role="button"><i class="bx bx-plus" style="font-size: 10px;"></i></a>
-                                                    <a class="btn btn-xs btn-danger" href="#" role="button"><i class="bx bx-minus" style="font-size: 10px;"></i></a>
-                                                </div>
-                                            </div>
+                                            <input class="form-control" type="text" placeholder="..." id="tempat" name="tempat">
                                         </div>
                                     </div>
-
                                     <div class="row mt-3">
-                                        <label for="sertifikat" class="col-md-2 col-form-label">Sertifikat profesi / kompetensi</label>
+                                        <label class="col-md-2 col-form-label">Pakai Lab. UNBL?</label>
                                         <div class="col">
-                                            <input class="form-control mb-1" type="text" placeholder="LEMBAGA SERTIFIKASI PROFESI - NETWORK ENGINEER" id="sertifikat"
-                                                name="sertifikat[]">
-                                        </div>
-                                        <label for="no_sertifikat" class="col-md-2 col-form-label">Nomor</label>
-                                        <div class="col">
-                                            <input class="form-control" type="text" placeholder="62090 3122 3 000100552 2022" id="no_sertifikat" name="no_sertifikat[]">
-                                            <div class="row mt-1">
-                                                <div class="col text-end">
-                                                    <a class="btn btn-xs btn-primary" href="#" role="button"><i class="bx bx-plus" style="font-size: 10px;"></i></a>
-                                                    <a class="btn btn-xs btn-danger" href="#" role="button"><i class="bx bx-minus" style="font-size: 10px;"></i></a>
-                                                </div>
+                                            <div class="form-control">
+                                                <label class="form-check-label" for="ya"> Ya </label>
+                                                <input name="fasilitas" class="form-check-input me-3" type="radio" value="" id="ya" checked="">
+
+                                                <label class="form-check-label" for="tidak"> Tidak </label>
+                                                <input name="fasilitas" class="form-check-input" type="radio" value="" id="tidak">
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <label for="beasiswa" class="col-md-2 col-form-label">Beasiswa selama kuliah</label>
-                                        <div class="col text-end">
-                                            <input class="form-control mb-1" type="text" placeholder="BEASISWA KIP 2022 GANJIL" id="beasiswa" name="beasiswa[]">
-                                            <div class="col text-end">
-                                                <a class="btn btn-xs btn-primary" href="#" role="button"><i class="bx bx-plus" style="font-size: 10px;"></i></a>
-                                                <a class="btn btn-xs btn-danger" href="#" role="button"><i class="bx bx-minus" style="font-size: 10px;"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row mt-3">
-                                        <label for="organisasi" class="col-md-2 col-form-label">Pengalaman Organisasi</label>
+                                        <label for="file" class="col-md-2 col-form-label">Upload Berkas</label>
                                         <div class="col">
-                                            <input class="form-control mb-1" type="text" placeholder="BADAN EKSEKUTIF MAHASISWA 2022-2023" id="organisasi"
-                                                name="organisasi[]">
-                                        </div>
-                                        <label for="jabatan_organisasi" class="col-md-2 col-form-label">Jabatan</label>
-                                        <div class="col">
-                                            <input class="form-control" type="text" placeholder="KETUA" id="jabatan_organisasi" name="jabatan_organisasi[]">
-                                            <div class="row mt-1">
-                                                <div class="col text-end">
-                                                    <a class="btn btn-xs btn-primary" href="#" role="button"><i class="bx bx-plus" style="font-size: 10px;"></i></a>
-                                                    <a class="btn btn-xs btn-danger" href="#" role="button"><i class="bx bx-minus" style="font-size: 10px;"></i></a>
-                                                </div>
-                                            </div>
+                                            <input class="form-control" type="file" placeholder="..." id="file" name="file">
                                         </div>
                                     </div>
 
