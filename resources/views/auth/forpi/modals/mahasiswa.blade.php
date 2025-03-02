@@ -1,9 +1,3 @@
-@if (session('success'))
-    @include('auth.toasts.success')
-@elseif (session('fail'))
-    @include('auth.toasts.fail')
-@endif
-
 <ul class="nav nav-pills" role="tablist">
     <li class="nav-item">
         <div class="modal fade" id="M_S_mahasiswa" tabindex="-1" aria-hidden="true">
@@ -16,20 +10,20 @@
                     <div class="modal-body">
                         <ul class="nav nav-tabs nav-fill" role="tablist">
                             <li class="nav-item">
-                                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#nav-mahasiswa" aria-controls="nav-mahasiswa"
+                                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#nav-input" aria-controls="nav-input"
                                     aria-selected="true">
                                     <i class="tf-icons bx bx-pencil"></i> Input
                                 </button>
                             </li>
                             <li class="nav-item">
-                                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-profile"
-                                    aria-controls="navs-justified-profile" aria-selected="false">
+                                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-import" aria-controls="navs-import"
+                                    aria-selected="false">
                                     <i class="tf-icons bx bx-cloud-upload"></i> Import
                                 </button>
                             </li>
                         </ul>
                         <div class="tab-content">
-                            <div class="tab-pane fade show active" id="nav-mahasiswa" role="tabpanel">
+                            <div class="tab-pane fade show active" id="nav-input" role="tabpanel">
                                 <form action="{{ route('forpi_mahasiswa_store') }}" method="POST">
                                     @csrf
                                     <div class="mb-3">
@@ -93,13 +87,13 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="tab-pane fade" id="navs-justified-profile" role="tabpanel">
+                            <div class="tab-pane fade" id="navs-import" role="tabpanel">
                                 <form id="importForm" action="{{ route('forpi_mahasiswa_import') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="file" class="form-label">File Upload</label>
                                         <span class="text-muted" style="font-size: .7rem; font-style: italic"> (data yang sama akan ditimpa)</span>
-                                        <input class="form-control" type="file" id="file" name="file" />
+                                        <input class="form-control" type="file" id="file" name="file" required />
                                     </div>
                                     <a href="{{ asset('Template Import -- Mahasiswa.csv') }}" download="Template Import -- Mahasiswa.csv">
                                         <i class="tf-icons bx bxs-download"></i>Template <span class="badge bg-label-danger">.csv</span>
