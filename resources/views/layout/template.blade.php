@@ -59,6 +59,13 @@
 </head>
 
 <body>
+
+    @if (session('success'))
+        @include('auth.toasts.success')
+    @elseif (session('fail'))
+        @include('auth.toasts.fail')
+    @endif
+
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
