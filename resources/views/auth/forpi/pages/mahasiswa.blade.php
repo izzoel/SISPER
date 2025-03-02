@@ -26,7 +26,7 @@
                                         <th class="text-start">Nama</th>
                                         <th class="text-start">Prodi</th>
                                         <th class="text-start">PISN</th>
-                                        <th class="text-start">Periode</th>
+                                        <th class="text-start">Periode Lulus</th>
                                         <th class="text-start col-auto" data-priority="2">Aksi</th>
                                     </tr>
                                 </thead>
