@@ -10,11 +10,12 @@
                         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#M_S_mahasiswa">
                             &#10010; Mahasiswa
                         </button>
-                        <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#pisn">
-                            PISN
+                        <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#M_S_pisn">
+                            &#10010; PISN
                         </button>
 
                         @include('auth.forpi.modals.mahasiswa')
+                        @include('auth.forpi.modals.pisn')
 
                         <div class="card-text">
                             <table id="mahasiswa" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
@@ -36,7 +37,10 @@
                                             <td class="text-start">{{ $mahasiswa->nim }}</td>
                                             <td class="text-start">{{ $mahasiswa->nama }}</td>
                                             <td class="text-start">{{ $mahasiswa->prodi }}</td>
-                                            <td class="text-start">{{ $mahasiswa->pisn }}</td>
+                                            <td class="text-start">
+                                                <span
+                                                    class="badge rounded-pill {{ $mahasiswa->pisn ? 'bg-label-primary' : 'bg-label-danger' }}">{{ $mahasiswa->pisn ? $mahasiswa->pisn : 'Belum' }}</span>
+                                            </td>
                                             <td class="text-start">{{ $mahasiswa->periode }}</td>
                                             <td class="text-center px-0">
                                                 <a type="button" class="U_B_mahasiswa text-info" data-nim="#M_U_mahasiswa-{{ $mahasiswa->nim }}">

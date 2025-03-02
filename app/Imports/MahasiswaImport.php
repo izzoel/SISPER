@@ -29,7 +29,7 @@ class MahasiswaImport implements ToModel, WithHeadingRow
                 'status' => $row['status'],
                 'alamat' => $row['alamat'],
                 'pisn' => $row['pisn'],
-                'periode' => $row['periode'],
+                'periode' => $row['periode']
             ]);
         } else {
             return new Mahasiswa([
@@ -46,6 +46,7 @@ class MahasiswaImport implements ToModel, WithHeadingRow
                 'pisn' => $row['pisn'],
                 'periode' => $row['periode'],
                 'foto' => rand(0, 11),
+                'role' => 'mahasiswa'
             ]);
         }
     }

@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\Portal;
+use App\Http\Controllers\ForpiPisn;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\MenuMiddleware;
 use App\Http\Controllers\ForpiMahasiswa;
 use App\Http\Controllers\ForpiController;
-use App\Http\Middleware\MenuMiddleware;
 
 Route::get('/', function () {
     return view('guest.landing');
@@ -23,4 +24,6 @@ Route::middleware([MenuMiddleware::class])->group(function () {
     Route::post('/forpi/mahasiswa/import', [ForpiMahasiswa::class, 'import'])->name('forpi_mahasiswa_import');
     Route::put('/forpi/mahasiswa/update/{nim}', [ForpiMahasiswa::class, 'update'])->name('forpi_mahasiswa_update');
     Route::delete('/forpi/mahasiswa/destroy/{nim}', [ForpiMahasiswa::class, 'destroy'])->name('forpi_mahasiswa_destroy');
+
+    Route::post('/forpi/pisn/import', [ForpiPisn::class, 'import'])->name('forpi_pisn_import');
 });

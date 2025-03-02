@@ -62,7 +62,7 @@ class ForpiMahasiswa extends Controller
     function update(Request $request, $nim)
     {
         try {
-            Mahasiswa::where('nim', $nim)->update([
+            $updateData = [
                 'nim' => $request->nim,
                 'nama' => $request->nama,
                 'tempat_lahir' => $request->tempat_lahir,
@@ -73,7 +73,13 @@ class ForpiMahasiswa extends Controller
                 'alamat' => $request->alamat,
                 'pisn' => $request->pisn,
                 'periode' => $request->periode
-            ]);
+            ];
+
+            if ($request->pisn) {
+                $updateData['password'] = Hash::make($request->pisn);
+            }
+
+            Mahasiswa::where('nim', $nim)->update($updateData);
 
             return redirect()->back()->with('success', 'Mahasiswa berhasil diperbarui!');
         } catch (\Exception $e) {

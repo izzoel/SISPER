@@ -3,8 +3,8 @@
           <img class="card-img-top" src="{{ asset('img/logo/' . $data['menuData']['logo'] . '.svg') }}" alt="{{ strtoupper($data['menuData']['logo']) }}">
           <div class="card-body">
 
-              @if (Auth::check())
-                  @if (Auth::user()->role == 'admin')
+              @if (Auth::check() || Auth::guard('mahasiswa')->check())
+                  @if (!is_null(Auth::user()))
                       <div class="d-flex justify-content-start align-items-baseline">
                           <h3 class="card-title m-0">{{ $data['menuData']['menu'] }}</h3>
                           <span class="text-secondary"><small>&nbsp;{{ 'v' . $data['menuData']['version'] }}</small></span>
@@ -24,13 +24,12 @@
                   @endif
               @else
                   {{ redirect()->intended(route('logout'))->send() }}
-                  s
               @endif
           </div>
       </div>
       <div class="menu-inner-shadow"></div>
 
-      @if (Auth::user()->role == 'admin')
+      @if (!is_null(Auth::user()))
           <ul class="menu-inner py-1">
               <!-- Dashboard -->
               <li class="menu-item {{ request()->url() == url('/forpi') ? 'active' : '' }} ">

@@ -77,13 +77,10 @@
             <!-- Layout container -->
             <div class="layout-page">
                 <!-- Navbar -->
-                {{-- @livewire('navbar') --}}
-                {{-- @yield('navbar') --}}
                 @include('layout.navbar')
                 <!-- / Navbar -->
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
-                    {{-- {{ Route::currentRouteName() . '>>' . Str::replace('.', '-', Route::currentRouteName()) }} --}}
                     @yield(Route::currentRouteName() ? Str::replace('.', '-', Route::currentRouteName()) : 'content')
                 </div>
                 <!-- / Content -->
@@ -101,37 +98,6 @@
             <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
-    </div>
-
-    <div id="spinner" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(84, 84, 84, 0.3); z-index: 9999; display: none;">
-        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
-            <div class="spinner-border text-primary" role="status"></div>
-            <p class="text-dark" style="animation: none; font-size: 1rem; display: inline-block; vertical-align: middle;">
-                {{-- Lagi ngimport --}}
-                <span style="animation: dot 1.5s infinite; display: inline-block;">Lagi</span>
-                <span style="animation: dot 1.5s infinite .2s; display: inline-block;">ngimport </span>
-                <span style="animation: dot 1.5s infinite .4s; display: inline-block;">.</span>
-                <span style="animation: dot 1.5s infinite .6s; display: inline-block;">.</span>
-                <span style="animation: dot 1.5s infinite .8s; display: inline-block;">.</span>
-
-
-                <style>
-                    @keyframes dot {
-                        0% {
-                            transform: translateX(0);
-                        }
-
-                        50% {
-                            transform: translateX(5px);
-                        }
-
-                        100% {
-                            transform: translateX(0);
-                        }
-                    }
-                </style>
-            </p>
-        </div>
     </div>
 
     <!-- Overlay -->
@@ -168,10 +134,6 @@
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-    {{-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
-
-    {{-- @include('auth.scripts.modals') --}}
-    {{-- @include('scripts.' . request()->segment(1)) --}}
     @include('auth.scripts.datatables')
     @if (count(request()->segments()) > 1)
         @include('auth.scripts.' . request()->segment(2))
@@ -181,36 +143,13 @@
 
     <script>
         $(document).ready(function() {
-            $('#importForm').on('submit', function() {
-                $('#loading').show();
-                $('#loadingBtn').hide();
+            $('.importForm').on('submit', function() {
+                $('.loading').show();
+                $('.loadingBtn').hide();
             });
         });
     </script>
 
-    {{-- <script src="{{ asset('scripts/t_mahasiswa.js') }}"></script> --}}
-
-    <script>
-        // var segment = "t_" + "{{ request()->segment(2) ? request()->segment(2) : request()->segment(1) }}" + ".js";
-        // var path = `{{ asset('scripts/') }}/${segment}`;
-        // $(document).on('shown.bs.modal', function(event) {
-        //     setTimeout(() => $.getScript(path), 200);
-        // });
-        // $(document).on('shown.bs.tab click', 'button[data-bs-toggle="tab"]', function(event) {
-        //     setTimeout(() => $.getScript(path), 200);
-        // });
-
-        // $(document).on('blur', '#file', function() {
-        //     if (this.files.length > 0) {
-        //         alert("File telah dipilih: " + this.files[0].name);
-        //     } else {
-        //         alert("Tidak ada file yang dipilih.");
-        //     }
-        // });
-    </script>
-
-
-    {{-- @livewireScripts --}}
 </body>
 
 </html>

@@ -31,8 +31,8 @@ class MenuMiddleware
             'about' => $about,
         ];
 
-        if (Auth::check()) {
-            if (Auth::user()->role == 'admin') {
+        if (Auth::check() || Auth::guard('mahasiswa')->check()) {
+            if (Auth::user() !== null) {
                 $menuData['description'] = strtoupper(Auth::user()->name);
                 $menuData['segment2'] = strtoupper($request->segment(2)) ?? '';
             } else {

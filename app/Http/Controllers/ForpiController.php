@@ -13,12 +13,12 @@ class ForpiController extends Controller
      */
     public function index(Request $request)
     {
-
+        // dd(Auth::check(), Auth::guard('mahasiswa')->check(), Auth::user(), Auth::guard('mahasiswa')->user());
         $data = [
             'title' => env('APP_NAME') . ' | ' . strtoupper(request()->segment(1)),
             'menuData' => $request->get('menuData')
         ];
-        if (Auth::check()) {
+        if (Auth::check() || Auth::guard('mahasiswa')->check()) {
             return view('layout.template', compact('data'));
         } else {
             return view('guest.landing');

@@ -10,7 +10,11 @@ class Portal extends Controller
 {
     public function forpi(Request $request)
     {
-        if (Auth::attempt(['name' => $request->nim, 'password' => $request->pisn])) {
+        if ($request->nim === $request->pisn) {
+            return response()->json(['success' => false, 'message' => 'Gagal: NIM dan PISN tidak boleh sama']);
+        }
+
+        if (Auth::guard('mahasiswa')->attempt(['nim' => $request->nim, 'password' => $request->pisn]) || Auth::attempt(['name' => $request->nim, 'password' => $request->pisn])) {
             Session::put('nim', $request->nim);
             Session::put('pisn', $request->pisn);
             return response()->json(['success' => true, 'message' => 'Sukses']);
