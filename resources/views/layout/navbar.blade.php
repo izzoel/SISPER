@@ -30,7 +30,15 @@
             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                 <a class="nav-link dropdown-toggle hide-arrow" href="" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                        {{-- <img src="{{ asset(auth()->check() ? auth()->user()->foto : auth('mahasiswa')->user()->foto) }}" alt class="w-px-40 h-auto rounded-circle" /> --}}
+                        @php
+                            $adminFoto = rand(0, 11);
+                        @endphp
+                        @if (auth()->check())
+                            <img src="{{ asset('img/avatars/' . $adminFoto . '.png') }}" alt="admin" class="w-px-40 h-auto rounded-circle" />
+                        @elseif (auth('mahasiswa')->check())
+                            <img src="{{ asset('img/avatars/' . auth('mahasiswa')->user()->foto) . '.png' }}" alt="{{ auth('mahasiswa')->user()->nama }}"
+                                class="w-px-40 h-auto rounded-circle" />
+                        @endif
                     </div>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
@@ -39,13 +47,20 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0 me-3">
                                     <div class="avatar avatar-online">
-                                        {{-- <img src="{{ asset(auth()->check() ? auth()->user()->foto : auth('mahasiswa')->user()->foto) }}" alt
-                                                class="w-px-40 h-auto rounded-circle" /> --}}
+
+                                        @if (auth()->check())
+                                            <img src="{{ asset('img/avatars/' . $adminFoto . '.png') }}" alt="admin" class="w-px-40 h-auto rounded-circle" />
+                                        @elseif (auth('mahasiswa')->check())
+                                            <img src="{{ asset('img/avatars/' . auth('mahasiswa')->user()->foto) . '.png' }}" alt="{{ auth('mahasiswa')->user()->nama }}"
+                                                class="w-px-40 h-auto rounded-circle" />
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    {{-- <span class="fw-semibold d-block">{{ auth()->check() ? auth()->user()->name : auth('mahasiswa')->user()->nama }}</span>
-                                        <small class="text-muted">{{ auth()->check() ? 'Laboran' : 'Mahasiswa' }}</small> --}}
+                                    <span class="fw-semibold d-block">
+                                        {{ auth()->check() ? auth()->user()->name : auth('mahasiswa')->user()->nama }}
+                                    </span>
+                                    <small class="text-muted">{{ auth()->check() ? auth()->user()->role : auth('mahasiswa')->user()->role }}</small>
                                 </div>
                             </div>
                         </a>
@@ -72,15 +87,15 @@
                                 @endguest
                             </a>
                         </li> --}}
-                    <li>
-                        <div class="dropdown-divider"></div>
-                    </li>
                     {{-- <li>
-                            <a class="dropdown-item" href="{{ route('logout') }}">
-                                <i class="bx bx-power-off me-2"></i>
-                                <span class="align-middle">Log Out</span>
-                            </a>
-                        </li> --}}
+                        <div class="dropdown-divider"></div>
+                    </li> --}}
+                    <li>
+                        <a class="dropdown-item" href="{{ route('logout') }}">
+                            <i class="bx bx-power-off me-2"></i>
+                            <span class="align-middle">Log Out</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <!--/ User -->

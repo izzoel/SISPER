@@ -13,6 +13,7 @@ class ForpiController extends Controller
      */
     public function index(Request $request)
     {
+        // dd(auth()->user()->foto);
         // dd(Auth::check(), Auth::guard('mahasiswa')->check(), Auth::user(), Auth::guard('mahasiswa')->user());
         $data = [
             'title' => env('APP_NAME') . ' | ' . strtoupper(request()->segment(1)),
