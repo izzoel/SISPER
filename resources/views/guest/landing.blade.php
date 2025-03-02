@@ -11,75 +11,26 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
-
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('vendor/sneat/fonts/boxicons.css') }}" />
-
     <!-- Core CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/sneat/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('vendor/sneat/css/theme-default.css') }}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('vendor/sneat/css/demo.css') }}" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('vendor/sneat/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-
-    <link rel="stylesheet" href="{{ asset('vendor/sneat/libs/apex-charts/apex-charts.css') }}" />
-
-    <!-- Datatables CSS -->
-    <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.8/b-3.2.0/b-html5-3.2.0/r-3.0.3/datatables.min.css" rel="stylesheet">
 
     <!-- AOS CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/aos/css/aos.css') }}" />
-
-    <!-- Helpers -->
-    <script src="{{ asset('vendor/sneat/js/helpers.js') }}"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('vendor/sneat/js/config.js') }}"></script>
-
-    <style>
-        /* Efek hover untuk #banner1 */
-        #banner1:hover {
-            transform: translateY(-5px);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        /* Ketika #banner1 di-hover, geser #skpi ke kanan */
-        #banner1:hover #skpi {
-            transform: translateX(10px);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        #forpi:hover {
-            background-color: #bc5d23 !important;
-            border-color: #bc5d23 !important;
-        }
-
-        #forbela:hover {
-            background-color: #0d6501 !important;
-            border-color: #0d6501 !important;
-        }
-    </style>
-
 </head>
 
 <body>
     <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
         <!-- Untuk layar besar (default -100px) -->
         <div class="container d-none d-md-block">
-            <div class="d-flex flex-column justify-content-start" data-aos="zoom-out" data-aos-duration="1000" id="sisper">
+            <div class="d-flex flex-column justify-content-start" data-aos="zoom-out" data-aos-duration="1000">
                 <div class="d-flex justify-content-center align-items-center py-5">
-                    <img class="img-fluid" src="{{ asset('img/logo.png') }}" alt="sisper" width="500">
+                    <img class="img-fluid" src="{{ asset('img/logo.png') }}" alt="sisper" width="500" id="sisper">
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-6" data-aos="fade-down" data-aos-delay="100">
-                    <a id="banner1" class="btn text-start p-0" href="{{ route('forpi') }}" role="button">
+                    <a class="btn text-start p-0 banner forpi" role="button">
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
@@ -99,7 +50,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6" data-aos="fade-down" data-aos-delay="200">
-                    <a name="" id="banner1" class="btn text-start p-0" href="{{ route('forbela') }}" role="button">
+                    <a class="btn text-start p-0 banner" href="" role="button">
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
@@ -119,7 +70,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6" data-aos="fade-down" data-aos-delay="300">
-                    <a name="" id="banner1" class="btn text-start p-0" href="#" role="button">
+                    <a class="btn text-start p-0 banner" href="#" role="button">
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
@@ -150,7 +101,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <a nid="banner1" class="btn text-start p-0 w-100" href="{{ route('forpi') }}" role="button">
+                    <a nid="banner1" class="btn text-start p-0 w-100 forpi" href="" role="button">
                         <div class="card mb-3">
                             <div class="row d-flex align-items-center flex-nowrap">
                                 <!-- Gambar -->
@@ -171,7 +122,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6">
-                    <a name="" id="banner1" class="btn text-start p-0 w-100" href="{{ route('forbela') }}" role="button">
+                    <a name="" id="banner1" class="btn text-start p-0 w-100" href="" role="button">
                         <div class="card mb-3">
                             <div class="row d-flex align-items-center flex-nowrap">
                                 <!-- Gambar -->
@@ -219,27 +170,17 @@
 
     <!-- Core JS -->
     <script src="{{ asset('vendor/sneat/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('vendor/sneat/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('vendor/sneat/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('vendor/sneat/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-    <script src="{{ asset('vendor/sneat/js/menu.js') }}"></script>
-
-    <!-- Vendors JS -->
-    <script src="{{ asset('vendor/sneat/libs/apex-charts/apexcharts.js') }}"></script>
-
-    <!-- Main JS -->
-    <script src="{{ asset('vendor/sneat/js/main.js') }}"></script>
 
     <!-- AOS JS -->
     <script src="{{ asset('vendor/aos/js/aos.js') }}"></script>
 
-    <!-- Popover JS -->
-    <script src="{{ asset('vendor/sneat/js/ui-popover.js') }}"></script>
+    <!-- SweetAlert2 JS -->
+    <script src="{{ asset('vendor/sweetalert2/js/sweetalert2.js') }}"></script>
 
-    <!-- Toast JS -->
-    <script src="{{ asset('vendor/sneat/js/ui-toasts.js') }}"></script>
+    <!-- forpi login -->
+    <script src="{{ asset('scripts/sw-login-forpi.js') }}"></script>
 
-    <!-- GSAP JS -->
+
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
@@ -251,8 +192,8 @@
 
     <script>
         gsap.to("#sisper", {
-            y: -50,
-            duration: 3,
+            y: -20,
+            duration: 1.5,
             yoyo: true,
             repeat: -1,
             ease: "power1.inOut"
@@ -264,6 +205,61 @@
             repeat: -1,
             ease: "power1.inOut"
         });
+
+        $('.banner').hover(
+            function() {
+                gsap.to(this, {
+                    y: -5,
+                    duration: 0.1,
+                    ease: 'power1.inOut'
+                });
+            },
+            function() {
+                gsap.to(this, {
+                    y: 0,
+                    duration: 0.1,
+                    ease: 'power1.inOut'
+                });
+            }
+        );
+
+        $('#forpi').hover(
+            function() {
+                gsap.to(this, {
+                    backgroundColor: '#bc5d23',
+                    borderColor: '#bc5d23',
+                    duration: 0.1,
+                    ease: 'power1.inOut'
+                });
+            },
+            function() {
+                gsap.to(this, {
+                    backgroundColor: '#ff7a27',
+                    borderColor: '#ff7a27',
+                    duration: 0.1,
+                    ease: 'power1.inOut'
+                });
+            }
+        );
+
+        $('#forbela').hover(
+            function() {
+                gsap.to(this, {
+                    backgroundColor: '#0d6501',
+                    borderColor: '#0d6501',
+                    duration: 0.1,
+                    ease: 'power1.inOut'
+                });
+            },
+            function() {
+                gsap.to(this, {
+                    backgroundColor: '#0f8500',
+                    borderColor: '#0f8500',
+                    duration: 0.1,
+                    ease: 'power1.inOut'
+                });
+            }
+        );
     </script>
 
 

@@ -1,4 +1,4 @@
-<div class="bs-toast toast toast-placement-ex m-2 bg-primary top-0 start-0 fade" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+<div class="bs-toast toast toast-placement-ex m-2 bg-success top-0 start-0 fade" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
     <div class="toast-header">
         <i class='bx bx-check-circle bx-burst me-2'></i>
         <div class="me-auto fw-semibold">Sukses!</div>
