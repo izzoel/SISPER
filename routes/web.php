@@ -19,6 +19,7 @@ Route::get('/portal/logout', [Portal::class, 'logout'])->name('logout');
 
 Route::middleware([MenuMiddleware::class])->group(function () {
     Route::get('/forpi/submit', [ForpiSubmit::class, 'index'])->name('forpi_submit');
+    Route::post('/forpi/submit/store', [ForpiSubmit::class, 'store'])->name('forpi_submit_store');
     Route::get('/forpi', [ForpiController::class, 'index'])->name('forpi');
 
     Route::middleware([AdminOnlyMiddleware::class])->group(function () {

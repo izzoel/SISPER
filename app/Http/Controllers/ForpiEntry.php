@@ -2,30 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Forpi;
+use App\Models\Entry;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class ForpiController extends Controller
+class ForpiEntry extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        // dd(auth()->user()->foto);
-        // dd(Auth::check(), Auth::guard('mahasiswa')->check(), Auth::user(), Auth::guard('mahasiswa')->user());
         $data = [
-            'title' => env('APP_NAME') . ' | ' . strtoupper(request()->segment(1)),
+            'title' => env('APP_NAME') . ' | ' . strtoupper(request()->segment(1)) . ' | ' . strtoupper(request()->segment(2)),
             'menuData' => $request->get('menuData')
         ];
-        if (Auth::check()) {
-            return view('layout.template', compact('data'));
-        } elseif (Auth::guard('mahasiswa')->check()) {
-            return redirect()->route('forpi_submit');
-        } else {
-            return view('guest.landing');
-        }
+
+        // $mahasiswas = Entry::all();
+        return view('auth.forpi.pages.entry', compact('data'));
     }
 
     /**
@@ -35,8 +28,6 @@ class ForpiController extends Controller
     {
         //
     }
-
-
 
     /**
      * Store a newly created resource in storage.
@@ -49,7 +40,7 @@ class ForpiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Forpi $forpi)
+    public function show(ForpiEntry $forpiEntry)
     {
         //
     }
@@ -57,7 +48,7 @@ class ForpiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Forpi $forpi)
+    public function edit(ForpiEntry $forpiEntry)
     {
         //
     }
@@ -65,7 +56,7 @@ class ForpiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Forpi $forpi)
+    public function update(Request $request, ForpiEntry $forpiEntry)
     {
         //
     }
@@ -73,7 +64,7 @@ class ForpiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Forpi $forpi)
+    public function destroy(ForpiEntry $forpiEntry)
     {
         //
     }

@@ -18,7 +18,7 @@ class ForpiMahasiswa extends Controller
         ];
 
         $mahasiswas = Mahasiswa::all();
-        return view('auth.forpi.pages.mahasiswa', compact('data', 'mahasiswas'));
+        return view('auth.forpi.pages.section', compact('data', 'mahasiswas'));
     }
 
     function store(Request $request)

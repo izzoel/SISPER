@@ -41,7 +41,7 @@
 
               <!-- Entry -->
               <li class="menu-item {{ request()->url() == url('/forpi/entry') ? 'active' : '' }} ">
-                  <a href="\forpi\entry" class="menu-link">
+                  <a href="#" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-server"></i>
                       <div data-i18n="Entry">Entry</div>
                   </a>

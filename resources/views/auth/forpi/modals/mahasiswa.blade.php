@@ -32,11 +32,11 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="S_nama">Nama<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="S_nama" name="nama" placeholder="John Doe" required />
+                                        <input type="text" class="form-control" id="S_nama" name="nama" placeholder="JOHN DOE" required />
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="S_tempat_lahir">Tempat Lahir<span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="S_tempat_lahir" name="tempat_lahir" placeholder="Banjarbaru" required />
+                                        <input type="text" class="form-control" id="S_tempat_lahir" name="tempat_lahir" placeholder="BANJARBARU" required />
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label" for="tanggal_lahir">Tanggal Lahir<span class="text-danger">*</span></label>
@@ -73,14 +73,13 @@
                                             <option value="SARJANA MANAJEMEN">&nbsp;&nbsp;&nbsp;Sarjana Manajemen</option>
                                             <option value="SARJANA PENDIDIKAN GURU SEKOLAH DASAR">&nbsp;&nbsp;&nbsp;Sarjana Pendidikan Guru Sekolah Dasar</option>
                                         </select>
-
-                                        <div class="mb-3">
-                                            <label class="form-label" for="periode">Periode<span class="text-danger">*</span></label>
-                                            <select class="form-select" id="periode" name="periode" required>
-                                                <option selected disabled>-- Pilih --</option>
-                                                <option value="2024/2025 Ganjil">2024/2025 Ganjil</option>
-                                            </select>
-                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="periode">Periode<span class="text-danger">*</span></label>
+                                        <select class="form-select" id="periode" name="periode" required>
+                                            <option selected disabled>-- Pilih --</option>
+                                            <option value="2024/2025 Ganjil">2024/2025 Ganjil</option>
+                                        </select>
                                     </div>
                                     <div class="d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary">Simpan</button>

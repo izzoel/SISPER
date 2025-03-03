@@ -51,9 +51,6 @@
 
     <!-- Helpers -->
     <script src="{{ asset('vendor/sneat/js/helpers.js') }}"></script>
-
-    {{-- <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section --> --}}
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('vendor/sneat/js/config.js') }}"></script>
 
 </head>
@@ -66,44 +63,28 @@
         @include('auth.toasts.fail')
     @endif
 
-    <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
         <div class="layout-container">
-            <!-- Menu -->
-            {{-- @livewire('sidebar') --}}
             @include('layout.sidebar')
-            <!-- / Menu -->
-
-            <!-- Layout container -->
             <div class="layout-page">
-                <!-- Navbar -->
                 @include('layout.navbar')
-                <!-- / Navbar -->
+
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     @yield(Route::currentRouteName() ? Str::replace('.', '-', Route::currentRouteName()) : 'content')
                 </div>
                 <!-- / Content -->
 
-                <!-- Footer -->
                 <footer class="content-footer footer bg-footer-theme">
                     <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                         <div class="mb-2 mb-md-0">developed by <a href="https://izzoel.github.io/" class="footer-link fw-bolder">zetware.id</a> @2025</div>
                     </div>
                 </footer>
-                <!-- / Footer -->
 
                 <div class="content-backdrop fade"></div>
             </div>
-            <!-- Content wrapper -->
         </div>
-        <!-- / Layout page -->
     </div>
-
-    <!-- Overlay -->
-    <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
-    <!-- / Layout wrapper -->
 
     <!-- Core JS -->
     <script src="{{ asset('vendor/sneat/libs/jquery/jquery.js') }}"></script>
@@ -125,6 +106,8 @@
     <!-- Toast JS -->
     <script src="{{ asset('vendor/sneat/js/ui-toasts.js') }}"></script>
 
+    <!-- SweetAlert2 JS -->
+    <script src="{{ asset('vendor/sweetalert2/js/sweetalert2.js') }}"></script>
 
     <!-- Datatable JS -->
     <script src="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.8/b-3.2.0/b-html5-3.2.0/r-3.0.3/datatables.min.js"></script>
@@ -141,14 +124,7 @@
 
     @include('auth.scripts.toasts')
 
-    <script>
-        $(document).ready(function() {
-            $('.importForm').on('submit', function() {
-                $('.loading').show();
-                $('.loadingBtn').hide();
-            });
-        });
-    </script>
+
 
 </body>
 
