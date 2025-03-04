@@ -2,12 +2,13 @@
 
 use App\Http\Controllers\Portal;
 use App\Http\Controllers\ForpiPisn;
+use App\Http\Controllers\ForpiEntry;
 use App\Http\Controllers\ForpiSubmit;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ForpiMahasiswa;
 use App\Http\Controllers\ForpiController;
-use App\Http\Middleware\MenuMiddleware;
 use App\Http\Middleware\AdminOnlyMiddleware;
+use App\Http\Middleware\MenuMiddleware;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('guest.landing');
@@ -23,6 +24,8 @@ Route::middleware([MenuMiddleware::class])->group(function () {
     Route::get('/forpi', [ForpiController::class, 'index'])->name('forpi');
 
     Route::middleware([AdminOnlyMiddleware::class])->group(function () {
+        Route::get('/forpi/entry', [ForpiEntry::class, 'index'])->name('forpi_entry');
+
         Route::get('/forpi/mahasiswa', [ForpiMahasiswa::class, 'index'])->name('forpi_mahasiswa');
         Route::get('/forpi/mahasiswa/show/{nim}', [ForpiMahasiswa::class, 'show'])->name('forpi_mahasiswa_show');
         Route::post('/forpi/mahasiswa/store', [ForpiMahasiswa::class, 'store'])->name('forpi_mahasiswa_store');

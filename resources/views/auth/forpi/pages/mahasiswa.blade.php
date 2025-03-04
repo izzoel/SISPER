@@ -33,7 +33,7 @@
                                         <td class="text-start">{{ $mahasiswa->nim }}</td>
                                         <td class="text-start">{{ $mahasiswa->nama }}</td>
                                         <td class="text-start">{{ $mahasiswa->prodi }}</td>
-                                        <td class="text-start">
+                                        <td class="text-center">
                                             <span
                                                 class="badge rounded-pill {{ $mahasiswa->pisn ? 'bg-label-primary' : 'bg-label-danger' }}">{{ $mahasiswa->pisn ? $mahasiswa->pisn : 'Belum' }}</span>
                                         </td>

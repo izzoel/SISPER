@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Entry;
+use App\Models\Submit;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 class ForpiEntry extends Controller
 {
@@ -17,8 +18,8 @@ class ForpiEntry extends Controller
             'menuData' => $request->get('menuData')
         ];
 
-        // $mahasiswas = Entry::all();
-        return view('auth.forpi.pages.entry', compact('data'));
+        $entries = Submit::all();
+        return view('auth.forpi.pages.section', compact('data', 'entries'));
     }
 
     /**

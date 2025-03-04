@@ -71,6 +71,7 @@
 
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
+                    {{-- {{ Route::currentRouteName() }} --}}
                     @yield(Route::currentRouteName() ? Str::replace('.', '-', Route::currentRouteName()) : 'content')
                 </div>
                 <!-- / Content -->
