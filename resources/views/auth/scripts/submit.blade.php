@@ -48,6 +48,93 @@
         });
     });
 
+    const swKejuaraan = $("#swKejuaraan");
+    const swSertifikat = $("#swSertifikat");
+    const swBeasiswa = $("#swBeasiswa");
+    const swOrganisasi = $("#swOrganisasi");
+
+    function toggleKejuaraan() {
+        if (swKejuaraan.prop("checked")) {
+            $("#grupSwKejuaraan").show();
+            $(".grupAddKejuaraan").show();
+            $("#grupNoKejuaraan").show();
+            $("#btnKejuaraan").show();
+            $(".kejuaraan").prop("required", true);
+            $(".no_kejuaraan").prop("required", true);
+        } else {
+            $("#grupSwKejuaraan").hide();
+            $(".grupAddKejuaraan").hide();
+            $("#grupNoKejuaraan").hide();
+            $("#btnKejuaraan").hide();
+            $(".kejuaraan").prop("required", false);
+            $(".no_kejuaraan").prop("required", false);
+        }
+    }
+
+    function toggleSertifikat() {
+        if (swSertifikat.prop("checked")) {
+            $("#grupSwSertifikat").show();
+            $(".grupAddSertifikat").show();
+            $("#grupNoSertifikat").show();
+            $("#btnSertifikat").show();
+            $(".sertifikat").prop("required", true);
+            $(".no_sertifikat").prop("required", true);
+        } else {
+            $("#grupSwSertifikat").hide();
+            $(".grupAddSertifikat").hide();
+            $("#grupNoSertifikat").hide();
+            $("#btnSertifikat").hide();
+            $(".sertifikat").prop("required", false);
+            $(".no_sertifikat").prop("required", false);
+        }
+    }
+
+    function toggleBeasiswa() {
+        if (swBeasiswa.prop("checked")) {
+            $("#grupSwBeasiswa").show();
+            $(".grupAddBeasiswa").show();
+            $("#btnBeasiswa").show();
+            $(".beasiswa").prop("required", true);
+        } else {
+            $("#grupSwBeasiswa").hide();
+            $(".grupAddBeasiswa").hide();
+            $("#btnBeasiswa").hide();
+            $(".beasiswa").prop("required", false);
+        }
+    }
+
+    function toggleOrganisasi() {
+        if (swOrganisasi.prop("checked")) {
+            $("#grupSwOrganisasi").show();
+            $(".grupAddOrganisasi").show();
+            $("#grupJabatanOrganisasi").show();
+            $("#btnOrganisasi").show();
+            $(".organisasi").prop("required", true);
+            $(".jabatan_organisasi").prop("required", true);
+        } else {
+            $("#grupSwOrganisasi").hide();
+            $(".grupAddOrganisasi").hide();
+            $("#grupJabatanOrganisasi").hide();
+            $("#btnOrganisasi").hide();
+            $(".organisasi").prop("required", false);
+            $(".jabatan_organisasi").prop("required", false);
+        }
+    }
+
+
+    // Event listener untuk perubahan toggle
+    swKejuaraan.on("change", toggleKejuaraan);
+    swSertifikat.on("change", toggleSertifikat);
+    swBeasiswa.on("change", toggleBeasiswa);
+    swOrganisasi.on("change", toggleOrganisasi);
+
+    // Panggil fungsi untuk menyesuaikan kondisi awal saat halaman dimuat
+    toggleKejuaraan();
+    toggleSertifikat();
+    toggleBeasiswa();
+    toggleOrganisasi();
+
+
 
     $(document).ready(function() {
         let countKejuaraan = 1;
@@ -59,10 +146,10 @@
             $('.hapusKejuaraan').remove();
             let grupKejuaraan = `<div class="row mt-1 kejuaraan-item">
                                 <div class="col-md-4"></div>
-                                <div class="col-md-8">
+                                <div class="grupAddKejuaraan col-md-8" >
                                     <div class="input-group">
                                         <span class="input-group-text">${countKejuaraan}</span>
-                                        <input type="text" class="form-control" placeholder="JUARA 1 LOMBA KARYA TULIS ILMIAH TINGKAT NASIONAL" name="kejuaraan[]" required>
+                                        <input type="text" class="kejuaraan form-control" placeholder="Juara 1 Lomba Karya Tulis Ilmiah Tingkat Nasional" name="kejuaraan[]" required>
                                     </div>
                                 </div>
                             </div>`;
@@ -72,7 +159,7 @@
                                 <div class="col-md-8">
                                     <div class="input-group">
                                         <span class="input-group-text">${countKejuaraan}</span>
-                                        <input type="text" class="form-control" placeholder="120/KTI/Nas/2022" name="no_kejuaraan[]" required>
+                                        <input type="text" class="kejuaraan form-control" placeholder="120/KTI/Nas/2022" name="no_kejuaraan[]" required>
                                     </div>
                                 </div>
                             </div>`;
@@ -105,10 +192,10 @@
             $('.hapusSertifikat').remove();
             let grupSertifikat = `<div class="row mt-1 sertifikat-item">
                                 <div class="col-md-4"></div>
-                                <div class="col-md-8">
+                                <div class="grupAddSertifikat col-md-8">
                                     <div class="input-group">
                                         <span class="input-group-text">${countSertifikat}</span>
-                                        <input class="form-control" type="text" placeholder="LEMBAGA SERTIFIKASI PROFESI - NETWORK ENGINEER" id="sertifikat"
+                                        <input class="sertifikat form-control" type="text" placeholder="Lembaga Sertifikasi Profesi - Network Engineer"
                                                 name="sertifikat[]" required>
                                     </div>
                                 </div>
@@ -119,7 +206,7 @@
                                 <div class="col-md-8">
                                     <div class="input-group">
                                         <span class="input-group-text">${countSertifikat}</span>
-                                        <input type="text" class="form-control" placeholder="62022 3 00552 2022" id="no_sertifikat" name="no_sertifikat[]"
+                                        <input type="text" class="no_sertifikat form-control" placeholder="62022 3 00552 2022" name="no_sertifikat[]"
                                                             required>
                                     </div>
                                 </div>
@@ -153,20 +240,17 @@
             countBeasiswa++;
             $('.hapusBeasiswa').remove();
             let grupBeasiswa = `<div class="row mt-1 beasiswa-item">
-                                            <div class="col-md-2">
-                                            </div>
-                                            <div class="col">
+                                            <div class="col-md-2"></div>
+                                            <div class="grupAddBeasiswa col">
                                                 <div class="input-group">
                                                     <span class="input-group-text">${countBeasiswa}</span>
-                                                    <input type="text" class="form-control" placeholder="BEASISWA KIP 2022 GANJIL" name="beasiswa[]" required>
+                                                    <input type="text" class="beasiswa form-control" placeholder="Beasiswa KIP 2022" name="beasiswa[]" required>
                                                 </div>
                                             </div>
                                         </div>`;
 
             let hapusBeasiswa =
                 `<button type="button" class="btn btn-xs btn-danger hapusBeasiswa"><i class="bx bx-minus" style="font-size: 10px;"></i></button>`;
-
-            console.log(hapusBeasiswa);
 
             $('#grupBeasiswa').append(grupBeasiswa);
             $('#btnBeasiswa').append(hapusBeasiswa);
@@ -191,21 +275,21 @@
             $('.hapusOrganisasi').remove();
             let grupOrganisasi = `<div class="row mt-1 organisasi-item">
                                 <div class="col-md-4"></div>
-                                <div class="col-md-8">
+                                <div class="grupAddOrganisasi col-md-8">
                                     <div class="input-group">
                                         <span class="input-group-text">${countOrganisasi}</span>
-                                        <input class="form-control" type="text" placeholder="BADAN EKSEKUTIF MAHASISWA 2022-2023" id="organisasi"
+                                        <input class="organisasi form-control" type="text" placeholder="Badan Eksekutif Mahasiswa 2022-2023"
                                                 name="organisasi[]" required>
                                     </div>
                                 </div>
                             </div>`;
 
-            let grupJabatanOrganisasi = `<div class="row mt-1 no-organisasi-item">
+            let grupJabatanOrganisasi = `<div class="row mt-1 jabatan-organisasi-item">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-8">
                                     <div class="input-group">
                                         <span class="input-group-text">${countOrganisasi}</span>
-                                        <input type="text" class="form-control" placeholder="KETUA" id="no_Organisasi" name="no_organisasi[]"
+                                        <input type="text" class="jabatan_organisasi form-control" placeholder="Ketua" name="jabatan_organisasi[]"
                                                             required>
                                     </div>
                                 </div>
@@ -222,7 +306,7 @@
         $(document).on('click', '.hapusOrganisasi', function() {
             countOrganisasi--;
             let lastOrganisasi = $('#grupOrganisasi .organisasi-item');
-            let lastJabatanOrganisasi = $('#grupJabatanOrganisasi .no-organisasi-item');
+            let lastJabatanOrganisasi = $('#grupJabatanOrganisasi .jabatan-organisasi-item');
 
             if (lastOrganisasi.length > 0 && lastJabatanOrganisasi.length > 0) {
                 lastOrganisasi.last().remove();
@@ -230,7 +314,7 @@
             }
 
             // Jika hanya tersisa satu set, hapus tombol hapus
-            if ($('#grupOrganisasi .organisasi-item').length === 0 && $('#grupJabatanOrganisasi .no-organisasi-item').length === 0) {
+            if ($('#grupOrganisasi .organisasi-item').length === 0 && $('#grupJabatanOrganisasi .jabatan-organisasi-item').length === 0) {
                 $('.hapusOrganisasi').remove();
             }
         });

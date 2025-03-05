@@ -97,27 +97,73 @@ class ForpiSubmit extends Controller
         $jabatan_organisasi = $request->input('jabatan_organisasi', []);
 
         $kejuaraan_formatted = [];
-        foreach ($kejuaraan as $index => $nama_kejuaraan) {
-            if (!empty($nama_kejuaraan) && isset($no_kejuaraan[$index]) && !empty($no_kejuaraan[$index])) {
-                $kejuaraan_formatted[] = "{$nama_kejuaraan} ({$no_kejuaraan[$index]})";
+        if (count($kejuaraan) > 1) {
+            $i = 1;
+            foreach ($kejuaraan as $index => $nama_kejuaraan) {
+                if (!empty($nama_kejuaraan) && isset($no_kejuaraan[$index]) && !empty($no_kejuaraan[$index])) {
+                    $kejuaraan_formatted[] = "{$i}. {$nama_kejuaraan} ({$no_kejuaraan[$index]})";
+                    $i++;
+                }
+            }
+        } else {
+            foreach ($kejuaraan as $index => $nama_kejuaraan) {
+                if (!empty($nama_kejuaraan) && isset($no_kejuaraan[$index]) && !empty($no_kejuaraan[$index])) {
+                    $kejuaraan_formatted[] = "{$nama_kejuaraan} ({$no_kejuaraan[$index]})";
+                }
             }
         }
+
 
         $sertifikat_formatted = [];
-        foreach ($sertifikat as $index => $nama_sertifikat) {
-            if (!empty($nama_sertifikat) && isset($no_sertifikat[$index]) && !empty($no_sertifikat[$index])) {
-                $sertifikat_formatted[] = "{$nama_sertifikat} ({$no_sertifikat[$index]})";
+        if (count($kejuaraan) > 1) {
+            $i = 1;
+            foreach ($sertifikat as $index => $nama_sertifikat) {
+                if (!empty($nama_sertifikat) && isset($no_sertifikat[$index]) && !empty($no_sertifikat[$index])) {
+                    $sertifikat_formatted[] = "{$i}.{$nama_sertifikat} ({$no_sertifikat[$index]})";
+                    $i++;
+                }
+            }
+        } else {
+            foreach ($sertifikat as $index => $nama_sertifikat) {
+                if (!empty($nama_sertifikat) && isset($no_sertifikat[$index]) && !empty($no_sertifikat[$index])) {
+                    $sertifikat_formatted[] = "{$nama_sertifikat} ({$no_sertifikat[$index]})";
+                }
             }
         }
-
         $beasiswa_formatted = array_filter($beasiswa, fn($nama) => !empty($nama));
 
+        if (count($beasiswa_formatted) > 1) {
+            $i = 1;
+            $beasiswa_formatted = array_map(
+                fn($nama) => "{$i}.{$nama}",
+                $beasiswa_formatted
+            );
+            $i++;
+        } else {
+            $beasiswa_formatted = array_map(
+                fn($nama) => "{$nama}",
+                $beasiswa_formatted
+            );
+        }
+
+
         $organisasi_formatted = [];
-        foreach ($organisasi as $index => $nama_organisasi) {
-            if (!empty($nama_organisasi) && isset($jabatan_organisasi[$index]) && !empty($jabatan_organisasi[$index])) {
-                $organisasi_formatted[] = "{$nama_organisasi} ({$jabatan_organisasi[$index]})";
+        if (count($kejuaraan) > 1) {
+            $i = 1;
+            foreach ($organisasi as $index => $nama_organisasi) {
+                if (!empty($nama_organisasi) && isset($jabatan_organisasi[$index]) && !empty($jabatan_organisasi[$index])) {
+                    $organisasi_formatted[] = "{$i}.{$nama_organisasi} ({$jabatan_organisasi[$index]})";
+                    $i++;
+                }
+            }
+        } else {
+            foreach ($organisasi as $index => $nama_organisasi) {
+                if (!empty($nama_organisasi) && isset($jabatan_organisasi[$index]) && !empty($jabatan_organisasi[$index])) {
+                    $organisasi_formatted[] = "{$nama_organisasi} ({$jabatan_organisasi[$index]})";
+                }
             }
         }
+
         try {
             Submit::updateOrCreate(
                 [

@@ -8,13 +8,14 @@
                             <div class="card-title mb-3">
                                 <div class="text-center">
                                     <h4>Formulir Pengajuan Surat Keterangan Pendamping Ijazah</h4>
-                                    <h5 class="card-subtitle text-muted">Biro Administrasi Akademik dan Kemahasiswaan UNBL</h5>
                                 </div>
-
+                                <div class="divider mb-5">
+                                    <div class="divider-text text-muted">Biro Administrasi Akademik dan Kemahasiswaan UNBL</div>
+                                </div>
                                 <form id="forpiForm" action="{{ route('forpi_submit_store') }}" method="POST">
                                     @csrf
                                     <div class="row mt-3">
-                                        <label for="nama" class="col-md-2 col-form-label">Nama Lengkap</label>
+                                        <label for="nama" class="col-md-2 col-form-label">Nama Lengkap<span class="required text-danger">*</span></label>
                                         <div class="col">
                                             <input type="text" class="form-control" placeholder="..." id="nama" name="nama" required value="{{ $mahasiswa->nama }}">
                                         </div>
@@ -25,12 +26,12 @@
                                     </div>
 
                                     <div class="row mt-3">
-                                        <label for="tempat" class="col-md-2 col-form-label">Tempat Lahir</label>
+                                        <label for="tempat" class="col-md-2 col-form-label">Tempat Lahir<span class="required text-danger">*</span></label>
                                         <div class="col">
                                             <input class="form-control" type="text" placeholder="..." id="tempat" name="tempat_lahir" required
                                                 value="{{ $mahasiswa->tempat_lahir }}">
                                         </div>
-                                        <label for="tanggal" class="col-md-2 col-form-label">Tanggal Lahir</label>
+                                        <label for="tanggal" class="col-md-2 col-form-label">Tanggal Lahir<span class="required text-danger">*</span></label>
                                         <div class="col">
                                             <input type="text" id="tanggal" name="tanggal_lahir" class="form-control" placeholder="Pilih Tanggal"
                                                 value="{{ \Carbon\Carbon::parse($mahasiswa->tanggal_lahir)->format('d/m/Y') }}" readonly
@@ -68,13 +69,13 @@
 
 
                                     <div class="row mt-3">
-                                        <label for="masuk" class="col-md-2 col-form-label">Tahun Masuk</label>
+                                        <label for="masuk" class="col-md-2 col-form-label">Tahun Masuk<span class="required text-danger">*</span></label>
                                         <div class="col">
                                             <input type="text" id="masuk" name="masuk" class="form-control" placeholder="Pilih Tahun" required
                                                 style="cursor: default; background-color: #fff; caret-color: transparent;">
 
                                         </div>
-                                        <label for="yudisium" class="col-md-2 col-form-label">Tanggal Yudisium</label>
+                                        <label for="yudisium" class="col-md-2 col-form-label">Tanggal Yudisium<span class="required text-danger">*</span></label>
                                         <div class="col">
                                             <input type="text" id="yudisium" name="yudisium" class="form-control" placeholder="Pilih Tanggal" required
                                                 style="cursor: default; background-color: #fff; caret-color: transparent;">
@@ -82,7 +83,7 @@
                                     </div>
 
                                     <div class="row mt-3">
-                                        <label for="judul" class="col-md-2 col-form-label">Judul Skripsi / LTA / KTI</label>
+                                        <label for="judul" class="col-md-2 col-form-label">Judul Skripsi / LTA / KTI<span class="required text-danger">*</span></label>
                                         <div class="col">
                                             <textarea class="form-control" placeholder="..." id="judul" rows="2" name="judul" required></textarea>
                                         </div>
@@ -94,9 +95,9 @@
                                             <input class="form-control" type="text" placeholder="..." id="pisn" name="pisn" disabled
                                                 value="{{ $mahasiswa->pisn }}">
                                         </div>
-                                        <label for="toefl" class="col-md-2 col-form-label">Nilai TOEFL</label>
+                                        <label for="toefl" class="col-md-2 col-form-label">Nilai TOEFL <small class="text-muted">(Opsional)</small></label>
                                         <div class="col">
-                                            <input class="form-control" type="number" placeholder="..." id="toefl" name="toefl" required>
+                                            <input class="form-control" type="number" placeholder="..." id="toefl" name="toefl">
                                         </div>
                                     </div>
 
@@ -104,13 +105,17 @@
                                         <div id="grupKejuaraan" class="col-md-6">
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label for="kejuaraan" class="form-label col-form-label">Kejuaraan</label>
+                                                    <label for="kejuaraan" class="form-label col-form-label">Kejuaraan
+                                                        <span class="float-end form-check form-switch ms-1 mb-0">
+                                                            <input id="swKejuaraan" class="form-check-input" type="checkbox">
+                                                        </span>
+                                                    </label>
                                                 </div>
-                                                <div class="col-md-8">
+                                                <div class=" col-md-8" id="grupSwKejuaraan">
                                                     <div class="input-group">
                                                         <span class="input-group-text">1</span>
-                                                        <input type="text" class="form-control" placeholder="Juara 1 Lomba Karya Tulis Ilmiah Tingkat Nasional"
-                                                            id="kejuaraan" name="kejuaraan[]">
+                                                        <input type="text" class="kejuaraan form-control" placeholder="Juara 1 Lomba Karya Tulis Ilmiah Tingkat Nasional"
+                                                            name="kejuaraan[]">
                                                     </div>
                                                 </div>
                                             </div>
@@ -123,7 +128,7 @@
                                                 <div class="col-md-8">
                                                     <div class="input-group">
                                                         <span class="input-group-text">1</span>
-                                                        <input type="text" class="form-control" placeholder="120/KTI/Nas/2022" id="no_kejuaraan" name="no_kejuaraan[]">
+                                                        <input type="text" class="kejuaraan form-control" placeholder="120/KTI/Nas/2022" name="no_kejuaraan[]">
                                                     </div>
                                                 </div>
                                             </div>
@@ -137,12 +142,16 @@
                                         <div id="grupSertifikat" class="col-md-6">
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label for="sertifikat" class="form-label col-form-label">Sertifikat</label>
+                                                    <label for="sertifikat" class="form-label col-form-label">Sertifikat
+                                                        <span class="float-end form-check form-switch ms-1 mb-0">
+                                                            <input id="swSertifikat" class="form-check-input" type="checkbox">
+                                                        </span>
+                                                    </label>
                                                 </div>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8" id="grupSwSertifikat">
                                                     <div class="input-group">
                                                         <span class="input-group-text">1</span>
-                                                        <input type="text" class="form-control" placeholder="Lembaga Sertifikasi Profesi - Network Engineer" id="sertifikat"
+                                                        <input type="text" class="sertifikat form-control" placeholder="Lembaga Sertifikasi Profesi - Network Engineer"
                                                             name="sertifikat[]">
                                                     </div>
                                                 </div>
@@ -156,7 +165,7 @@
                                                 <div class="col-md-8">
                                                     <div class="input-group">
                                                         <span class="input-group-text">1</span>
-                                                        <input type="text" class="form-control" placeholder="62022 3 00552 2022" id="no_sertifikat" name="no_sertifikat[]">
+                                                        <input type="text" class="sertifikat form-control" placeholder="62022 3 00552 2022" name="no_sertifikat[]">
                                                     </div>
                                                 </div>
                                             </div>
@@ -169,12 +178,16 @@
                                     <div id="grupBeasiswa">
                                         <div class="row mt-3">
                                             <div class="col-md-2">
-                                                <label for="beasiswa" class="col-form-label">Beasiswa</label>
+                                                <label for="beasiswa" class="col-form-label">Beasiswa
+                                                    <span class="float-end form-check form-switch ms-1 mb-0">
+                                                        <input id="swBeasiswa" class="form-check-input" type="checkbox">
+                                                    </span>
+                                                </label>
                                             </div>
-                                            <div class="col">
+                                            <div class="col" id="grupSwBeasiswa">
                                                 <div class="input-group">
                                                     <span class="input-group-text">1</span>
-                                                    <input type="text" class="form-control" placeholder="Beasiswa KIP 2022" id="beasiswa" name="beasiswa[]">
+                                                    <input type="text" class="beasiswa form-control" placeholder="Beasiswa KIP 2022" name="beasiswa[]">
                                                 </div>
                                             </div>
                                         </div>
@@ -187,12 +200,16 @@
                                         <div id="grupOrganisasi" class="col-md-6">
                                             <div class="row">
                                                 <div class="col-md-4">
-                                                    <label for="organisasi" class="form-label col-form-label">Organisasi</label>
+                                                    <label for="organisasi" class="form-label col-form-label">organisasi
+                                                        <span class="float-end form-check form-switch ms-1 mb-0">
+                                                            <input id="swOrganisasi" class="form-check-input" type="checkbox">
+                                                        </span>
+                                                    </label>
                                                 </div>
-                                                <div class="col-md-8">
+                                                <div class="col-md-8" id="grupSwOrganisasi">
                                                     <div class="input-group">
                                                         <span class="input-group-text">1</span>
-                                                        <input type="text" class="form-control" placeholder="BADAN EKSEKUTIF MAHASISWA 2022-2023" id="organisasi"
+                                                        <input type="text" class="organisasi form-control" placeholder="Badan Eksekutif Mahasiswa 2022-2023"
                                                             name="organisasi[]">
                                                     </div>
                                                 </div>
@@ -206,7 +223,7 @@
                                                 <div class="col-md-8">
                                                     <div class="input-group">
                                                         <span class="input-group-text">1</span>
-                                                        <input type="text" class="form-control" placeholder="KETUA" id="jabatan_organisasi" name="jabatan_organisasi[]">
+                                                        <input type="text" class="jabatan_organisasi form-control" placeholder="Ketua" name="jabatan_organisasi[]">
                                                     </div>
                                                 </div>
                                             </div>
@@ -216,7 +233,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="d-flex justify-content-center mt-5">
+                                    <div class="d-flex justify-content-center mt-4">
                                         <button type="submit" class="btn btn-primary">Kirim</button>
                                     </div>
                                 </form>
