@@ -36,6 +36,9 @@
     <!-- Datatables CSS -->
     <link href="https://cdn.datatables.net/v/bs5/jszip-3.10.1/dt-2.1.8/b-3.2.0/b-html5-3.2.0/r-3.0.3/datatables.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.min.css">
+
+
     <style>
         .spinner_ajPY {
             transform-origin: center;
@@ -46,6 +49,20 @@
             100% {
                 transform: rotate(360deg)
             }
+        }
+
+        .flatpickr-innerContainer {
+            display: none !important;
+        }
+
+        .swal2-container {
+            z-index: 9999 !important;
+            /* Pastikan Swal di atas semua elemen */
+        }
+
+        .swal2-popup {
+            z-index: 90000 !important;
+            /* Popup Swal lebih tinggi dari backdrop */
         }
     </style>
 
@@ -115,6 +132,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.5.3/air-datepicker.min.js"></script>
+
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 
@@ -124,8 +143,6 @@
     @endif
 
     @include('auth.scripts.toasts')
-
-
 
 </body>
 

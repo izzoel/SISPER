@@ -13,10 +13,14 @@
 
                                 <form id="forpiForm" action="{{ route('forpi_submit_store') }}" method="POST">
                                     @csrf
-                                    <div class="row mt-5">
+                                    <div class="row mt-3">
                                         <label for="nama" class="col-md-2 col-form-label">Nama Lengkap</label>
                                         <div class="col">
                                             <input type="text" class="form-control" placeholder="..." id="nama" name="nama" required value="{{ $mahasiswa->nama }}">
+                                        </div>
+                                        <label for="nim" class="col-md-2 col-form-label">NIM</label>
+                                        <div class="col">
+                                            <input class="form-control" type="text" placeholder="..." id="nim" name="nim" disabled value="{{ $mahasiswa->nim }}">
                                         </div>
                                     </div>
 
@@ -28,14 +32,16 @@
                                         </div>
                                         <label for="tanggal" class="col-md-2 col-form-label">Tanggal Lahir</label>
                                         <div class="col">
-                                            <input class="form-control" type="date" id="tanggal" name="tanggal_lahir" required value="{{ $mahasiswa->tanggal_lahir }}">
+                                            <input type="text" id="tanggal" name="tanggal_lahir" class="form-control" placeholder="Pilih Tanggal"
+                                                value="{{ \Carbon\Carbon::parse($mahasiswa->tanggal_lahir)->format('d/m/Y') }}" readonly
+                                                style=" cursor: default; background-color: #fff;">
                                         </div>
                                     </div>
 
                                     <div class="row mt-3">
                                         <label for="prodi" class="col-md-2 col-form-label">Program Studi</label>
                                         <div class="col">
-                                            <select class="form-select" id="prodi" name="prodi" required>
+                                            <select class="form-select" id="prodi" name="prodi" disabled>
                                                 <option disabled>-- Pilih --</option>
                                                 <option disabled>-[Fakultas Farmasi ]-</option>
                                                 <option value="SARJANA FARMASI" @selected($mahasiswa->prodi == 'SARJANA FARMASI')>&nbsp;&nbsp;&nbsp;Sarjana Farmasi</option>
@@ -53,18 +59,25 @@
                                                 <option value="SARJANA PENDIDIKAN GURU SEKOLAH DASAR" @selected($mahasiswa->prodi == 'SARJANA PENDIDIKAN GURU SEKOLAH DASAR')>&nbsp;&nbsp;&nbsp;Sarjana Pendidikan Guru Sekolah
                                                     Dasar</option>
                                             </select>
-
+                                        </div>
+                                        <label for="gelar" class="col-md-2 col-form-label">Gelar</label>
+                                        <div class="col">
+                                            <input class="form-control" type="text" id="gelar" name="gelar" disabled value="{{ $gelar }}">
                                         </div>
                                     </div>
 
+
                                     <div class="row mt-3">
-                                        <label for="nim" class="col-md-2 col-form-label">Nomor Induk Mahasiswa (NIM)</label>
+                                        <label for="masuk" class="col-md-2 col-form-label">Tahun Masuk</label>
                                         <div class="col">
-                                            <input class="form-control" type="text" placeholder="..." id="nim" name="nim" disabled value="{{ $mahasiswa->nim }}">
+                                            <input type="text" id="masuk" name="masuk" class="form-control" placeholder="Pilih Tahun" required
+                                                style="cursor: default; background-color: #fff; caret-color: transparent;">
+
                                         </div>
-                                        <label for="studi" class="col-md-2 col-form-label">Lama Studi</label>
+                                        <label for="yudisium" class="col-md-2 col-form-label">Tanggal Yudisium</label>
                                         <div class="col">
-                                            <input class="form-control" type="number" placeholder="..." id="studi" name="studi" required>
+                                            <input type="text" id="yudisium" name="yudisium" class="form-control" placeholder="Pilih Tanggal" required
+                                                style="cursor: default; background-color: #fff; caret-color: transparent;">
                                         </div>
                                     </div>
 
@@ -78,7 +91,8 @@
                                     <div class="row mt-3">
                                         <label for="pisn" class="col-md-2 col-form-label">Nomor Ijazah (PISN)</label>
                                         <div class="col">
-                                            <input class="form-control" type="text" placeholder="..." id="pisn" name="pisn" disabled value="{{ $mahasiswa->pisn }}">
+                                            <input class="form-control" type="text" placeholder="..." id="pisn" name="pisn" disabled
+                                                value="{{ $mahasiswa->pisn }}">
                                         </div>
                                         <label for="toefl" class="col-md-2 col-form-label">Nilai TOEFL</label>
                                         <div class="col">

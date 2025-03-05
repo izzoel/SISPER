@@ -1,7 +1,53 @@
 <script>
-    $('#judul').on('keyup', function() {
-        this.value = this.value.toUpperCase();
+    ["#nama", "#tempat", '#judul'].forEach(function(selector) {
+        $(selector).on('keyup', function() {
+            this.value = this.value.toUpperCase();
+        });
     });
+
+    var parts = $("#tanggal").val().split("/"); // Pisahkan berdasarkan "-"
+    var formattedTanggal = parts[2] + "-" + parts[1] + "-" + parts[0]; // Susun kembali jadi yyyy-mm-dd
+
+    document.addEventListener("DOMContentLoaded", function() {
+        new AirDatepicker('#tanggal', {
+            selectedDates: [new Date(formattedTanggal)],
+            dateFormat: 'dd/MM/yyyy',
+            autoClose: true,
+            locale: {
+                days: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
+                daysShort: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
+                daysMin: ['Mg', 'Sn', 'Sl', 'Rb', 'Km', 'Jm', 'Sb'],
+                months: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+                monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+                today: 'Hari Ini',
+                clear: 'Hapus',
+                firstDay: 1
+            }
+        });
+
+        new AirDatepicker('#masuk', {
+            view: 'years',
+            minView: 'years',
+            dateFormat: 'yyyy',
+            autoClose: true
+        });
+
+        new AirDatepicker('#yudisium', {
+            dateFormat: 'dd/MM/yyyy',
+            autoClose: true,
+            locale: {
+                days: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
+                daysShort: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
+                daysMin: ['Mg', 'Sn', 'Sl', 'Rb', 'Km', 'Jm', 'Sb'],
+                months: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+                monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+                today: 'Hari Ini',
+                clear: 'Hapus',
+                firstDay: 1
+            }
+        });
+    });
+
 
     $(document).ready(function() {
         let countKejuaraan = 1;
@@ -206,14 +252,34 @@
             });
 
             if (accept) {
-                Swal.fire(
-                    'Sipp!',
-                    'Data berhasil dikirim.',
-                    'success'
-                );
-                this.submit();
+                this.submit(); // Kirim formulir
             }
-
         });
     });
 </script>
+
+@if (session('submit'))
+    <script>
+        $(document).ready(function() {
+            let timerInterval;
+            Swal.fire({
+                icon: "success",
+                title: "Sipp! Udah dikirim!",
+                html: "Anda akan logout dalam <b></b>",
+                timer: 5000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                    const timer = Swal.getPopup().querySelector("b");
+                    timerInterval = setInterval(() => {
+                        timer.textContent = `${Swal.getTimerLeft()}`;
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                    window.location.href = "{{ route('logout') }}"; // Logout setelah Swal ditutup
+                }
+            });
+        });
+    </script>
+@endif
