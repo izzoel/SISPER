@@ -71,13 +71,13 @@
                                     <div class="row mt-3">
                                         <label for="masuk" class="col-md-2 col-form-label">Tahun Masuk<span class="required text-danger">*</span></label>
                                         <div class="col">
-                                            <input type="text" id="masuk" name="masuk" class="form-control" placeholder="Pilih Tahun" required
+                                            <input type="text" id="masuk" name="masuk" class="form-control" placeholder="Pilih Tahun"
                                                 style="cursor: default; background-color: #fff; caret-color: transparent;">
 
                                         </div>
                                         <label for="yudisium" class="col-md-2 col-form-label">Tanggal Yudisium<span class="required text-danger">*</span></label>
                                         <div class="col">
-                                            <input type="text" id="yudisium" name="yudisium" class="form-control" placeholder="Pilih Tanggal" required
+                                            <input type="text" id="yudisium" name="yudisium" class="form-control" placeholder="Pilih Tanggal"
                                                 style="cursor: default; background-color: #fff; caret-color: transparent;">
                                         </div>
                                     </div>
@@ -85,7 +85,7 @@
                                     <div class="row mt-3">
                                         <label for="judul" class="col-md-2 col-form-label">Judul Skripsi / LTA / KTI<span class="required text-danger">*</span></label>
                                         <div class="col">
-                                            <textarea class="form-control" placeholder="..." id="judul" rows="2" name="judul" required></textarea>
+                                            <textarea class="form-control" placeholder="..." id="judul" rows="2" name="judul"></textarea>
                                         </div>
                                     </div>
 

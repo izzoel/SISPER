@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
+use Exception;
 use Google\Client;
 use Google\Service\Docs;
 use Google\Service\Drive;
 use Google\Service\Drive\DriveFile;
+use Illuminate\Support\Facades\Log;
 use Google\Service\Drive\Permission;
-use Exception;
 
 class GoogleService
 {
@@ -73,22 +74,145 @@ class GoogleService
 
     public function replaceText($documentId, $replacements)
     {
+        $ranges = [];
         $requests = [];
+        $allowedPlaceholders = ['kejuaraan', 'sertifikat', 'beasiswa', 'organisasi'];
 
         foreach ($replacements as $placeholder => $value) {
-            $requests[] = [
-                'replaceAllText' => [
-                    'containsText' => [
-                        'text' => "{{" . $placeholder . "}}",
-                        'matchCase' => true,
+            $placeholderText = "{{" . $placeholder . "}}";
+
+            if (in_array($placeholder, $allowedPlaceholders) && strpos($value, "\n") !== false) {
+                $ranges[$placeholder] = $this->replaceTextInTable($documentId, $placeholderText, $value, $placeholder);
+            } else {
+                $requests[] = [
+                    'replaceAllText' => [
+                        'containsText' => [
+                            'text' => $placeholderText,
+                            'matchCase' => true,
+                        ],
+                        'replaceText' => $value,
                     ],
-                    'replaceText' => $value,
-                ],
-            ];
+                ];
+            }
         }
 
-        return $this->docsService->documents->batchUpdate($documentId, new \Google\Service\Docs\BatchUpdateDocumentRequest([
+        $this->docsService->documents->batchUpdate($documentId, new \Google\Service\Docs\BatchUpdateDocumentRequest([
             'requests' => $requests,
         ]));
+    }
+
+
+    public function replaceTextInTable($documentId, $placeholderText, $value, $placeholder)
+    {
+        $document = $this->docsService->documents->get($documentId);
+        $requests = [];
+        $allowedPlaceholders = ['kejuaraan', 'sertifikat', 'beasiswa', 'organisasi'];
+        $range = null;
+
+        foreach ($document->getBody()->getContent() as $element) {
+            if (isset($element->table)) {
+                foreach ($element->table->tableRows as $rowIndex => $row) {
+                    foreach ($row->tableCells as $cellIndex => $cell) {
+                        foreach ($cell->content as $cellElement) {
+                            if (isset($cellElement->paragraph)) {
+                                foreach ($cellElement->paragraph->elements as $textRunIndex => $textRun) {
+                                    if (isset($textRun->textRun)) {
+                                        $text = $textRun->textRun->content;
+                                        if (strpos($text, $placeholderText) !== false) {
+                                            $startIndex = $textRun->startIndex;
+
+                                            $items = array_filter(explode("\n", trim($value)), 'strlen');
+                                            $insertRequests = [];
+
+                                            $deleteRequest = [
+                                                'replaceAllText' => [
+                                                    'containsText' => [
+                                                        'text' => $placeholderText,
+                                                        'matchCase' => true,
+                                                    ],
+                                                    'replaceText' => "",
+                                                ]
+                                            ];
+
+                                            $newStart = $startIndex;
+                                            $textLength = 0;
+
+                                            $itemCount = count($items);
+                                            for ($i = $itemCount - 1; $i >= 0; $i--) {
+                                                $cleanedText = trim($items[$i]);
+
+                                                $insertRequests[] = [
+                                                    'insertText' => [
+                                                        'location' => ['index' => $startIndex],
+                                                        'text' => ($i < $itemCount - 1) ? $cleanedText . "\n" : $cleanedText,
+                                                    ]
+                                                ];
+
+                                                $textLength += strlen($cleanedText) + ($i < $itemCount - 1 ? 1 : 0);
+                                            }
+
+                                            $newEnd = $newStart + $textLength;
+
+                                            if ($items) {
+                                                $range = ['startIndex' => $newStart, 'endIndex' => $newEnd];
+                                            }
+
+                                            $requests = array_merge([$deleteRequest], $insertRequests);
+
+                                            if ($range && in_array($placeholder, $allowedPlaceholders)) {
+                                                $requests[] = [
+                                                    'updateTextStyle' => [
+                                                        'range' => [
+                                                            'startIndex' => $newStart,
+                                                            'endIndex' => $newEnd,
+                                                        ],
+                                                        'textStyle' => [
+                                                            'bold' => false,
+                                                            'italic' => false,
+                                                        ],
+                                                        'fields' => 'bold,italic'
+                                                    ]
+                                                ];
+
+                                                $requests[] = [
+                                                    'createParagraphBullets' => [
+                                                        'range' => [
+                                                            'startIndex' => $newStart,
+                                                            'endIndex' => $newEnd,
+                                                        ],
+                                                        'bulletPreset' => 'NUMBERED_DECIMAL_ALPHA_ROMAN'
+                                                    ]
+                                                ];
+
+                                                $requests[] = [
+                                                    'updateParagraphStyle' => [
+                                                        'range' => [
+                                                            'startIndex' => $newStart,
+                                                            'endIndex' => $newEnd,
+                                                        ],
+                                                        'paragraphStyle' => [
+                                                            'indentFirstLine' => ['magnitude' => 0.0, 'unit' => 'PT'],
+                                                            'indentStart' => ['magnitude' => 9.36, 'unit' => 'PT'],
+                                                        ],
+                                                        'fields' => 'indentFirstLine,indentStart'
+                                                    ]
+                                                ];
+                                            }
+
+                                            if (!empty($requests)) {
+                                                $this->docsService->documents->batchUpdate($documentId, new \Google\Service\Docs\BatchUpdateDocumentRequest([
+                                                    'requests' => $requests,
+                                                ]));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return $range;
     }
 }
