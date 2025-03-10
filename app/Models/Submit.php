@@ -23,5 +23,6 @@ class Submit extends Model
         'beasiswa',
         'organisasi',
         'status',
+        'dokumen'
     ];
 }

@@ -289,6 +289,13 @@ class ForpiSubmit extends Controller
         $array_organisasi = $organisasi_formatted ? implode("\n", $organisasi_formatted) : '-';
 
         try {
+            $newDocTitle = "SKPI--" . $request->nama . "--" . date('d/m/Y H:i:s');
+            $newDocId = $this->googleService->duplicateDocument($newDocTitle);
+
+            $bulanAngka = Mahasiswa::where('nim', session('nim'))->first()->created_at->format('m');
+            $t_bulan = $romawiBulan[$bulanAngka];
+            $t_tahun = Mahasiswa::where('nim', session('nim'))->first()->created_at->format('Y');
+
             Submit::updateOrCreate(
                 [
                     'nim' => session('nim')
@@ -308,16 +315,10 @@ class ForpiSubmit extends Controller
                     'sertifikat' => $array_sertifikat,
                     'beasiswa' => $array_beasiswa,
                     'organisasi' => $array_organisasi,
-                    'status' => 'baru'
+                    'status' => 'baru',
+                    'dokumen' => 'https://docs.google.com/document/d/' . $newDocId . '/edit?tab=t.0'
                 ]
             );
-
-            $newDocTitle = "SKPI--" . $request->nama . "--" . date('d/m/Y H:i:s');
-            $newDocId = $this->googleService->duplicateDocument($newDocTitle);
-
-            $bulanAngka = Mahasiswa::where('nim', session('nim'))->first()->created_at->format('m');
-            $t_bulan = $romawiBulan[$bulanAngka];
-            $t_tahun = Mahasiswa::where('nim', session('nim'))->first()->created_at->format('Y');
 
             $data = [
                 'nim' => session('nim'),
@@ -346,7 +347,6 @@ class ForpiSubmit extends Controller
 
             return redirect()->back()->with('submit', 'Berhasil kirim!');
         } catch (\Exception $e) {
-            dd($e);
             return redirect()->back()->with('fail', 'Gagal kirim! ' . $e->getMessage());
         }
     }

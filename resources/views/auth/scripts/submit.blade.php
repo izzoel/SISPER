@@ -319,8 +319,11 @@
             }
         });
 
+
         $('#forpiForm').on('submit', async function(event) {
             event.preventDefault();
+
+            // Konfirmasi sebelum submit
             const {
                 value: accept
             } = await Swal.fire({
@@ -335,10 +338,57 @@
                 }
             });
 
-            if (accept) {
-                this.submit(); // Kirim formulir
-            }
+            if (!accept) return;
+
+            // Tampilkan loading sebelum submit
+            Swal.fire({
+                title: 'Mengirim data...',
+                html: 'Tungguin yaa, lagi dianterin kurir...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Gunakan AJAX untuk submit data
+            let formData = new FormData(this);
+            $.ajax({
+                url: this.action, // URL dari form
+                method: this.method, // Method dari form (POST/GET)
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    let timerInterval;
+                    Swal.fire({
+                        icon: "success",
+                        title: "Sipp! Udah dikirim!",
+                        html: "Anda akan logout dalam <b></b>",
+                        timer: 5000,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading();
+                            const timer = Swal.getPopup().querySelector("b");
+                            timerInterval = setInterval(() => {
+                                timer.textContent = `${Swal.getTimerLeft()}`;
+                            }, 100);
+                        },
+                        willClose: () => {
+                            clearInterval(timerInterval);
+                            window.location.href = "{{ route('logout') }}";
+                        }
+                    });
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Terjadi kesalahan saat mengirim data. Coba lagi!'
+                    });
+                }
+            });
         });
+
     });
 </script>
 
@@ -361,7 +411,7 @@
                 },
                 willClose: () => {
                     clearInterval(timerInterval);
-                    window.location.href = "{{ route('logout') }}"; // Logout setelah Swal ditutup
+                    window.location.href = "{{ route('logout') }}";
                 }
             });
         });

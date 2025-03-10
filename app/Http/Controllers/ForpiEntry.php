@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Submit;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
+use Yajra\DataTables\Facades\DataTables;
 
 class ForpiEntry extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $data = [
@@ -22,51 +20,42 @@ class ForpiEntry extends Controller
         return view('auth.forpi.pages.section', compact('data', 'entries'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function table()
     {
-        //
+        if (request()->ajax()) {
+            $entries = Submit::query();
+
+            return DataTables::eloquent($entries)
+                ->addIndexColumn()
+                ->addColumn('status', function ($entry) {
+                    $statusClass = $entry->status == 'baru' ? 'bg-label-warning'
+                        : ($entry->status == 'sudah print' ? 'bg-label-success' : 'bg-label-danger');
+
+                    return '<span class="badge rounded-pill ' . $statusClass . '">'
+                        . ($entry->status ? $entry->status : 'Belum') . '</span>';
+                })
+                ->addColumn('aksi', function ($entry) {
+                    return '<button class="btn btn-sm btn-primary print-btn" 
+                            data-nim="' . $entry->nim . '" 
+                            data-url="' . route('forpi_entry_print', $entry->nim) . '" 
+                            data-doc="' . $entry->dokumen . '">
+                            <i class="bx bx-printer"></i> Print
+                        </button>';
+                })
+                ->rawColumns(['status', 'aksi']) // Tambahkan status agar badge dirender dengan benar
+                ->make(true);
+        }
+
+        return view('auth.forpi.pages.section');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ForpiEntry $forpiEntry)
+    public function print($nim)
     {
-        //
-    }
+        // dd($nim);
+        $forpiEntry = Submit::where('nim', $nim)->first();
+        $forpiEntry->update(['status' => 'sudah print']);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ForpiEntry $forpiEntry)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ForpiEntry $forpiEntry)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ForpiEntry $forpiEntry)
-    {
-        //
+        return back();
     }
 }

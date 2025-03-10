@@ -27,8 +27,11 @@ Route::middleware([MenuMiddleware::class])->group(function () {
 
     Route::middleware([AdminOnlyMiddleware::class])->group(function () {
         Route::get('/forpi/entry', [ForpiEntry::class, 'index'])->name('forpi_entry');
+        Route::get('/forpi/entry/table', [ForpiEntry::class, 'table'])->name('forpi_entry_table');
+        Route::get('/forpi/entry/print/{nim}', [ForpiEntry::class, 'print'])->name('forpi_entry_print');
 
         Route::get('/forpi/mahasiswa', [ForpiMahasiswa::class, 'index'])->name('forpi_mahasiswa');
+        Route::get('/forpi/mahasiswa/table', [ForpiMahasiswa::class, 'table'])->name('forpi_mahasiswa_table');
         Route::get('/forpi/mahasiswa/show/{nim}', [ForpiMahasiswa::class, 'show'])->name('forpi_mahasiswa_show');
         Route::post('/forpi/mahasiswa/store', [ForpiMahasiswa::class, 'store'])->name('forpi_mahasiswa_store');
         Route::post('/forpi/mahasiswa/import', [ForpiMahasiswa::class, 'import'])->name('forpi_mahasiswa_import');
