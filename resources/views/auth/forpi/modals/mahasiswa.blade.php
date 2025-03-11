@@ -69,6 +69,7 @@
                                             <option value="DIPLOMA TIGA ANALIS KESEHATAN">&nbsp;&nbsp;&nbsp;Diploma Tiga Analis Kesehatan</option>
                                             <option value=" " disabled> </option>
                                             <option disabled>-[Fakultas Ilmu Sosial dan Humaniora ]-</option>
+                                            <option value="SARJANA BISNIS DIGITAL">&nbsp;&nbsp;&nbsp;Sarjana Bisnis Digital</option>
                                             <option value="SARJANA HUKUM">&nbsp;&nbsp;&nbsp;Sarjana Hukum</option>
                                             <option value="SARJANA MANAJEMEN">&nbsp;&nbsp;&nbsp;Sarjana Manajemen</option>
                                             <option value="SARJANA PENDIDIKAN GURU SEKOLAH DASAR">&nbsp;&nbsp;&nbsp;Sarjana Pendidikan Guru Sekolah Dasar</option>

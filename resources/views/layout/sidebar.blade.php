@@ -55,6 +55,14 @@
                   </a>
               </li>
 
+              <!-- Setting -->
+              <li class="menu-item {{ request()->url() == url('/forpi/setting') ? 'active' : '' }} ">
+                  <a href="{{ route('forpi_setting') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-cog"></i>
+                      <div data-i18n="Setting">Setting</div>
+                  </a>
+              </li>
+
               <li class="menu-item">
                   <a href="{{ route('logout') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bxs-left-arrow-alt"></i>

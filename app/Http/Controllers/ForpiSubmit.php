@@ -215,17 +215,7 @@ class ForpiSubmit extends Controller
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $romawiBulan = [
@@ -250,7 +240,6 @@ class ForpiSubmit extends Controller
         $no_sertifikat = $request->input('no_sertifikat', []);
 
         $beasiswa = $request->input('beasiswa', []);
-        $no_beasiswa = $request->input('beasiswa', []);
 
         $organisasi = $request->input('organisasi', []);
         $jabatan_organisasi = $request->input('jabatan_organisasi', []);
@@ -349,38 +338,5 @@ class ForpiSubmit extends Controller
         } catch (\Exception $e) {
             return redirect()->back()->with('fail', 'Gagal kirim! ' . $e->getMessage());
         }
-    }
-
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(ForpiSubmit $forpiSubmit)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ForpiSubmit $forpiSubmit)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ForpiSubmit $forpiSubmit)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ForpiSubmit $forpiSubmit)
-    {
-        //
     }
 }

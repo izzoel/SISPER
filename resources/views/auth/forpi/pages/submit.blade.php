@@ -73,7 +73,6 @@
                                         <div class="col">
                                             <input type="text" id="masuk" name="masuk" class="form-control" placeholder="Pilih Tahun" required
                                                 style="cursor: default; background-color: #fff; caret-color: transparent;">
-
                                         </div>
                                         <label for="yudisium" class="col-md-2 col-form-label">Tanggal Yudisium<span class="required text-danger">*</span></label>
                                         <div class="col">

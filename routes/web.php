@@ -4,11 +4,12 @@ use App\Http\Controllers\Portal;
 use App\Http\Controllers\ForpiPisn;
 use App\Http\Controllers\ForpiEntry;
 use App\Http\Controllers\ForpiSubmit;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ForpiSetting;
+use App\Http\Middleware\MenuMiddleware;
 use App\Http\Controllers\ForpiMahasiswa;
 use App\Http\Controllers\ForpiController;
 use App\Http\Middleware\AdminOnlyMiddleware;
-use App\Http\Middleware\MenuMiddleware;
-use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('guest.landing');
@@ -42,5 +43,10 @@ Route::middleware([MenuMiddleware::class])->group(function () {
         Route::delete('/forpi/mahasiswa/destroy/{nim}', [ForpiMahasiswa::class, 'destroy'])->name('forpi_mahasiswa_destroy');
 
         Route::post('/forpi/pisn/import', [ForpiPisn::class, 'import'])->name('forpi_pisn_import');
+
+        Route::get('/forpi/setting', [ForpiSetting::class, 'index'])->name('forpi_setting');
+        Route::get('/forpi/setting/table', [ForpiSetting::class, 'table'])->name('forpi_setting_table');
+        Route::get('/forpi/setting/show/{id}', [ForpiSetting::class, 'show'])->name('forpi_setting_show');
+        Route::put('/forpi/setting/update/{id}', [ForpiSetting::class, 'update'])->name('forpi_setting_update');
     });
 });
