@@ -91,10 +91,13 @@
                         <div class="text-center fw-semibold pt-3 mb-2">Prodi Pengisi Forpi</div>
                         <div class="text-center mb-2 px-3">
                             @foreach ($data['prodi_mahasiswa'] as $prodi => $total_prodi)
+                                @php
+                                    $color = collect(['primary', 'secondary', 'success', 'danger', 'warning', 'info'])->random();
+                                @endphp
                                 <div class="d-flex align-items-center mb-1">
-                                    <span class="badge bg-label-primary">{{ $prodi }}</span>
+                                    <span class="badge {{ 'bg-label-' . $color }}">{{ $prodi }}</span>
                                     <div class="flex-grow-1 border-bottom mx-2"></div>
-                                    <span class="badge bg-label-primary">{{ $total_prodi }}</span>
+                                    <span class="badge {{ 'bg-label-' . $color }}">{{ $total_prodi }}</span>
                                 </div>
                             @endforeach
                         </div>
