@@ -29,6 +29,7 @@ class MenuMiddleware
             'logo' => $request->segment(1),
             'version' => $version,
             'about' => $about,
+            'periode' => '2024/2025 Ganjil'
         ];
 
         if (Auth::check() || Auth::guard('mahasiswa')->check()) {

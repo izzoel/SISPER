@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use App\Models\Submit;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -19,6 +18,7 @@ class ForpiEntry extends Controller
         $entries = Submit::all();
         return view('auth.forpi.pages.section', compact('data', 'entries'));
     }
+
 
     public function table()
     {
@@ -42,17 +42,15 @@ class ForpiEntry extends Controller
                             <i class="bx bx-printer"></i> Print
                         </button>';
                 })
-                ->rawColumns(['status', 'aksi']) // Tambahkan status agar badge dirender dengan benar
+                ->rawColumns(['status', 'aksi'])
                 ->make(true);
         }
 
         return view('auth.forpi.pages.section');
     }
 
-
     public function print($nim)
     {
-        // dd($nim);
         $forpiEntry = Submit::where('nim', $nim)->first();
         $forpiEntry->update(['status' => 'sudah print']);
 

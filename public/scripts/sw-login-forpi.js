@@ -31,7 +31,11 @@ $(document).ready(function() {
               title: 'Berhasil!',
               icon: 'success'
             }).then(() => {
-              window.location.href = '/forpi';
+              if (nim == "admin") {
+                window.location.href = '/forpi/dashboard';
+              }else{
+                window.location.href = '/forpi';
+              }
             });
           } else {
             Swal.showValidationMessage(`NIM atau PISN Salah!`);

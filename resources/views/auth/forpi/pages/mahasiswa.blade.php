@@ -23,35 +23,8 @@
                                     <th>Prodi</th>
                                     <th class="text-start">PISN</th>
                                     <th class="text-start">Periode Lulus</th>
-                                    {{-- <th class="text-start col-auto" data-priority="2">Aksi</th> --}}
                                 </tr>
                             </thead>
-                            {{-- <tbody>
-                                @foreach ($mahasiswas as $mahasiswa)
-                                    <tr>
-                                        <td class="text-start">{{ $loop->iteration }}</td>
-                                        <td class="text-start">{{ $mahasiswa->nim }}</td>
-                                        <td class="text-start">{{ $mahasiswa->nama }}</td>
-                                        <td class="text-start">{{ $mahasiswa->prodi }}</td>
-                                        <td class="text-center">
-                                            <span
-                                                class="badge rounded-pill {{ $mahasiswa->pisn ? 'bg-label-primary' : 'bg-label-danger' }}">{{ $mahasiswa->pisn ? $mahasiswa->pisn : 'Belum' }}</span>
-                                        </td>
-                                        <td class="text-start">{{ $mahasiswa->periode }}</td>
-                                        <td class="text-center px-0">
-                                            <a type="button" class="U_B_mahasiswa text-info" data-nim="#M_U_mahasiswa-{{ $mahasiswa->nim }}">
-                                                <span class="tf-icons bx bx-edit"></span>edit
-                                            </a>
-
-                                            <span class="mx-1">|</span>
-
-                                            <a type="button" class="D_B_mahasiswa text-danger" data-nim="{{ $mahasiswa->nim }}">
-                                                <span class="tf-icons bx bxs-x-square"></span>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody> --}}
                         </table>
                     </div>
                 </div>

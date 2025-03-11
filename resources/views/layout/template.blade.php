@@ -40,6 +40,12 @@
 
 
     <style>
+        .td-line {
+            border-bottom: 1px solid black;
+            height: 10px;
+        }
+
+
         .flatpickr-innerContainer {
             display: none !important;
         }

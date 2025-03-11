@@ -26,6 +26,9 @@ Route::middleware([MenuMiddleware::class])->group(function () {
     Route::get('/forpi', [ForpiController::class, 'index'])->name('forpi');
 
     Route::middleware([AdminOnlyMiddleware::class])->group(function () {
+        Route::get('/forpi/dashboard', [ForpiController::class, 'dashboard'])->name('forpi_dashboard');
+        Route::get('/forpi/chart', [ForpiController::class, 'chart'])->name('forpi_chart');
+
         Route::get('/forpi/entry', [ForpiEntry::class, 'index'])->name('forpi_entry');
         Route::get('/forpi/entry/table', [ForpiEntry::class, 'table'])->name('forpi_entry_table');
         Route::get('/forpi/entry/print/{nim}', [ForpiEntry::class, 'print'])->name('forpi_entry_print');
