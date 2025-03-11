@@ -40,17 +40,6 @@
 
 
     <style>
-        .spinner_ajPY {
-            transform-origin: center;
-            animation: spinner_AtaB .75s infinite linear
-        }
-
-        @keyframes spinner_AtaB {
-            100% {
-                transform: rotate(360deg)
-            }
-        }
-
         .flatpickr-innerContainer {
             display: none !important;
         }

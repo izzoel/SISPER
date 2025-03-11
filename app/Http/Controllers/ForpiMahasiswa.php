@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Imports\MahasiswaImport;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
+use Yajra\DataTables\Facades\DataTables;
 
 class ForpiMahasiswa extends Controller
 {
@@ -19,6 +20,37 @@ class ForpiMahasiswa extends Controller
 
         $mahasiswas = Mahasiswa::all();
         return view('auth.forpi.pages.section', compact('data', 'mahasiswas'));
+    }
+
+    public function table()
+    {
+        if (request()->ajax()) {
+            $mahasiswas = Mahasiswa::query();
+
+            return DataTables::eloquent($mahasiswas)
+                ->addIndexColumn()
+                ->addColumn('pisn', function ($mahasiswa) {
+                    $statusClass = $mahasiswa->pisn ? 'bg-label-primary' : 'bg-label-danger';
+                    $statusText = $mahasiswa->pisn ?: 'Belum';
+
+                    return '<span class="badge rounded-pill ' . $statusClass . '">' . $statusText . '</span>';
+                })
+                ->addColumn('aksi', function ($mahasiswa) {
+                    return '<a type="button" class="U_B_mahasiswa text-info" data-nim="#M_U_mahasiswa-' . $mahasiswa->nim . '">
+                        <span class="tf-icons bx bx-edit"></span> Edit
+                    </a>
+
+                    <span class="mx-1">|</span>
+
+                    <a type="button" class="D_B_mahasiswa text-danger" data-nim="' . $mahasiswa->nim . '">
+                        <span class="tf-icons bx bxs-x-square"></span>
+                    </a>';
+                })
+                ->rawColumns(['pisn', 'aksi'])
+                ->make(true);
+        }
+
+        return view('auth.forpi.pages.section');
     }
 
     function store(Request $request)

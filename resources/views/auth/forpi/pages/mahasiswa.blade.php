@@ -14,19 +14,19 @@
                     @include('auth.forpi.modals.pisn')
 
                     <div class="card-text">
-                        <table id="mahasiswa" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
+                        <table id="table_{{ request()->segment(2) }}" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th class="text-start" data-priority="3">#</th>
-                                    <th class="text-start" data-priority="1">NIM</th>
-                                    <th class="text-start">Nama</th>
-                                    <th class="text-start">Prodi</th>
+                                    <th>#</th>
+                                    <th>NIM</th>
+                                    <th>Nama</th>
+                                    <th>Prodi</th>
                                     <th class="text-start">PISN</th>
                                     <th class="text-start">Periode Lulus</th>
-                                    <th class="text-start col-auto" data-priority="2">Aksi</th>
+                                    {{-- <th class="text-start col-auto" data-priority="2">Aksi</th> --}}
                                 </tr>
                             </thead>
-                            <tbody>
+                            {{-- <tbody>
                                 @foreach ($mahasiswas as $mahasiswa)
                                     <tr>
                                         <td class="text-start">{{ $loop->iteration }}</td>
@@ -51,7 +51,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                            </tbody>
+                            </tbody> --}}
                         </table>
                     </div>
                 </div>

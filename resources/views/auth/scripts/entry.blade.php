@@ -19,8 +19,7 @@
             },
             {
                 data: 'nama',
-                name: 'nama',
-                className: 'text-center'
+                name: 'nama'
             },
             {
                 data: 'prodi',
