@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Submit;
+use App\Models\Setting;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Services\GoogleService;
@@ -182,6 +183,9 @@ class ForpiSubmit extends Controller
             'title' => env('APP_NAME') . ' | ' . strtoupper(request()->segment(1)) . ' | ' . strtoupper(request()->segment(2)),
             'menuData' => $request->get('menuData')
         ];
+
+
+
         $mahasiswa = Mahasiswa::where('nim', session('nim'))->first();
 
         $gelar = match ($mahasiswa->prodi) {
@@ -204,9 +208,28 @@ class ForpiSubmit extends Controller
             'SARJANA MANAJEMEN' => 'Ilmu Sosial dan Humaniora',
             'SARJANA PENDIDIKAN GURU SEKOLAH DASAR' => 'Ilmu Sosial dan Humaniora',
         };
+        $setting = match (ucwords(strtolower($mahasiswa->prodi))) {
+            'Diploma Tiga Farmasi',
+            'Diploma Tiga Analis Kesehatan',
+            'Sarjana Farmasi',
+            'Sarjana Administrasi Rumah Sakit',
+            'Sarjana Gizi',
+            'Sarjana Hukum',
+            'Sarjana Manajemen',
+            'Sarjana Pendidikan Guru Sekolah Dasar' => Setting::where('prodi', ucwords(strtolower($mahasiswa->prodi)))->first(),
+            default => null, // Jika tidak ditemukan
+        };
 
-        session(['prodi' => $mahasiswa->prodi, 'gelar' => $gelar, 'fakultas' => $fakultas]);
-
+        session(
+            [
+                'prodi' => $mahasiswa->prodi,
+                'gelar' => $gelar,
+                'fakultas' => $fakultas,
+                't_terbit' => Carbon::createFromFormat('Y-m-d', $setting->tanggal_terbit)->translatedFormat('d F Y'),
+                'kaprodi' => $setting->kaprodi,
+                'nik' => $setting->nik
+            ]
+        );
 
         if ($mahasiswa) {
             return view('auth.forpi.pages.section', compact('data', 'mahasiswa', 'gelar'));
@@ -328,8 +351,13 @@ class ForpiSubmit extends Controller
                 'beasiswa' => $array_beasiswa,
                 'organisasi' => $array_organisasi,
                 't_bulan' => $t_bulan,
-                't_tahun' => $t_tahun
+                't_tahun' => $t_tahun,
+                't_terbit' => session('t_terbit'),
+                'kaprodi' => session('kaprodi'),
+                'nik' => session('nik'),
             ];
+
+            // dd($data);
 
             $this->googleService->replaceText($newDocId, $data);
             $this->googleService->shareDocumentWithEmail($newDocId, 'skpi.unbl@gmail.com');
