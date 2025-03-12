@@ -15,7 +15,7 @@
     $listOrganisasi = $organisasi !== '-' ? explode("\n", $organisasi) : [''];
 
 @endphp
-
+@include('auth.' . strtolower($data['menuData']['menu']) . '.modals.lapor')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
         <div class="col-12 mb-4">

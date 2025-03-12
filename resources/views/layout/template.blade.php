@@ -80,7 +80,6 @@
             @include('layout.sidebar')
             <div class="layout-page">
                 @include('layout.navbar')
-
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
                     {{-- {{ Route::currentRouteName() }} --}}

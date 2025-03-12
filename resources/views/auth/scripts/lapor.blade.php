@@ -1,0 +1,67 @@
+<script>
+    $('#table_' + '{{ request()->segment(2) }}').DataTable({
+        serverSide: true,
+        processing: true,
+        ajax: {
+            url: "{{ route('forpi_lapor_table') }}"
+        },
+        columns: [{
+                data: 'DT_RowIndex',
+                name: 'DT_RowIndex',
+                className: 'text-center',
+                orderable: false,
+                searchable: false
+            },
+            {
+                data: 'nim',
+                name: 'nim',
+            },
+            {
+                data: 'lapor',
+                name: 'lapor',
+            },
+            {
+                data: 'status',
+                name: 'status',
+                className: 'text-center'
+            },
+            {
+                data: 'aksi',
+                name: 'aksi',
+                className: 'text-center'
+            }
+        ],
+        dom: '<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>><"row mb-2"<"col-sm-12">><"row mb-2"<"col-sm-12"t>><"row mb-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex flex-row-reverse"p>>',
+        language: {
+            "lengthMenu": "Tampilkan _MENU_ baris",
+            "info": "Menampilkan _START_ ke _END_ dari _TOTAL_ baris",
+            "search": "Cari:",
+            "emptyTable": "Tidak ada data yang tersedia",
+            "zeroRecords": "Tidak ada data yang ditemukan"
+        },
+        lengthMenu: [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, "Semua"]
+        ],
+
+    });
+
+    $(document).on('change', '.status-btn', function() {
+        let btn = $(this);
+        let id = btn.data('id');
+        let status = btn.is(':checked') ? 1 : 0; // 1 untuk aktif, 0 untuk baru
+
+        $.get("{{ route('forpi_lapor_status') }}", {
+                id: id,
+                status: status
+            })
+            .done(function(response) {
+                console.log(response.success);
+                $('#table_' + '{{ request()->segment(2) }}').DataTable().ajax.reload();
+            })
+            .fail(function() {
+                alert("Gagal memperbarui status.");
+                btn.prop('checked', !status); // Kembalikan switch jika gagal
+            });
+    });
+</script>

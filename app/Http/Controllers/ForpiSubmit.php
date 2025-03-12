@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lapor;
 use Carbon\Carbon;
 use App\Models\Submit;
 use App\Models\Setting;
@@ -86,7 +87,6 @@ class ForpiSubmit extends Controller
         $mahasiswa = Submit::where('nim', $nim)->first();
         return response()->json($mahasiswa);
     }
-
 
     public function store(Request $request)
     {
@@ -212,6 +212,22 @@ class ForpiSubmit extends Controller
             return redirect()->back()->with('submit', 'Berhasil kirim!');
         } catch (\Exception $e) {
             return redirect()->back()->with('fail', 'Gagal kirim! ' . $e->getMessage());
+        }
+    }
+
+    public function lapor(Request $request, $menu)
+    {
+        try {
+            Lapor::create([
+                'nim' => $request->nim,
+                'lapor' => $request->lapor,
+                'menu' => $menu,
+                'status' => 'baru'
+            ]);
+
+            return redirect()->back()->with('success', 'Laporan berhasil dikirim!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('fail', 'Gagal mengirim laporan!');
         }
     }
 }

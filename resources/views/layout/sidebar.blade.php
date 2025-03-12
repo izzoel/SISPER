@@ -55,6 +55,14 @@
                   </a>
               </li>
 
+              <!-- Laporan -->
+              <li class="menu-item {{ request()->url() == url('/forpi/lapor') ? 'active' : '' }} ">
+                  <a href="{{ route('forpi_lapor') }}" class="menu-link">
+                      <i class="menu-icon tf-icons bx bx-comment-dots"></i>
+                      <div data-i18n="Laporan">Laporan</div>
+                  </a>
+              </li>
+
               <!-- Setting -->
               <li class="menu-item {{ request()->url() == url('/forpi/setting') ? 'active' : '' }} ">
                   <a href="{{ route('forpi_setting') }}" class="menu-link">

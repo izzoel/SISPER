@@ -24,7 +24,18 @@
     <div class="navbar-nav-right d-flex align-items-center ms-auto" id="navbar-collapse-right">
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <li class="nav-item me-3">
-                <a href="" class="btn btn-sm btn-outline-danger">Lapor</a>
+                @if (auth()->check())
+                    <a href="{{ route('forpi_lapor') }}" class="btn btn-sm btn-outline-danger">
+                        Lapor
+                        @if ($data['menuData']['notif'] > 0)
+                            <span class="badge">{{ $data['menuData']['notif'] }}</span>
+                        @endif
+                    </a>
+                @elseif (auth('mahasiswa')->check())
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#lapor_{{ strtolower($data['menuData']['menu']) }}">
+                        Lapor !
+                    </button>
+                @endif
             </li>
             <!-- User -->
             <li class="nav-item navbar-dropdown dropdown-user dropdown">

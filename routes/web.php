@@ -9,6 +9,7 @@ use App\Http\Controllers\ForpiSetting;
 use App\Http\Middleware\MenuMiddleware;
 use App\Http\Controllers\ForpiMahasiswa;
 use App\Http\Controllers\ForpiController;
+use App\Http\Controllers\ForpiLapor;
 use App\Http\Middleware\AdminOnlyMiddleware;
 
 Route::get('/', function () {
@@ -20,12 +21,12 @@ Route::post('/portal/forpi', [Portal::class, 'forpi']);
 Route::get('/portal/logout', [Portal::class, 'logout'])->name('logout');
 
 Route::middleware([MenuMiddleware::class])->group(function () {
-    // Route::get('/forpi/doc', [ForpiSubmit::class, 'doc']);
     Route::get('/forpi', [ForpiController::class, 'index'])->name('forpi');
 
     Route::get('/forpi/submit', [ForpiSubmit::class, 'index'])->name('forpi_submit');
     Route::get('/forpi/submit/show/{nim}', [ForpiSubmit::class, 'show'])->name('forpi_submit_show');
     Route::post('/forpi/submit/store', [ForpiSubmit::class, 'store'])->name('forpi_submit_store');
+    Route::post('/forpi/submit/lapor/{menu}/{nim}', [ForpiSubmit::class, 'lapor'])->name('forpi_submit_lapor');
 
     Route::middleware([AdminOnlyMiddleware::class])->group(function () {
         Route::get('/forpi/dashboard', [ForpiController::class, 'dashboard'])->name('forpi_dashboard');
@@ -49,5 +50,9 @@ Route::middleware([MenuMiddleware::class])->group(function () {
         Route::get('/forpi/setting/table', [ForpiSetting::class, 'table'])->name('forpi_setting_table');
         Route::get('/forpi/setting/show/{id}', [ForpiSetting::class, 'show'])->name('forpi_setting_show');
         Route::put('/forpi/setting/update/{id}', [ForpiSetting::class, 'update'])->name('forpi_setting_update');
+
+        Route::get('/forpi/lapor', [ForpiLapor::class, 'index'])->name('forpi_lapor');
+        Route::get('/forpi/lapor/table', [ForpiLapor::class, 'table'])->name('forpi_lapor_table');
+        Route::get('/forpi/lapor/status', [ForpiLapor::class, 'status'])->name('forpi_lapor_status');
     });
 });

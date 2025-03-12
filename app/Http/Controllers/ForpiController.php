@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lapor;
 use App\Models\Submit;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
@@ -51,7 +52,8 @@ class ForpiController extends Controller
             'total_mahasiswa_noset_pisn' => $noset_pisn,
             'update_isset_forpi' => $latest_isset_forpi ? $latest_isset_forpi->updated_at->format('d-m-Y H:i:s') : '-',
             'update_noset_forpi' => $latest_noset_forpi ? $latest_noset_forpi->updated_at->format('d-m-Y H:i:s') : '-',
-            'prodi_mahasiswa' => $prodi_mahasiswa
+            'prodi_mahasiswa' => $prodi_mahasiswa,
+
         ];
 
         $entries = Submit::all();
