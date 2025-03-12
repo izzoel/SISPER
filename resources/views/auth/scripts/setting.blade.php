@@ -50,11 +50,7 @@
     });
 
     document.addEventListener("DOMContentLoaded", function() {
-        // var parts = $("#t_terbit").val().split("/"); // Pisahkan berdasarkan "-"
-        // var formattedTanggal = parts[2] + "-" + parts[1] + "-" + parts[0]; // Susun kembali jadi yyyy-mm-dd
-
         new AirDatepicker('#t_terbit', {
-            // selectedDates: [new Date(formattedTanggal)],
             dateFormat: 'dd/MM/yyyy',
             autoClose: true,
             locale: {

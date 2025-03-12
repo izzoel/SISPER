@@ -128,13 +128,10 @@
     swBeasiswa.on("change", toggleBeasiswa);
     swOrganisasi.on("change", toggleOrganisasi);
 
-    // Panggil fungsi untuk menyesuaikan kondisi awal saat halaman dimuat
     toggleKejuaraan();
     toggleSertifikat();
     toggleBeasiswa();
     toggleOrganisasi();
-
-
 
     $(document).ready(function() {
         let countKejuaraan = 1;

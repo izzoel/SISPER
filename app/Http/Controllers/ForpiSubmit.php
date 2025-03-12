@@ -18,165 +18,6 @@ class ForpiSubmit extends Controller
         $this->googleService = $googleService;
     }
 
-    function doc(Request $request)
-    {
-
-        $romawiBulan = [
-            '01' => 'I',
-            '02' => 'II',
-            '03' => 'III',
-            '04' => 'IV',
-            '05' => 'V',
-            '06' => 'VI',
-            '07' => 'VII',
-            '08' => 'VIII',
-            '09' => 'IX',
-            '10' => 'X',
-            '11' => 'XI',
-            '12' => 'XII',
-        ];
-
-        $kejuaraan = $request->input('kejuaraan', []);
-        $no_kejuaraan = $request->input('no_kejuaraan', []);
-
-        $sertifikat = $request->input('sertifikat', []);
-        $no_sertifikat = $request->input('no_sertifikat', []);
-
-        $beasiswa = $request->input('beasiswa', []);
-
-        $organisasi = $request->input('organisasi', []);
-        $jabatan_organisasi = $request->input('jabatan_organisasi', []);
-
-        $kejuaraan_formatted = [];
-        foreach ($kejuaraan as $index => $nama_kejuaraan) {
-            if (!empty($nama_kejuaraan) && isset($no_kejuaraan[$index]) && !empty($no_kejuaraan[$index])) {
-                $kejuaraan_formatted[] = "{$nama_kejuaraan} ({$no_kejuaraan[$index]})";
-            }
-        }
-
-        $sertifikat_formatted = [];
-        if (count($sertifikat) > 1) {
-            $i = 1;
-            foreach ($sertifikat as $index => $nama_sertifikat) {
-                if (!empty($nama_sertifikat) && isset($no_sertifikat[$index]) && !empty($no_sertifikat[$index])) {
-                    $sertifikat_formatted[] = "{$i}. {$nama_sertifikat} ({$no_sertifikat[$index]})";
-                    $i++;
-                }
-            }
-        } else {
-            foreach ($sertifikat as $index => $nama_sertifikat) {
-                if (!empty($nama_sertifikat) && isset($no_sertifikat[$index]) && !empty($no_sertifikat[$index])) {
-                    $sertifikat_formatted[] = "{$nama_sertifikat} ({$no_sertifikat[$index]})";
-                }
-            }
-        }
-
-        $beasiswa_formatted = [];
-        if (count($beasiswa) > 1) {
-            $i = 1;
-            foreach ($beasiswa as $index => $nama_beasiswa) {
-                if (!empty($nama_beasiswa)) {
-                    $beasiswa_formatted[] = "{$i}. {$nama_beasiswa}";
-                    $i++;
-                }
-            }
-        } else {
-            foreach ($beasiswa as $index => $nama_beasiswa) {
-                if (!empty($nama_beasiswa)) {
-                    $beasiswa_formatted[] = "{$nama_beasiswa}";
-                }
-            }
-        }
-
-        $organisasi_formatted = [];
-        if (count($kejuaraan) > 1) {
-            $i = 1;
-            foreach ($organisasi as $index => $nama_organisasi) {
-                if (!empty($nama_organisasi) && isset($jabatan_organisasi[$index]) && !empty($jabatan_organisasi[$index])) {
-                    $organisasi_formatted[] = "{$i}. {$nama_organisasi} ({$jabatan_organisasi[$index]})";
-                    $i++;
-                }
-            }
-        } else {
-            foreach ($organisasi as $index => $nama_organisasi) {
-                if (!empty($nama_organisasi) && isset($jabatan_organisasi[$index]) && !empty($jabatan_organisasi[$index])) {
-                    $organisasi_formatted[] = "{$nama_organisasi} ({$jabatan_organisasi[$index]})";
-                }
-            }
-        }
-
-        $array_kejuaraan = $kejuaraan_formatted ? implode("\n", $kejuaraan_formatted) : '-';
-        $array_sertifikat = $sertifikat_formatted ? implode("\n", $sertifikat_formatted)  : '-';
-        $array_beasiswa = $beasiswa_formatted ? implode("\n", $beasiswa_formatted) : '-';
-        $array_organisasi = $organisasi_formatted ? implode("\n", $organisasi_formatted) : '-';
-
-        // dd($array_kejuaraan, $array_sertifikat, $array_beasiswa, $array_organisasi);
-        //  if (count($kejuaraan) > 1) {
-        // }
-        // dd(count($kejuaraan) > 1 ?  $this->formatNumberedList($kejuaraan_formatted) : $array_kejuaraan);
-        // dd(count($kejuaraan) > 1 ?  $this->formatNumberedList($kejuaraan_formatted) : $array_kejuaraan);
-        try {
-            Submit::updateOrCreate(
-                [
-                    'nim' => session('nim')
-                ],
-                [
-                    'nama' => $request->nama,
-                    'tempat_lahir' => $request->tempat_lahir,
-                    'tanggal_lahir' => Carbon::createFromFormat('d/m/Y', $request->tanggal_lahir)->translatedFormat('Y-m-d'),
-                    'prodi' => session('prodi'),
-                    'gelar' => session('gelar'),
-                    'pisn' => session('pisn'),
-                    'masuk' => $request->masuk,
-                    'yudisium' => Carbon::createFromFormat('d/m/Y', $request->yudisium)->translatedFormat('Y-m-d'),
-                    'judul' => $request->judul,
-                    'toefl' => $request->toefl,
-                    'kejuaraan' => $array_kejuaraan,
-                    'sertifikat' => $array_sertifikat,
-                    'beasiswa' => $array_beasiswa,
-                    'organisasi' => $array_organisasi,
-                    'status' => 'baru'
-                ]
-            );
-
-            $newDocTitle = "SKPI--" . $request->nama . "--" . date('d/m/Y H:i:s');
-            $newDocId = $this->googleService->duplicateDocument($newDocTitle);
-
-            $bulanAngka = Mahasiswa::where('nim', session('nim'))->first()->created_at->format('m');
-            $t_bulan = $romawiBulan[$bulanAngka];
-            $t_tahun = Mahasiswa::where('nim', session('nim'))->first()->created_at->format('Y');
-
-            $data = [
-                'nim' => session('nim'),
-                'nama' => $request->nama,
-                'tempat_lahir' => $request->tempat_lahir,
-                'tanggal_lahir' => strtoupper(Carbon::createFromFormat('d/m/Y', $request->tanggal_lahir)->translatedFormat('d F Y')),
-                'fakultas' => session('fakultas'),
-                'prodi' => ucwords(strtolower(session('prodi'))),
-                'gelar' => session('gelar'),
-                'pisn' => session('pisn'),
-                'masuk' => $request->masuk,
-                'yudisium' =>  Carbon::createFromFormat('d/m/Y', $request->yudisium)->translatedFormat('d F Y'),
-                'judul' => $request->judul,
-                'toefl' => $request->toefl,
-                'studi' => (string)((int)substr($request->yudisium, -4) - (int)($request->masuk)),
-                'kejuaraan' => $array_kejuaraan,
-                'sertifikat' => $array_sertifikat,
-                'beasiswa' => $array_beasiswa,
-                'organisasi' => $array_organisasi,
-                't_bulan' => $t_bulan,
-                't_tahun' => $t_tahun
-            ];
-
-            $this->googleService->replaceText($newDocId, $data);
-            $this->googleService->shareDocumentWithEmail($newDocId, 'skpi.unbl@gmail.com');
-            return redirect()->back()->with('submit', 'Berhasil kirim!');
-        } catch (\Exception $e) {
-            dd($e);
-            return redirect()->back()->with('fail', 'Gagal kirim! ' . $e->getMessage());
-        }
-    }
-
     function index(Request $request)
     {
         $data = [
@@ -187,6 +28,7 @@ class ForpiSubmit extends Controller
 
 
         $mahasiswa = Mahasiswa::where('nim', session('nim'))->first();
+        $sudah_mengisi = Submit::where('nim', session('nim'))->first();
 
         $gelar = match ($mahasiswa->prodi) {
             'DIPLOMA TIGA FARMASI' => 'Ahli Madya Farmasi (A.Md.Farm.)',
@@ -217,7 +59,7 @@ class ForpiSubmit extends Controller
             'Sarjana Hukum',
             'Sarjana Manajemen',
             'Sarjana Pendidikan Guru Sekolah Dasar' => Setting::where('prodi', ucwords(strtolower($mahasiswa->prodi)))->first(),
-            default => null, // Jika tidak ditemukan
+            default => null,
         };
 
         session(
@@ -227,7 +69,8 @@ class ForpiSubmit extends Controller
                 'fakultas' => $fakultas,
                 't_terbit' => Carbon::createFromFormat('Y-m-d', $setting->tanggal_terbit)->translatedFormat('d F Y'),
                 'kaprodi' => $setting->kaprodi,
-                'nik' => $setting->nik
+                'nik' => $setting->nik,
+                'sudah_mengisi' => $sudah_mengisi
             ]
         );
 
@@ -236,6 +79,12 @@ class ForpiSubmit extends Controller
         } else {
             return redirect()->route('logout');
         }
+    }
+
+    function show($nim)
+    {
+        $mahasiswa = Submit::where('nim', $nim)->first();
+        return response()->json($mahasiswa);
     }
 
 
@@ -356,8 +205,6 @@ class ForpiSubmit extends Controller
                 'kaprodi' => session('kaprodi'),
                 'nik' => session('nik'),
             ];
-
-            // dd($data);
 
             $this->googleService->replaceText($newDocId, $data);
             $this->googleService->shareDocumentWithEmail($newDocId, 'skpi.unbl@gmail.com');

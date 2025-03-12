@@ -20,11 +20,12 @@ Route::post('/portal/forpi', [Portal::class, 'forpi']);
 Route::get('/portal/logout', [Portal::class, 'logout'])->name('logout');
 
 Route::middleware([MenuMiddleware::class])->group(function () {
-    Route::get('/forpi/doc', [ForpiSubmit::class, 'doc']);
+    // Route::get('/forpi/doc', [ForpiSubmit::class, 'doc']);
+    Route::get('/forpi', [ForpiController::class, 'index'])->name('forpi');
 
     Route::get('/forpi/submit', [ForpiSubmit::class, 'index'])->name('forpi_submit');
+    Route::get('/forpi/submit/show/{nim}', [ForpiSubmit::class, 'show'])->name('forpi_submit_show');
     Route::post('/forpi/submit/store', [ForpiSubmit::class, 'store'])->name('forpi_submit_store');
-    Route::get('/forpi', [ForpiController::class, 'index'])->name('forpi');
 
     Route::middleware([AdminOnlyMiddleware::class])->group(function () {
         Route::get('/forpi/dashboard', [ForpiController::class, 'dashboard'])->name('forpi_dashboard');

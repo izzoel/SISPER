@@ -20,7 +20,6 @@ class AdminOnlyMiddleware
             return $next($request);
         }
 
-        // Jika pengguna tidak terautentikasi sebagai admin, tampilkan pesan kesalahan
         return response()->json(['error' => 'Anda tidak memiliki izin untuk mengakses halaman ini.'], 403);
     }
 }

@@ -101,7 +101,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <a nid="banner1" class="btn text-start p-0 w-100 forpi" href="" role="button">
+                    <a id="banner1" class="btn text-start p-0 w-100 forpi" href="" role="button">
                         <div class="card mb-3">
                             <div class="row d-flex align-items-center flex-nowrap">
                                 <!-- Gambar -->

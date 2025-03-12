@@ -15,11 +15,8 @@ class ForpiSetting extends Controller
             'menuData' => $request->get('menuData')
         ];
 
-        // $entries = Submit::all();
         return view('auth.forpi.pages.section', compact('data'));
     }
-
-    public function setting() {}
 
     public function table()
     {
