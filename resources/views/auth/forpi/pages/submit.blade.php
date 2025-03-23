@@ -33,7 +33,7 @@
                                 <form id="{{ request()->segment(1) }}Form" action="{{ route(request()->segment(1) . '_submit_store') }}" method="POST">
                                     @csrf
                                     <div class="row mt-3">
-                                        <label for="nama" class="col-md-2 col-form-label">Nama Lengkap<span class="required text-danger">*</span></label>
+                                        <label for="nama" class="col-md-2 col-form-label">Nama Lengkap</label>
                                         <div class="col">
                                             <input type="text" class="form-control" placeholder="..." id="nama" name="nama" required
                                                 value="{{ session('sudah_mengisi') ? session('sudah_mengisi')['nama'] : $mahasiswa->nama }}" disabled>
@@ -46,13 +46,13 @@
                                     </div>
 
                                     <div class="row mt-3">
-                                        <label for="tempat" class="col-md-2 col-form-label">Tempat Lahir<span class="required text-danger">*</span></label>
+                                        <label for="tempat" class="col-md-2 col-form-label">Tempat Lahir</label>
                                         <div class="col">
                                             <input class="form-control" type="text" placeholder="..." id="tempat" name="tempat_lahir" required
                                                 value="{{ session('sudah_mengisi') ? strtoupper(session('sudah_mengisi')['tempat_lahir']) : strtoupper($mahasiswa->tempat_lahir) }}"
                                                 disabled>
                                         </div>
-                                        <label for="tanggal" class="col-md-2 col-form-label">Tanggal Lahir<span class="required text-danger">*</span></label>
+                                        <label for="tanggal" class="col-md-2 col-form-label">Tanggal Lahir</label>
                                         <div class="col">
                                             <input type="text" id="tanggal" name="tanggal_lahir" class="form-control" placeholder="Pilih Tanggal"
                                                 value="{{ \Carbon\Carbon::parse($mahasiswa->tanggal_lahir)->format('d/m/Y') }}" readonly style=" cursor: default; " disabled>
@@ -94,7 +94,7 @@
                                             <input type="text" id="masuk" name="masuk" class="form-control" placeholder="Pilih Tahun" required style="cursor: default; "
                                                 value="{{ $tahun_masuk }}" {{ $disabled }}>
                                         </div>
-                                        <label for="tanggal_yudisium" class="col-md-2 col-form-label">Tanggal Yudisium<span class="required text-danger">*</span></label>
+                                        <label for="tanggal_yudisium" class="col-md-2 col-form-label">Tanggal Yudisium</label>
                                         <div class="col">
                                             <input type="text" id="tanggal_yudisium" name="tanggal_yudisium" class="form-control" placeholder="Pilih Tanggal" required disabled
                                                 value="{{ \Carbon\Carbon::parse($mahasiswa->tanggal_yudisium)->locale('id')->translatedFormat('d F Y') }}">
