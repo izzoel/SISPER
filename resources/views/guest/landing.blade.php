@@ -70,7 +70,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6" data-aos="fade-down" data-aos-delay="300">
-                    <a class="btn text-start p-0 banner" href="#" role="button">
+                    <a class="btn text-start p-0 banner dversi" role="button">
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
@@ -101,7 +101,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-6">
-                    <a id="banner1" class="btn text-start p-0 w-100 forpi" href="" role="button">
+                    <a class="btn text-start p-0 w-100 forpi"role="button">
                         <div class="card mb-3">
                             <div class="row d-flex align-items-center flex-nowrap">
                                 <!-- Gambar -->
@@ -122,7 +122,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6">
-                    <a name="" id="banner1" class="btn text-start p-0 w-100" href="" role="button">
+                    <a class="btn text-start p-0 w-100" role="button">
                         <div class="card mb-3">
                             <div class="row d-flex align-items-center flex-nowrap">
                                 <!-- Gambar -->
@@ -143,7 +143,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6">
-                    <a name="" id="banner1" class="btn text-start p-0 w-100" href="#" role="button">
+                    <a class="btn text-start p-0 w-100 dversi" role="button">
                         <div class="card mb-3">
                             <div class="row d-flex align-items-center flex-nowrap">
                                 <!-- Gambar -->
@@ -179,6 +179,7 @@
 
     <!-- forpi login -->
     <script src="{{ asset('scripts/sw-login-forpi.js') }}"></script>
+    <script src="{{ asset('scripts/sw-login-dversi.js') }}"></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
@@ -261,7 +262,6 @@
             }
         );
     </script>
-
 
 </body>
 

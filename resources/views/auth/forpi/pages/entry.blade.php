@@ -16,6 +16,8 @@
                                     <th>Nama</th>
                                     <th>Prodi</th>
                                     <th>Status</th>
+                                    <th>Periode Lulus</th>
+                                    <th>Tanggal Yudisium</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>

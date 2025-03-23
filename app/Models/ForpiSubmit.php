@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Submit extends Model
+class ForpiSubmit extends Model
 {
     protected $fillable = [
         'nim',
@@ -15,13 +15,14 @@ class Submit extends Model
         'gelar',
         'pisn',
         'masuk',
-        'yudisium',
+        'tanggal_yudisium',
         'judul',
         'toefl',
         'kejuaraan',
         'sertifikat',
         'beasiswa',
         'organisasi',
+        'periode_lulus',
         'status',
         'dokumen'
     ];

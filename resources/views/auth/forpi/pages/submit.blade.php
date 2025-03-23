@@ -1,14 +1,14 @@
 @php
     use Illuminate\Support\Str;
 
-    $disabled = session('sudah_mengisi') ? 'disabled' : '';
+    $disabled = session('sudah_mengisi') ? 'disabled' : null;
+    $hide = session('sudah_mengisi') ? 'd-none' : null;
     $color = session('sudah_mengisi') ? 'background-color: #eceef1' : 'background-color: #fff';
     $tahun_masuk = session('sudah_mengisi') ? \Carbon\Carbon::parse(session('sudah_mengisi')['tahun_masuk'])->translatedFormat('Y') : $mahasiswa->tahun_masuk;
-    $yudisium = session('sudah_mengisi') ? \Carbon\Carbon::parse(session('sudah_mengisi')['yudisium'])->locale('id')->translatedFormat('d F Y') : $mahasiswa->yudisium;
-    $kejuaraan = session('sudah_mengisi')['kejuaraan'] ?? '-';
-    $sertifikat = session('sudah_mengisi')['sertifikat'] ?? '-';
-    $beasiswa = session('sudah_mengisi')['beasiswa'] ?? '-';
-    $organisasi = session('sudah_mengisi')['organisasi'] ?? '-';
+    $kejuaraan = session('data_submit')['kejuaraan'] ?? '-';
+    $sertifikat = session('data_submit')['sertifikat'] ?? '-';
+    $beasiswa = session('data_submit')['beasiswa'] ?? '-';
+    $organisasi = session('data_submit')['organisasi'] ?? '-';
     $listKejuaraan = $kejuaraan !== '-' ? explode("\n", $kejuaraan) : [''];
     $listSertifikat = $sertifikat !== '-' ? explode("\n", $sertifikat) : [''];
     $listBeasiswa = $beasiswa !== '-' ? explode("\n", $beasiswa) : [''];
@@ -30,13 +30,13 @@
                                 <div class="divider mb-5">
                                     <div class="divider-text text-muted">Biro Administrasi Akademik dan Kemahasiswaan UNBL</div>
                                 </div>
-                                <form id="forpiForm" action="{{ route('forpi_submit_store') }}" method="POST">
+                                <form id="{{ request()->segment(1) }}Form" action="{{ route(request()->segment(1) . '_submit_store') }}" method="POST">
                                     @csrf
                                     <div class="row mt-3">
                                         <label for="nama" class="col-md-2 col-form-label">Nama Lengkap<span class="required text-danger">*</span></label>
                                         <div class="col">
                                             <input type="text" class="form-control" placeholder="..." id="nama" name="nama" required
-                                                value="{{ session('sudah_mengisi') ? session('sudah_mengisi')['nama'] : $mahasiswa->nama }}" {{ $disabled }}>
+                                                value="{{ session('sudah_mengisi') ? session('sudah_mengisi')['nama'] : $mahasiswa->nama }}" disabled>
                                         </div>
                                         <label for="nim" class="col-md-2 col-form-label">NIM</label>
                                         <div class="col">
@@ -49,13 +49,13 @@
                                         <label for="tempat" class="col-md-2 col-form-label">Tempat Lahir<span class="required text-danger">*</span></label>
                                         <div class="col">
                                             <input class="form-control" type="text" placeholder="..." id="tempat" name="tempat_lahir" required
-                                                value="{{ session('sudah_mengisi') ? session('sudah_mengisi')['tempat_lahir'] : $mahasiswa->tempat_lahir }}" {{ $disabled }}>
+                                                value="{{ session('sudah_mengisi') ? strtoupper(session('sudah_mengisi')['tempat_lahir']) : strtoupper($mahasiswa->tempat_lahir) }}"
+                                                disabled>
                                         </div>
                                         <label for="tanggal" class="col-md-2 col-form-label">Tanggal Lahir<span class="required text-danger">*</span></label>
                                         <div class="col">
                                             <input type="text" id="tanggal" name="tanggal_lahir" class="form-control" placeholder="Pilih Tanggal"
-                                                value="{{ \Carbon\Carbon::parse($mahasiswa->tanggal_lahir)->format('d/m/Y') }}" readonly
-                                                style=" cursor: default; {{ $color }}; " {{ $disabled }}>
+                                                value="{{ \Carbon\Carbon::parse($mahasiswa->tanggal_lahir)->format('d/m/Y') }}" readonly style=" cursor: default; " disabled>
                                         </div>
                                     </div>
 
@@ -83,7 +83,7 @@
                                         </div>
                                         <label for="gelar" class="col-md-2 col-form-label">Gelar</label>
                                         <div class="col">
-                                            <input class="form-control" type="text" id="gelar" name="gelar" disabled value="{{ $gelar }}">
+                                            <input class="form-control" type="text" id="gelar" name="gelar" disabled value="{{ $mahasiswa->gelar }}">
                                         </div>
                                     </div>
 
@@ -91,20 +91,20 @@
                                     <div class="row mt-3">
                                         <label for="masuk" class="col-md-2 col-form-label">Tahun Masuk<span class="required text-danger">*</span></label>
                                         <div class="col">
-                                            <input type="text" id="masuk" name="masuk" class="form-control" placeholder="Pilih Tahun" required
-                                                style="cursor: default; {{ $color }};" {{ $disabled }} value="{{ $tahun_masuk }}">
+                                            <input type="text" id="masuk" name="masuk" class="form-control" placeholder="Pilih Tahun" required style="cursor: default; "
+                                                value="{{ $tahun_masuk }}" {{ $disabled }}>
                                         </div>
-                                        <label for="yudisium" class="col-md-2 col-form-label">Tanggal Yudisium<span class="required text-danger">*</span></label>
+                                        <label for="tanggal_yudisium" class="col-md-2 col-form-label">Tanggal Yudisium<span class="required text-danger">*</span></label>
                                         <div class="col">
-                                            <input type="text" id="yudisium" name="yudisium" class="form-control" placeholder="Pilih Tanggal" required
-                                                style="cursor: default; {{ $color }};" {{ $disabled }} value="{{ $yudisium }}">
+                                            <input type="text" id="tanggal_yudisium" name="tanggal_yudisium" class="form-control" placeholder="Pilih Tanggal" required disabled
+                                                value="{{ \Carbon\Carbon::parse($mahasiswa->tanggal_yudisium)->locale('id')->translatedFormat('d F Y') }}">
                                         </div>
                                     </div>
 
                                     <div class="row mt-3">
                                         <label for="judul" class="col-md-2 col-form-label">Judul Skripsi / LTA / KTI<span class="required text-danger">*</span></label>
                                         <div class="col">
-                                            <textarea class="form-control" placeholder="..." id="judul" rows="2" name="judul" required {{ $disabled }}>{{ session('sudah_mengisi') ? session('sudah_mengisi')['judul'] : $mahasiswa->judul }}</textarea>
+                                            <textarea class="form-control" placeholder="..." id="judul" rows="2" name="judul" required {{ $disabled }}>{{ session('sudah_mengisi') ? session('data_submit')['judul'] : '' }}</textarea>
                                         </div>
                                     </div>
 
@@ -116,8 +116,8 @@
                                         </div>
                                         <label for="toefl" class="col-md-2 col-form-label">Nilai TOEFL <small class="text-muted">(Opsional)</small></label>
                                         <div class="col">
-                                            <input class="form-control" type="number" placeholder="..." id="toefl" name="toefl" {{ $disabled }}
-                                                value="{{ session('sudah_mengisi') ? session('sudah_mengisi')['toefl'] : $mahasiswa->toefl }}">
+                                            <input class="form-control" type="number" placeholder="..." id="toefl" name="toefl"
+                                                value="{{ session('sudah_mengisi') ? session('sudah_mengisi')['toefl'] : $mahasiswa->toefl }}" {{ $disabled }}>
                                         </div>
                                     </div>
 
@@ -161,9 +161,8 @@
                                             </div>
                                         </div>
 
-                                        <div id="btnKejuaraan" class="col text-end">
-                                            <button type="button" class="btn btn-xs btn-primary tambahKejuaraan" {{ $disabled }}><i class="bx bx-plus"
-                                                    style="font-size: 10px;"></i></button>
+                                        <div id="btnKejuaraan" class="col text-end {{ $hide }}">
+                                            <button type="button" class="btn btn-xs btn-primary tambahKejuaraan"><i class="bx bx-plus" style="font-size: 10px;"></i></button>
                                         </div>
                                     </div>
 
@@ -205,9 +204,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="btnSertifikat" class="col text-end">
-                                            <button type="button" class="btn btn-xs btn-primary tambahSertifikat" {{ $disabled }}><i class="bx bx-plus"
-                                                    style="font-size: 10px;"></i></button>
+                                        <div id="btnSertifikat" class="col text-end {{ $hide }}">
+                                            <button type="button" class="btn btn-xs btn-primary tambahSertifikat"><i class="bx bx-plus" style="font-size: 10px;"></i></button>
                                         </div>
                                     </div>
 
@@ -232,9 +230,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="btnBeasiswa" class="col text-end">
-                                        <button type="button" class="btn btn-xs btn-primary tambahBeasiswa" {{ $disabled }}><i class="bx bx-plus"
-                                                style="font-size: 10px;"></i></button>
+                                    <div id="btnBeasiswa" class="col text-end {{ $hide }}">
+                                        <button type="button" class="btn btn-xs btn-primary tambahBeasiswa"><i class="bx bx-plus" style="font-size: 10px;"></i></button>
                                     </div>
 
                                     <div class="row mt-3">
@@ -275,12 +272,25 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="btnOrganisasi" class="col text-end">
-                                            <button type="button" class="btn btn-xs btn-primary tambahOrganisasi" {{ $disabled }}><i class="bx bx-plus"
-                                                    style="font-size: 10px;"></i></button>
+                                        <div id="btnOrganisasi" class="col text-end {{ $hide }}">
+                                            <button type="button" class="btn btn-xs btn-primary tambahOrganisasi"><i class="bx bx-plus" style="font-size: 10px;"></i></button>
                                         </div>
                                     </div>
-
+                                    <div class="form-text">
+                                        @if (session('sudah_mengisi'))
+                                            <div class="alert alert-success" role="alert">Anda sudah mengisi form ini pada
+                                                {{ \Carbon\Carbon::parse(session('data_submit')['updated_at'])->locale('id')->translatedFormat('d F Y') }} pukul
+                                                {{ \Carbon\Carbon::parse(session('data_submit')['updated_at'])->locale('id')->translatedFormat('H:i') }}
+                                                <br>Jika terdapat kesalahan, silahkan <button id="laporButton" class="btn btn-xs btn-outline-danger rounded-1">
+                                                    Lapor!
+                                                </button> di tombol paling atas.
+                                            </div>
+                                        @else
+                                            <br>Jika terdapat kesalahan, silahkan <button id="laporButton" class="btn btn-xs btn-outline-danger rounded-1">
+                                                Lapor!
+                                            </button> di tombol paling atas.
+                                        @endif
+                                    </div>
                                     <div class="d-flex justify-content-center mt-4">
                                         <button type="submit" class="btn btn-primary" {{ $disabled }}>Kirim</button>
                                     </div>

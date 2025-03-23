@@ -4,12 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Setting extends Model
+class Rektor extends Model
 {
     protected $fillable = [
-        'prodi',
-        'kaprodi',
+        'nama',
         'nik',
-        'tanggal_terbit',
+        'jabatan',
     ];
 }

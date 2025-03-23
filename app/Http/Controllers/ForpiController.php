@@ -2,21 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lapor;
-use App\Models\Submit;
+use App\Models\ForpiSubmit as Submit;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ForpiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
-        // dd(auth()->user()->foto);
-        // dd(Auth::check(), Auth::guard('mahasiswa')->check(), Auth::user(), Auth::guard('mahasiswa')->user());
         $data = [
             'title' => env('APP_NAME') . ' | ' . strtoupper(request()->segment(1)),
             'menuData' => $request->get('menuData')
@@ -38,10 +32,12 @@ class ForpiController extends Controller
         $latest_isset_forpi = Submit::latest()->first();
         $latest_noset_forpi = Mahasiswa::whereNotIn('nim', Submit::pluck('nim'))->latest()->first();
 
-        $prodi_mahasiswa = Mahasiswa::where('periode', $request->get('menuData')['periode'])
+        $prodi_mahasiswa = Mahasiswa::where('periode_lulus', $request->get('menuData')['periode_lulus'])
             ->get()
             ->groupBy('prodi')
-            ->mapWithKeys(fn($group, $prodi) => [ucwords(strtolower($prodi)) => $group->count()]);
+            ->mapWithKeys(fn($group, $prodi) => [
+                str_replace(['Sarjana', 'Diploma Tiga'], ['S1', 'D3'], ucwords(strtolower($prodi))) => $group->count()
+            ]);
 
         $data = [
             'title' => env('APP_NAME') . ' | ' . strtoupper(request()->segment(1)) . ' | ' . strtoupper(request()->segment(2)),
@@ -53,7 +49,6 @@ class ForpiController extends Controller
             'update_isset_forpi' => $latest_isset_forpi ? $latest_isset_forpi->updated_at->format('d-m-Y H:i:s') : '-',
             'update_noset_forpi' => $latest_noset_forpi ? $latest_noset_forpi->updated_at->format('d-m-Y H:i:s') : '-',
             'prodi_mahasiswa' => $prodi_mahasiswa,
-
         ];
 
         $entries = Submit::all();
@@ -65,8 +60,8 @@ class ForpiController extends Controller
         $isset_pisn = Mahasiswa::whereIn('nim', Submit::pluck('nim'))->count();
         $noset_pisn = Mahasiswa::whereNotIn('nim', Submit::pluck('nim'))->count();
 
-        $periode_mahasiswa = Mahasiswa::where('periode', $request->get('menuData')['periode'])->count();
-        $prodi_mahasiswa = Mahasiswa::where('periode', $request->get('menuData')['periode'])->get()->pluck('prodi')->unique();
+        $periode_mahasiswa = Mahasiswa::where('periode_lulus', $request->get('menuData')['periode_lulus'])->count();
+        $prodi_mahasiswa = Mahasiswa::where('periode_lulus', $request->get('menuData')['periode_lulus'])->get()->pluck('prodi')->unique();
 
         $updateMahasiswa = Submit::selectRaw('DATE(updated_at) as tanggal, COUNT(*) as jumlah')
             ->groupBy('tanggal')

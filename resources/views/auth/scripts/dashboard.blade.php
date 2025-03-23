@@ -1,8 +1,13 @@
 <script>
-    /**
-     * Dashboard Analytics
-     */
-
+    if ('{{ $data['menuData']['menu'] }}' == 'FORPI') {
+        var sudah = 'Sudah Mengisi';
+        var belum = 'Belum Mengisi';
+        var jumlah = 'Total Mahasiswa';
+    } else if ('{{ $data['menuData']['menu'] }}' == 'DVERSI') {
+        var sudah = 'Sudah Diproses';
+        var belum = 'Belum Dibuat';
+        var jumlah = 'Total Mahasiswa';
+    }
     'use strict';
 
     (function() {
@@ -17,8 +22,7 @@
         const chartLogbook = document.querySelector('#chartLogbook');
         const chartGaugeTransaksi = document.querySelector('#gaugeTransaksi');
 
-        // Fetch data from the endpoint
-        fetch('/forpi/chart')
+        fetch('/{{ request()->segment(1) }}/chart')
             .then(response => response.json())
             .then(data => {
                 // Configuration for the donut chart
@@ -28,7 +32,7 @@
                         width: 130,
                         type: 'donut'
                     },
-                    labels: ['Sudah Mengisi', 'Belum Mengisi', 'Total Mahasiswa'],
+                    labels: [sudah, belum, jumlah],
                     series: [data.total_mahasiswa_isset_pisn, data.total_mahasiswa_noset_pisn],
                     colors: [config.colors.primary, config.colors.danger],
                     stroke: {
@@ -87,8 +91,8 @@
 
 
                 const updateMahasiswaSeries = data.update_mahasiswa.map((jumlah, index) => ({
-                    x: data.update_mahasiswa_tanggal[index], // Tanggal sebagai x-axis
-                    y: jumlah // Jumlah mahasiswa sebagai y-axis
+                    x: data.update_mahasiswa_tanggal[index],
+                    y: jumlah
                 }));
 
                 const logbookChartConfig = {

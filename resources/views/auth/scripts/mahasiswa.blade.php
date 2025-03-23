@@ -3,7 +3,7 @@
         serverSide: true,
         processing: true,
         ajax: {
-            url: "{{ route('forpi_mahasiswa_table') }}"
+            url: "{{ route(request()->segment(1) . '_mahasiswa_table') }}"
         },
         columns: [{
                 data: 'DT_RowIndex',
@@ -22,18 +22,29 @@
                 name: 'nama'
             },
             {
+                data: 'pisn',
+                name: 'pisn',
+                className: 'text-center',
+                orderable: true,
+            },
+            {
+                data: 'nik',
+                name: 'nik',
+                className: 'text-center'
+            },
+            {
                 data: 'prodi',
                 name: 'prodi',
                 className: 'text-center'
             },
             {
-                data: 'pisn',
-                name: 'pisn',
+                data: 'periode_lulus',
+                name: 'periode_lulus',
                 className: 'text-center'
             },
             {
-                data: 'periode',
-                name: 'periode',
+                data: 'tanggal_yudisium',
+                name: 'tanggal_yudisium',
                 className: 'text-center'
             },
             {
@@ -62,12 +73,12 @@
 
     $(document).on('click', '.print-btn', function() {
         let btn = $(this);
-        let printUrl = btn.data('url'); // URL untuk update status
-        let docUrl = btn.data('doc'); // URL dokumen yang akan dibuka
+        let printUrl = btn.data('url');
+        let docUrl = btn.data('doc');
 
         $.get(printUrl, function() {
-            window.open(docUrl, '_blank'); // Buka tab baru setelah status diperbarui
-            $('#table_' + '{{ request()->segment(2) }}').DataTable().ajax.reload(); // Refresh DataTable
+            window.open(docUrl, '_blank');
+            $('#table_' + '{{ request()->segment(2) }}').DataTable().ajax.reload(null, false);
         }).fail(function() {
             alert("Gagal memperbarui status.");
         });
@@ -84,7 +95,7 @@
 
     $(document).ready(function() {
         $(".importForm").on("submit", function(event) {
-            event.preventDefault(); // Mencegah reload halaman
+            event.preventDefault();
 
             let form = $(this);
             let formData = new FormData(this);
@@ -118,6 +129,12 @@
                     });
                 },
                 error: function(xhr) {
+                    let errorMessage = "Terjadi kesalahan saat mengirim data.";
+
+                    // Jika server mengembalikan response JSON dengan message error
+                    if (xhr.responseJSON && xhr.responseJSON.message) {
+                        errorMessage = xhr.responseJSON.message;
+                    }
                     Swal.fire({
                         icon: 'error',
                         title: 'Gagal!',
@@ -135,9 +152,9 @@
 
         $(".modalUpdate").attr("id", "M_U_mahasiswa-" + nim);
         $("#M_U_mahasiswa-" + nim).modal('show');
-        $("#U_route").attr('action', "/forpi/mahasiswa/update/" + nim);
+        $("#U_route").attr('action', "/{{ request()->segment(1) }}/mahasiswa/update/" + nim);
 
-        $.get("/forpi/mahasiswa/show/" + nim, function(data) {
+        $.get("/{{ request()->segment(1) }}/mahasiswa/show/" + nim, function(data) {
             if (data.kelamin == "L") {
                 var kelamin = "#U_l";
             } else {
@@ -151,8 +168,9 @@
             $("#U_prodi").val(data.prodi).prop('selected', true);
             $("#U_hp").val(data.no_hp);
             $("#U_alamat").val(data.alamat);
+            $("#U_nik").val(data.nik);
             $("#U_pisn").val(data.pisn);
-            $("#U_periode").val(data.periode);
+            $("#U_periode").val(data.periode_lulus);
         });
 
         ["#U_nim", "#U_nama", "#U_tempat_lahir", "#U_alamat"].forEach(function(selector) {
@@ -167,6 +185,6 @@
 
         $(".modalDelete").attr("id", "M_D_mahasiswa-" + nim);
         $("#M_D_mahasiswa-" + nim).modal('show');
-        $("#D_route").attr('action', "/forpi/mahasiswa/destroy/" + nim);
+        $("#D_route").attr('action', "/{{ request()->segment(1) }}/mahasiswa/destroy/" + nim);
     });
 </script>

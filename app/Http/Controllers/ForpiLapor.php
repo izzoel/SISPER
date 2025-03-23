@@ -16,12 +16,12 @@ class ForpiLapor extends Controller
             'menuData' => $request->get('menuData')
         ];
 
-        return view('auth.forpi.pages.section', compact('data'));
+        return view('auth.' . request()->segment(1) . '.pages.section', compact('data'));
     }
     public function table()
     {
         if (request()->ajax()) {
-            $lapor = Lapor::query();
+            $lapor = Lapor::where('menu', 'FORPI');
             $mahasiswas = Mahasiswa::all();
 
             return DataTables::eloquent($lapor)
@@ -32,6 +32,7 @@ class ForpiLapor extends Controller
                             return $mahasiswa->nim . ' -- ' . $mahasiswa->nama;
                         }
                     }
+                    return '-';
                 })
                 ->addColumn('status', function ($lapor) {
                     $statusClass = $lapor->status === 'baru' ? 'bg-label-primary' : 'bg-label-success';
@@ -49,7 +50,7 @@ class ForpiLapor extends Controller
                 ->make(true);
         }
 
-        return view('auth.forpi.pages.section');
+        return view('auth.' . request()->segment(1) . '.pages.section');
     }
 
     public function status(Request $request)
@@ -64,9 +65,5 @@ class ForpiLapor extends Controller
         }
 
         return response()->json(['error' => 'Gagal memperbarui status.'], 400);
-        // $statusLapor = Lapor::where('id', $id)->first();
-        // $statusLapor->update(['status' => 'selesai']);
-
-        // return back();
     }
 }

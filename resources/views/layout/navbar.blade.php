@@ -25,14 +25,16 @@
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <li class="nav-item me-3">
                 @if (auth()->check())
-                    <a href="{{ route('forpi_lapor') }}" class="btn btn-sm btn-outline-danger">
+                    <a href="{{ route(strtolower($data['menuData']['menu']) . '_lapor') }}" class="btn btn-sm btn-outline-danger">
                         Lapor
                         @if ($data['menuData']['notif'] > 0)
                             <span class="badge">{{ $data['menuData']['notif'] }}</span>
                         @endif
                     </a>
                 @elseif (auth('mahasiswa')->check())
-                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#lapor_{{ strtolower($data['menuData']['menu']) }}">
+                    <button type="button" class="laporNavbar btn btn-sm btn-outline-danger" data-bs-toggle="modal"
+                        data-bs-target="#lapor_{{ strtolower($data['menuData']['menu']) }}"
+                        {{ strtolower($data['menuData']['menu']) == 'dversi' && session('sudah_mengisi') ? 'disabled' : '' }}>
                         Lapor !
                     </button>
                 @endif

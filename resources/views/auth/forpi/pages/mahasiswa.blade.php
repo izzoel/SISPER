@@ -9,9 +9,13 @@
                     <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#M_S_pisn">
                         &#10010; PISN
                     </button>
+                    <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#M_S_nik">
+                        &#10010; NIK
+                    </button>
 
-                    @include('auth.forpi.modals.mahasiswa')
-                    @include('auth.forpi.modals.pisn')
+                    @include('auth.' . request()->segment(1) . '.modals.mahasiswa')
+                    @include('auth.' . request()->segment(1) . '.modals.pisn')
+                    @include('auth.' . request()->segment(1) . '.modals.nik')
 
                     <div class="card-text">
                         <table id="table_{{ request()->segment(2) }}" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
@@ -20,9 +24,12 @@
                                     <th>#</th>
                                     <th>NIM</th>
                                     <th>Nama</th>
+                                    <th>PISN</th>
+                                    <th>NIK</th>
                                     <th>Prodi</th>
-                                    <th class="text-start">PISN</th>
-                                    <th class="text-start">Periode Lulus</th>
+                                    <th>Periode Lulus</th>
+                                    <th>Tangal Yudisium</th>
+                                    <th>Periode Lulus</th>
                                 </tr>
                             </thead>
                         </table>

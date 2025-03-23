@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `mahasiswas` (
   `alamat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pisn` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `periode` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `periode_lulus` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `mahasiswas` (
 -- Dumping data for table sisperv2.mahasiswas: ~51 rows (approximately)
 DELETE FROM `mahasiswas`;
 /*!40000 ALTER TABLE `mahasiswas` DISABLE KEYS */;
-INSERT INTO `mahasiswas` (`nim`, `nama`, `password`, `tempat_lahir`, `kelamin`, `tanggal_lahir`, `prodi`, `no_hp`, `status`, `alamat`, `foto`, `pisn`, `periode`, `role`, `created_at`, `updated_at`) VALUES
+INSERT INTO `mahasiswas` (`nim`, `nama`, `password`, `tempat_lahir`, `kelamin`, `tanggal_lahir`, `prodi`, `no_hp`, `status`, `alamat`, `foto`, `pisn`, `periode_lulus`, `role`, `created_at`, `updated_at`) VALUES
 	('4820102230001', 'AHMAD NOPAL', '$2y$12$XInazIH5qpGRyGarB67ofOx5EZFjV8e4KVIlJKIKSGtFyEySFE2fq', 'KUALA KUAYAN', 'L', '1988-12-28', 'SARJANA FARMASI', '81352911234', 'AKTIF', 'Jl. Ir. H. Juanda No. 96 Sampit', '2', '1000322010284', '2024/2025 Ganjil', NULL, '2025-03-11 14:48:24', '2025-03-11 14:49:31'),
 	('4820102230002', 'ANNA SEPTIANI', '$2y$12$JnBzIHQjI6bBvB8eTDrtRObo1sPUo3MSwiddKFSZuh0tSLGzER2zS', 'SAMPIT', 'P', '1989-09-23', 'SARJANA FARMASI', '81255580138', 'AKTIF', 'Jl. Ir. H. Juanda No. 29', '1', '2000322010284', '2024/2025 Ganjil', NULL, '2025-03-11 14:48:24', '2025-03-11 14:49:31'),
 	('4820102230003', 'ARIS SETIAWAN', '$2y$12$MfAXHaOMYmxX0HRMxSQYPOp/3XttpYOaoQaKEufXIXvp9VYaj8oG6', 'BANJARMASIN', 'L', '1995-09-22', 'SARJANA FARMASI', '85813577466', 'AKTIF', 'Jl. Sungai Miai Dalam Rt.12 No.18', '7', '3000322010284', '2024/2025 Ganjil', NULL, '2025-03-11 14:48:25', '2025-03-11 14:49:31'),

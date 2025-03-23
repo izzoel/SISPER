@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lapor;
+use Illuminate\Support\Facades\Log;
+
 use Carbon\Carbon;
-use App\Models\Submit;
-use App\Models\Setting;
+use App\Models\Lapor;
+use App\Models\Prodi;
 use App\Models\Mahasiswa;
+use App\Models\ForpiSubmit as Submit;
 use Illuminate\Http\Request;
 use App\Services\GoogleService;
 
@@ -26,58 +28,39 @@ class ForpiSubmit extends Controller
             'menuData' => $request->get('menuData')
         ];
 
+        try {
+            $mahasiswa = Mahasiswa::where('nim', session('nim'))->first();
+            $sudah_mengisi = Mahasiswa::where('nim', session('nim'))->where('skpi', 'SUBMIT')->first();
+            $data_submit = Submit::where('nim', session('nim'))->first();
 
+            $setting = match (ucwords(strtolower($mahasiswa->prodi))) {
+                'Diploma Tiga Farmasi',
+                'Diploma Tiga Analis Kesehatan',
+                'Sarjana Farmasi',
+                'Sarjana Administrasi Rumah Sakit',
+                'Sarjana Gizi',
+                'Sarjana Hukum',
+                'Sarjana Manajemen',
+                'Sarjana Pendidikan Guru Sekolah Dasar' => Prodi::where('prodi', ucwords(strtolower($mahasiswa->prodi)))->first(),
+                default => null,
+            };
 
-        $mahasiswa = Mahasiswa::where('nim', session('nim'))->first();
-        $sudah_mengisi = Submit::where('nim', session('nim'))->first();
+            session(
+                [
+                    't_terbit' => Carbon::createFromFormat('Y-m-d', $setting->tanggal_terbit)->translatedFormat('d F Y'),
+                    'kaprodi' => $setting->kaprodi,
+                    'nik' => $setting->nik,
+                    'sudah_mengisi' => $sudah_mengisi,
+                    'data_submit' => $data_submit
+                ]
+            );
 
-        $gelar = match ($mahasiswa->prodi) {
-            'DIPLOMA TIGA FARMASI' => 'Ahli Madya Farmasi (A.Md.Farm.)',
-            'DIPLOMA TIGA ANALIS KESEHATAN' => 'Ahli Madya Analis Kesehatan (A.Md.A.K.)',
-            'SARJANA FARMASI' => 'Sarjana Farmasi (S.Farm.)',
-            'SARJANA ADMINISTRASI RUMAH SAKIT' => 'Sarjana Kesehatan (S.Kes.)',
-            'SARJANA GIZI' => 'Sarjana Gizi (S.Gz.)',
-            'SARJANA HUKUM' => 'Sarjana Hukum (S.H.)',
-            'SARJANA MANAJEMEN' => 'Sarjana Manajemen (S.M.)',
-            'SARJANA PENDIDIKAN GURU SEKOLAH DASAR' => 'Sarjana Pendidikan (S.Pd.)',
-        };
-        $fakultas = match ($mahasiswa->prodi) {
-            'DIPLOMA TIGA FARMASI' => 'Farmasi',
-            'DIPLOMA TIGA ANALIS KESEHATAN' => 'Ilmu Kesehatan dan Sains Teknologi',
-            'SARJANA FARMASI' => 'Farmasi',
-            'SARJANA ADMINISTRASI RUMAH SAKIT' => 'Ilmu Kesehatan dan Sains Teknologi',
-            'SARJANA GIZI' => 'Ilmu Kesehatan dan Sains Teknologi',
-            'SARJANA HUKUM' => 'Ilmu Sosial dan Humaniora',
-            'SARJANA MANAJEMEN' => 'Ilmu Sosial dan Humaniora',
-            'SARJANA PENDIDIKAN GURU SEKOLAH DASAR' => 'Ilmu Sosial dan Humaniora',
-        };
-        $setting = match (ucwords(strtolower($mahasiswa->prodi))) {
-            'Diploma Tiga Farmasi',
-            'Diploma Tiga Analis Kesehatan',
-            'Sarjana Farmasi',
-            'Sarjana Administrasi Rumah Sakit',
-            'Sarjana Gizi',
-            'Sarjana Hukum',
-            'Sarjana Manajemen',
-            'Sarjana Pendidikan Guru Sekolah Dasar' => Setting::where('prodi', ucwords(strtolower($mahasiswa->prodi)))->first(),
-            default => null,
-        };
-
-        session(
-            [
-                'prodi' => $mahasiswa->prodi,
-                'gelar' => $gelar,
-                'fakultas' => $fakultas,
-                't_terbit' => Carbon::createFromFormat('Y-m-d', $setting->tanggal_terbit)->translatedFormat('d F Y'),
-                'kaprodi' => $setting->kaprodi,
-                'nik' => $setting->nik,
-                'sudah_mengisi' => $sudah_mengisi
-            ]
-        );
-
-        if ($mahasiswa) {
-            return view('auth.forpi.pages.section', compact('data', 'mahasiswa', 'gelar'));
-        } else {
+            if ($mahasiswa) {
+                return view('auth.forpi.pages.section', compact('data', 'mahasiswa'));
+            } else {
+                return redirect()->route('logout');
+            }
+        } catch (\Exception $e) {
             return redirect()->route('logout');
         }
     }
@@ -90,6 +73,7 @@ class ForpiSubmit extends Controller
 
     public function store(Request $request)
     {
+
         $romawiBulan = [
             '01' => 'I',
             '02' => 'II',
@@ -103,6 +87,21 @@ class ForpiSubmit extends Controller
             '10' => 'X',
             '11' => 'XI',
             '12' => 'XII',
+        ];
+
+        $bulanIndonesia = [
+            'Januari' => 'January',
+            'Februari' => 'February',
+            'Maret' => 'March',
+            'April' => 'April',
+            'Mei' => 'May',
+            'Juni' => 'June',
+            'Juli' => 'July',
+            'Agustus' => 'August',
+            'September' => 'September',
+            'Oktober' => 'October',
+            'November' => 'November',
+            'Desember' => 'December'
         ];
 
         $kejuaraan = $request->input('kejuaraan', []);
@@ -148,57 +147,75 @@ class ForpiSubmit extends Controller
         $array_sertifikat = $sertifikat_formatted ? implode("\n", $sertifikat_formatted)  : '-';
         $array_beasiswa = $beasiswa_formatted ? implode("\n", $beasiswa_formatted) : '-';
         $array_organisasi = $organisasi_formatted ? implode("\n", $organisasi_formatted) : '-';
-
         try {
-            $newDocTitle = "SKPI--" . $request->nama . "--" . date('d/m/Y H:i:s');
-            $newDocId = $this->googleService->duplicateDocument($newDocTitle);
+
 
             $bulanAngka = Mahasiswa::where('nim', session('nim'))->first()->created_at->format('m');
             $t_bulan = $romawiBulan[$bulanAngka];
             $t_tahun = Mahasiswa::where('nim', session('nim'))->first()->created_at->format('Y');
+            $mahasiswa = Mahasiswa::where('nim', session('nim'))->first();
+            $akreditasi = Prodi::where('prodi', $mahasiswa->prodi)->value('akreditasi');
+            $no_akreditasi = Prodi::where('prodi', $mahasiswa->prodi)->value('no_akreditasi');
+
+            // $tanggal_formatted = str_replace(array_keys($bulanIndonesia), array_values($bulanIndonesia), $mahasiswa->tanggal_lahir);
+            // $tanggal_lahir = Carbon::createFromFormat('d F Y', $tanggal_formatted)->format('Y-m-d');
+            // $tanggal_lahir = Carbon::createFromFormat('Y-m-d', $mahasiswa->tanggal_lahir)->locale('id')->format('d F Y');
+            $tanggal_lahir = Carbon::parse($mahasiswa->tanggal_lahir)->locale('id')->translatedFormat('d F Y');
+
+            $newDocTitle = "SKPI--" . $mahasiswa->nama . "--" . date('d/m/Y H:i:s');
+
+            $newDocId = $this->googleService->duplicateDocument($newDocTitle, $mahasiswa->prodi);
+
 
             Submit::updateOrCreate(
                 [
                     'nim' => session('nim')
                 ],
                 [
-                    'nama' => $request->nama,
-                    'tempat_lahir' => $request->tempat_lahir,
-                    'tanggal_lahir' => Carbon::createFromFormat('d/m/Y', $request->tanggal_lahir)->translatedFormat('Y-m-d'),
-                    'prodi' => session('prodi'),
-                    'gelar' => session('gelar'),
+                    'nama' => $mahasiswa->nama,
+                    'tempat_lahir' => $mahasiswa->tempat_lahir,
+                    'tanggal_lahir' => $mahasiswa->tanggal_lahir,
+                    'prodi' => ucwords(strtolower($mahasiswa->prodi)),
+                    'gelar' => $mahasiswa->gelar,
                     'pisn' => session('pisn'),
                     'masuk' => $request->masuk,
-                    'yudisium' => Carbon::createFromFormat('d/m/Y', $request->yudisium)->translatedFormat('Y-m-d'),
+                    'tanggal_yudisium' =>  $mahasiswa->tanggal_yudisium,
                     'judul' => $request->judul,
                     'toefl' => $request->toefl,
                     'kejuaraan' => $array_kejuaraan,
                     'sertifikat' => $array_sertifikat,
                     'beasiswa' => $array_beasiswa,
                     'organisasi' => $array_organisasi,
-                    'status' => 'baru',
+                    'periode_lulus' => $mahasiswa->periode_lulus,
+                    'status' => 'BARU',
                     'dokumen' => 'https://docs.google.com/document/d/' . $newDocId . '/edit?tab=t.0'
                 ]
             );
 
+            Mahasiswa::where('nim', session('nim'))->update([
+                'skpi' => 'SUBMIT'
+            ]);
+
             $data = [
                 'nim' => session('nim'),
-                'nama' => $request->nama,
-                'tempat_lahir' => $request->tempat_lahir,
-                'tanggal_lahir' => strtoupper(Carbon::createFromFormat('d/m/Y', $request->tanggal_lahir)->translatedFormat('d F Y')),
-                'fakultas' => session('fakultas'),
-                'prodi' => ucwords(strtolower(session('prodi'))),
-                'gelar' => session('gelar'),
+                'nama' => $mahasiswa->nama,
+                'tempat_lahir' => $mahasiswa->tempat_lahir,
+                'tanggal_lahir' => strtoupper($tanggal_lahir),
+                'fakultas' => $mahasiswa->fakultas,
+                'prodi' => ucwords(strtolower($mahasiswa->prodi)),
+                'gelar' => $mahasiswa->gelar,
                 'pisn' => session('pisn'),
                 'masuk' => $request->masuk,
-                'yudisium' =>  Carbon::createFromFormat('d/m/Y', $request->yudisium)->translatedFormat('d F Y'),
+                'yudisium' =>  Carbon::parse($mahasiswa->tanggal_yudisium)->locale('id')->translatedFormat('d F Y'),
                 'judul' => $request->judul,
                 'toefl' => $request->toefl,
-                'studi' => (string)((int)substr($request->yudisium, -4) - (int)($request->masuk)),
+                'studi' => strval(Carbon::parse($mahasiswa->tanggal_yudisium)->locale('id')->translatedFormat('Y') - $request->masuk),
                 'kejuaraan' => $array_kejuaraan,
                 'sertifikat' => $array_sertifikat,
                 'beasiswa' => $array_beasiswa,
                 'organisasi' => $array_organisasi,
+                'akreditasi' => $akreditasi,
+                'no_akreditasi' => $no_akreditasi,
                 't_bulan' => $t_bulan,
                 't_tahun' => $t_tahun,
                 't_terbit' => session('t_terbit'),
@@ -206,11 +223,18 @@ class ForpiSubmit extends Controller
                 'nik' => session('nik'),
             ];
 
+            $t = Carbon::parse($mahasiswa->tanggal_yudisium)->locale('id')->translatedFormat('Y');
+            $m = $request->masuk;
+            Log::info("DD: {$t} - {$m} = " . ($t - $m));
+
             $this->googleService->replaceText($newDocId, $data);
             $this->googleService->shareDocumentWithEmail($newDocId, 'skpi.unbl@gmail.com');
 
             return redirect()->back()->with('submit', 'Berhasil kirim!');
         } catch (\Exception $e) {
+
+            Log::error('Gagal mengirim data: ' . $e->getMessage());
+
             return redirect()->back()->with('fail', 'Gagal kirim! ' . $e->getMessage());
         }
     }

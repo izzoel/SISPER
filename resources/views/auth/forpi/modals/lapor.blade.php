@@ -11,7 +11,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="importForm" action="{{ route('forpi_submit_lapor', ['menu' => $data['menuData']['menu'], 'nim' => $mahasiswa['nim']]) }}" method="POST">
+                <form class="importForm" action="{{ route(request()->segment(1) . '_submit_lapor', ['menu' => $data['menuData']['menu'], 'nim' => $mahasiswa['nim']]) }}"
+                    method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="file" class="form-label">Deskripsikan Laporan</label>

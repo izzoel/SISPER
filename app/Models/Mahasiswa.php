@@ -22,12 +22,18 @@ class Mahasiswa extends Authenticatable
         'tempat_lahir',
         'kelamin',
         'tanggal_lahir',
+        'fakultas',
         'prodi',
+        'gelar',
         'no_hp',
         'status',
+        'skpi',
+        'ijazah',
         'alamat',
+        'nik',
         'pisn',
-        'periode',
+        'periode_lulus',
+        'tanggal_yudisium',
         'foto'
     ];
 

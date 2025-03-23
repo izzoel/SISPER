@@ -19,7 +19,7 @@ class ForpiMahasiswa extends Controller
         ];
 
         $mahasiswas = Mahasiswa::all();
-        return view('auth.forpi.pages.section', compact('data', 'mahasiswas'));
+        return view('auth.' . request()->segment(1) . '.pages.section', compact('data', 'mahasiswas'));
     }
 
     public function table()
@@ -29,11 +29,20 @@ class ForpiMahasiswa extends Controller
 
             return DataTables::eloquent($mahasiswas)
                 ->addIndexColumn()
+                ->addColumn('nik', function ($mahasiswa) {
+                    $statusClass = $mahasiswa->nik ? 'bg-label-primary' : 'bg-label-danger';
+                    $statusText = $mahasiswa->nik ?: 'Belum';
+
+                    return '<span class="badge rounded-pill ' . $statusClass . '">' . $statusText . '</span>';
+                })
                 ->addColumn('pisn', function ($mahasiswa) {
                     $statusClass = $mahasiswa->pisn ? 'bg-label-primary' : 'bg-label-danger';
                     $statusText = $mahasiswa->pisn ?: 'Belum';
 
                     return '<span class="badge rounded-pill ' . $statusClass . '">' . $statusText . '</span>';
+                })
+                ->addColumn('tanggal_yudisium', function ($mahasiswa) {
+                    return \Carbon\Carbon::createFromFormat('Y-m-d', $mahasiswa->tanggal_yudisium)->translatedFormat('d F Y');
                 })
                 ->addColumn('aksi', function ($mahasiswa) {
                     return '<a type="button" class="U_B_mahasiswa text-info" data-nim="#M_U_mahasiswa-' . $mahasiswa->nim . '">
@@ -46,11 +55,17 @@ class ForpiMahasiswa extends Controller
                         <span class="tf-icons bx bxs-x-square"></span>
                     </a>';
                 })
-                ->rawColumns(['pisn', 'aksi'])
+                ->orderColumn('nik', function ($query, $direction) {
+                    $query->orderBy('nik', $direction);
+                })
+                ->orderColumn('pisn', function ($query, $direction) {
+                    $query->orderBy('pisn', $direction);
+                })
+                ->rawColumns(['nik', 'pisn', 'aksi'])
                 ->make(true);
         }
 
-        return view('auth.forpi.pages.section');
+        return view('auth.' . request()->segment(1) . '.pages.section');
     }
 
     function store(Request $request)
@@ -65,7 +80,7 @@ class ForpiMahasiswa extends Controller
                 'kelamin' => $request->kelamin,
                 'prodi' => strtoupper($request->prodi),
                 'pisn' => $request->pisn,
-                'periode' => $request->periode
+                'periode_lulus' => $request->periode_lulus
             ]);
 
             return redirect()->back()->with('success', 'Mahasiswa berhasil ditambahkan!');
@@ -103,8 +118,9 @@ class ForpiMahasiswa extends Controller
                 'prodi' => $request->prodi,
                 'no_hp' => $request->hp,
                 'alamat' => $request->alamat,
+                'nik' => $request->nik,
                 'pisn' => $request->pisn,
-                'periode' => $request->periode
+                'periode_lulus' => $request->periode_lulus
             ];
 
             if ($request->pisn) {

@@ -20,6 +20,9 @@ class MenuMiddleware
         if ($request->segment(1) == 'forpi') {
             $version = '3.0';
             $about = 'Formulir Pengajuan Surat Keterangan Pendamping Ijazah';
+        } elseif ($request->segment(1) == 'dversi') {
+            $version = '2.0';
+            $about = 'Digital Verifikasi Biodata Ijazah';
         } else {
             $version = '3.0';
             $about = 'Sistem Persuratan';
@@ -33,7 +36,7 @@ class MenuMiddleware
             'logo' => $request->segment(1),
             'version' => $version,
             'about' => $about,
-            'periode' => '2024/2025 Ganjil',
+            'periode_lulus' => '2024/2025 Ganjil',
             'notif' => $notif
         ];
 
@@ -42,7 +45,11 @@ class MenuMiddleware
                 $menuData['description'] = strtoupper(Auth::user()->name);
                 $menuData['segment2'] = strtoupper($request->segment(2)) ?? '';
             } else {
-                $menuData['description'] = 'Formulir Pengajuan Surat Keterangan Pendamping Ijazah';
+                if ($request->segment(1) == 'forpi') {
+                    $menuData['description'] = $about;
+                } elseif ($request->segment(1) == 'dversi') {
+                    $menuData['description'] = $about;
+                }
             }
         }
 

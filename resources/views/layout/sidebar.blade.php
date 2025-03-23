@@ -32,40 +32,40 @@
       @if (!is_null(Auth::user()))
           <ul class="menu-inner py-1">
               <!-- Dashboard -->
-              <li class="menu-item {{ request()->url() == url('/forpi/dashboard') ? 'active' : '' }} ">
-                  <a href="{{ route('forpi_dashboard') }}" class="menu-link">
+              <li class="menu-item {{ request()->url() == url('/' . request()->segment(1) . '/dashboard') ? 'active' : '' }} ">
+                  <a href="{{ route(request()->segment(1) . '_dashboard') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-home-circle"></i>
                       <div data-i18n="Analytics">Dashboard</div>
                   </a>
               </li>
 
               <!-- Entry -->
-              <li class="menu-item {{ request()->url() == url('/forpi/entry') ? 'active' : '' }} ">
-                  <a href="{{ route('forpi_entry') }}" class="menu-link">
+              <li class="menu-item {{ request()->url() == url('/' . request()->segment(1) . '/entry') ? 'active' : '' }} ">
+                  <a href="{{ route(request()->segment(1) . '_entry') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-server"></i>
                       <div data-i18n="Entry">Entry</div>
                   </a>
               </li>
 
               <!-- Mahasiswa -->
-              <li class="menu-item {{ request()->url() == url('/forpi/mahasiswa') ? 'active' : '' }} ">
-                  <a href="{{ route('forpi_mahasiswa') }}" class="menu-link">
+              <li class="menu-item {{ request()->url() == url('/' . request()->segment(1) . '/mahasiswa') ? 'active' : '' }} ">
+                  <a href="{{ route(request()->segment(1) . '_mahasiswa') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-user"></i>
                       <div data-i18n="Mahasiswa">Mahasiswa</div>
                   </a>
               </li>
 
               <!-- Laporan -->
-              <li class="menu-item {{ request()->url() == url('/forpi/lapor') ? 'active' : '' }} ">
-                  <a href="{{ route('forpi_lapor') }}" class="menu-link">
+              <li class="menu-item {{ request()->url() == url('/' . request()->segment(1) . '/lapor') ? 'active' : '' }} ">
+                  <a href="{{ route(request()->segment(1) . '_lapor') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-comment-dots"></i>
                       <div data-i18n="Laporan">Laporan</div>
                   </a>
               </li>
 
               <!-- Setting -->
-              <li class="menu-item {{ request()->url() == url('/forpi/setting') ? 'active' : '' }} ">
-                  <a href="{{ route('forpi_setting') }}" class="menu-link">
+              <li class="menu-item {{ request()->url() == url('/' . request()->segment(1) . '/setting') ? 'active' : '' }} ">
+                  <a href="{{ route(request()->segment(1) . '_setting') }}" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-cog"></i>
                       <div data-i18n="Setting">Setting</div>
                   </a>

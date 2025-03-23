@@ -24,7 +24,7 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane fade show active" id="nav-input" role="tabpanel">
-                                <form action="{{ route('forpi_mahasiswa_store') }}" method="POST">
+                                <form action="{{ route(request()->segment(1) . '_mahasiswa_store') }}" method="POST">
                                     @csrf
                                     <div class="mb-3">
                                         <label class="form-label" for="S_nim">NIM<span class="text-danger">*</span></label>
@@ -76,8 +76,8 @@
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label" for="periode">Periode<span class="text-danger">*</span></label>
-                                        <select class="form-select" id="periode" name="periode" required>
+                                        <label class="form-label" for="periode_lulus">Periode<span class="text-danger">*</span></label>
+                                        <select class="form-select" id="periode_lulus" name="periode_lulus" required>
                                             <option selected disabled>-- Pilih --</option>
                                             <option value="2024/2025 Ganjil">2024/2025 Ganjil</option>
                                         </select>
@@ -88,7 +88,7 @@
                                 </form>
                             </div>
                             <div class="tab-pane fade" id="navs-import" role="tabpanel">
-                                <form class="importForm" action="{{ route('forpi_mahasiswa_import') }}" method="POST" enctype="multipart/form-data">
+                                <form class="importForm" action="{{ route(request()->segment(1) . '_mahasiswa_import') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
                                         <label for="file" class="form-label">File Upload</label>
@@ -182,13 +182,19 @@
                                 <label class="form-label" for="U_alamat">Alamat</label>
                                 <textarea class="form-control" id="U_alamat" name="alamat" rows="3" placeholder="Jl. Raya Banjarbaru No. 1"></textarea>
                             </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="U_nik">NIK</label>
+                                <input type="text" class="form-control phone-mask" id="U_nik" name="nik" placeholder="6383053112990001" />
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label" for="U_pisn">PISN</label>
                                 <input type="text" class="form-control phone-mask" id="U_pisn" name="pisn" placeholder="1000322010284" />
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="U_periode">Periode<span class="text-danger">*</span></label>
-                                <select class="form-select" id="U_periode" name="periode" required>
+                                <select class="form-select" id="U_periode" name="periode_lulus" required>
                                     <option selected disabled>-- Pilih --</option>
                                     <option value="2024/2025 Ganjil">2024/2025 Ganjil</option>
                                 </select>

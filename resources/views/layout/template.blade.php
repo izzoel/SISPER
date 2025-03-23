@@ -59,6 +59,20 @@
             z-index: 90000 !important;
             /* Popup Swal lebih tinggi dari backdrop */
         }
+
+        .responsive-iframe {
+            width: 100%;
+            min-height: 35rem;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .responsive-iframe {
+                width: 100%;
+                min-height: 11rem;
+                border: none;
+            }
+        }
     </style>
 
     <!-- Helpers -->

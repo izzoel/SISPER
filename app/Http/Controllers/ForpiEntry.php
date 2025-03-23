@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Submit;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use App\Models\ForpiSubmit as Submit;
 use Yajra\DataTables\Facades\DataTables;
 
 class ForpiEntry extends Controller
@@ -16,7 +17,7 @@ class ForpiEntry extends Controller
         ];
 
         $entries = Submit::all();
-        return view('auth.forpi.pages.section', compact('data', 'entries'));
+        return view('auth.' . request()->segment(1) . '.pages.section', compact('data', 'entries'));
     }
 
 
@@ -28,14 +29,17 @@ class ForpiEntry extends Controller
             return DataTables::eloquent($entries)
                 ->addIndexColumn()
                 ->addColumn('status', function ($entry) {
-                    $statusClass = $entry->status == 'baru' ? 'bg-label-warning'
-                        : ($entry->status == 'sudah print' ? 'bg-label-success' : 'bg-label-danger');
+                    $statusClass = $entry->status == 'BARU' ? 'bg-label-warning'
+                        : ($entry->status == 'SUDAH PRINT' ? 'bg-label-success' : 'bg-label-danger');
 
                     return '<span class="badge rounded-pill ' . $statusClass . '">'
                         . ($entry->status ? $entry->status : 'Belum') . '</span>';
                 })
                 ->addColumn('aksi', function ($entry) {
-                    return '<button class="btn btn-sm btn-primary print-btn" 
+                    return '<button class="btn btn-sm btn-info resubmit-btn" data-nim="' . $entry->nim . '" 
+                            data-url="' . route('forpi_entry_resubmit', $entry->nim) . '"><i class="bx bx-refresh"></i>
+                        </button>
+                    <button class="btn btn-sm btn-primary print-btn" 
                             data-nim="' . $entry->nim . '" 
                             data-url="' . route('forpi_entry_print', $entry->nim) . '" 
                             data-doc="' . $entry->dokumen . '">
@@ -46,14 +50,23 @@ class ForpiEntry extends Controller
                 ->make(true);
         }
 
-        return view('auth.forpi.pages.section');
+        return view('auth.' . request()->segment(1) . '.pages.section');
     }
 
     public function print($nim)
     {
         $forpiEntry = Submit::where('nim', $nim)->first();
-        $forpiEntry->update(['status' => 'sudah print']);
+        $forpiEntry->update(['status' => 'SUDAH PRINT']);
 
         return back();
+    }
+    public function resubmit($nim)
+    {
+        $mahasiswa = Mahasiswa::where('nim', $nim)->first();
+        $resubmit = Submit::where('nim', $nim)->first();
+
+        $mahasiswa->update(['skpi' => 'RESUBMIT']);
+        $resubmit->update(['status' => 'RESUBMIT']);
+        return redirect()->back()->with('submit', 'Mengubah status ke resubmit!');
     }
 }

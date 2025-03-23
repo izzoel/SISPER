@@ -3,7 +3,7 @@
         serverSide: true,
         processing: true,
         ajax: {
-            url: "{{ route('forpi_lapor_table') }}"
+            url: "{{ route(request()->segment(1) . '_lapor_table') }}"
         },
         columns: [{
                 data: 'DT_RowIndex',
@@ -49,19 +49,19 @@
     $(document).on('change', '.status-btn', function() {
         let btn = $(this);
         let id = btn.data('id');
-        let status = btn.is(':checked') ? 1 : 0; // 1 untuk aktif, 0 untuk baru
+        let status = btn.is(':checked') ? 1 : 0;
 
-        $.get("{{ route('forpi_lapor_status') }}", {
+        $.get("{{ route(request()->segment(1) . '_lapor_status') }}", {
                 id: id,
                 status: status
             })
             .done(function(response) {
                 console.log(response.success);
-                $('#table_' + '{{ request()->segment(2) }}').DataTable().ajax.reload();
+                $('#table_' + '{{ request()->segment(2) }}').DataTable().ajax.reload(null, false);
             })
             .fail(function() {
                 alert("Gagal memperbarui status.");
-                btn.prop('checked', !status); // Kembalikan switch jika gagal
+                btn.prop('checked', !status);
             });
     });
 </script>
