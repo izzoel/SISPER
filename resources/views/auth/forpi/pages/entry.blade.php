@@ -14,8 +14,8 @@
                                     <th class="text-start" data-priority="3">#</th>
                                     <th>NIM</th>
                                     <th>Nama</th>
-                                    <th>Prodi</th>
                                     <th>Status</th>
+                                    <th>Prodi</th>
                                     <th>Periode Lulus</th>
                                     <th>Tanggal Yudisium</th>
                                     <th>Aksi</th>
