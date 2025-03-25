@@ -25,13 +25,13 @@ class MahasiswaImport implements ToModel, WithHeadingRow
 
         $fakultas = match ($prodi) {
             'DIPLOMA TIGA FARMASI', 'D3 FARMASI' => 'Farmasi',
-            'DIPLOMA TIGA ANALIS KESEHATAN', 'D3 ANALIS KESEHATAN' => 'Ilmu Kesehatan dan Sains Teknologi',
+            'DIPLOMA TIGA ANALIS KESEHATAN', 'D3 ANALIS KESEHATAN' => 'Ilmu Kesehatan Dan Sains Teknologi',
             'SARJANA FARMASI', 'S1 FARMASI' => 'Farmasi',
-            'SARJANA ADMINISTRASI RUMAH SAKIT', 'S1 ADMINISTRASI RUMAH SAKIT' => 'Ilmu Kesehatan dan Sains Teknologi',
-            'SARJANA GIZI', 'S1 GIZI' => 'Ilmu Kesehatan dan Sains Teknologi',
-            'SARJANA HUKUM', 'S1 HUKUM' => 'Ilmu Sosial dan Humaniora',
-            'SARJANA MANAJEMEN', 'S1 MANAJEMEN' => 'Ilmu Sosial dan Humaniora',
-            'SARJANA PENDIDIKAN GURU SEKOLAH DASAR', 'S1 PENDIDIKAN GURU SEKOLAH DASAR' => 'Ilmu Sosial dan Humaniora',
+            'SARJANA ADMINISTRASI RUMAH SAKIT', 'S1 ADMINISTRASI RUMAH SAKIT' => 'Ilmu Kesehatan Dan Sains Teknologi',
+            'SARJANA GIZI', 'S1 GIZI' => 'Ilmu Kesehatan Dan Sains Teknologi',
+            'SARJANA HUKUM', 'S1 HUKUM' => 'Ilmu Sosial Dan Humaniora',
+            'SARJANA MANAJEMEN', 'S1 MANAJEMEN' => 'Ilmu Sosial Dan Humaniora',
+            'SARJANA PENDIDIKAN GURU SEKOLAH DASAR', 'S1 PENDIDIKAN GURU SEKOLAH DASAR' => 'Ilmu Sosial Dan Humaniora',
             default => throw new \Exception("Data pada template salah"),
         };
         $gelar = match ($prodi) {

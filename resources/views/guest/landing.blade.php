@@ -177,7 +177,7 @@
     <!-- SweetAlert2 JS -->
     <script src="{{ asset('vendor/sweetalert2/js/sweetalert2.js') }}"></script>
 
-    <!-- forpi login -->
+    <!-- Login scripts -->
     <script src="{{ asset('scripts/sw-login-forpi.js') }}"></script>
     <script src="{{ asset('scripts/sw-login-dversi.js') }}"></script>
 

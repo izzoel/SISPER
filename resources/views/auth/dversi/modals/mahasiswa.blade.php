@@ -63,12 +63,12 @@
                                             <option value="SARJANA FARMASI">&nbsp;&nbsp;&nbsp;Sarjana Farmasi</option>
                                             <option value="DIPLOMA TIGA FARMASI">&nbsp;&nbsp;&nbsp;Diploma Tiga Farmasi</option>
                                             <option value=" " disabled> </option>
-                                            <option disabled>-[Fakultas Ilmu Kesehatan dan Sains Teknologi ]-</option>
+                                            <option disabled>-[Fakultas Ilmu Kesehatan Dan Sains Teknologi ]-</option>
                                             <option value="SARJANA ADMINISTRASI RUMAH SAKIT">&nbsp;&nbsp;&nbsp;Sarjana Administrasi Rumah Sakit</option>
                                             <option value="SARJANA GIZI">&nbsp;&nbsp;&nbsp;Sarjana Gizi</option>
                                             <option value="DIPLOMA TIGA ANALIS KESEHATAN">&nbsp;&nbsp;&nbsp;Diploma Tiga Analis Kesehatan</option>
                                             <option value=" " disabled> </option>
-                                            <option disabled>-[Fakultas Ilmu Sosial dan Humaniora ]-</option>
+                                            <option disabled>-[Fakultas Ilmu Sosial Dan Humaniora ]-</option>
                                             <option value="SARJANA BISNIS DIGITAL">&nbsp;&nbsp;&nbsp;Sarjana Bisnis Digital</option>
                                             <option value="SARJANA HUKUM">&nbsp;&nbsp;&nbsp;Sarjana Hukum</option>
                                             <option value="SARJANA MANAJEMEN">&nbsp;&nbsp;&nbsp;Sarjana Manajemen</option>
@@ -76,11 +76,15 @@
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label" for="periode_lulus">Periode<span class="text-danger">*</span></label>
+                                        <label class="form-label" for="periode_lulus">Periode Lulus<span class="text-danger">*</span></label>
                                         <select class="form-select" id="periode_lulus" name="periode_lulus" required>
                                             <option selected disabled>-- Pilih --</option>
                                             <option value="2024/2025 Ganjil">2024/2025 Ganjil</option>
                                         </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="tanggal_yudisium">Tanggal Yudisium<span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" id="tanggal_yudisium" name="tanggal_yudisium" required />
                                     </div>
                                     <div class="d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -162,12 +166,12 @@
                                     <option value="SARJANA FARMASI">&nbsp;&nbsp;&nbsp;Sarjana Farmasi</option>
                                     <option value="DIPLOMA TIGA FARMASI">&nbsp;&nbsp;&nbsp;Diploma Tiga Farmasi</option>
                                     <option value=" " disabled> </option>
-                                    <option disabled>-[Fakultas Ilmu Kesehatan dan Sains Teknologi ]-</option>
+                                    <option disabled>-[Fakultas Ilmu Kesehatan Dan Sains Teknologi ]-</option>
                                     <option value="SARJANA ADMINISTRASI RUMAH SAKIT">&nbsp;&nbsp;&nbsp;Sarjana Administrasi Rumah Sakit</option>
                                     <option value="SARJANA GIZI">&nbsp;&nbsp;&nbsp;Sarjana Gizi</option>
                                     <option value="DIPLOMA TIGA ANALIS KESEHATAN">&nbsp;&nbsp;&nbsp;Diploma Tiga Analis Kesehatan</option>
                                     <option value=" " disabled> </option>
-                                    <option disabled>-[Fakultas Ilmu Sosial dan Humaniora ]-</option>
+                                    <option disabled>-[Fakultas Ilmu Sosial Dan Humaniora ]-</option>
                                     <option value="SARJANA HUKUM">&nbsp;&nbsp;&nbsp;Sarjana Hukum</option>
                                     <option value="SARJANA MANAJEMEN">&nbsp;&nbsp;&nbsp;Sarjana Manajemen</option>
                                     <option value="SARJANA PENDIDIKAN GURU SEKOLAH DASAR">&nbsp;&nbsp;&nbsp;Sarjana Pendidikan Guru Sekolah Dasar</option>
@@ -190,11 +194,15 @@
                                 <input type="text" class="form-control phone-mask" id="U_nik" name="nik" placeholder="6383053112990001" />
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="U_periode">Periode<span class="text-danger">*</span></label>
+                                <label class="form-label" for="U_periode">Periode Lulus<span class="text-danger">*</span></label>
                                 <select class="form-select" id="U_periode" name="periode_lulus" required>
                                     <option selected disabled>-- Pilih --</option>
                                     <option value="2024/2025 Ganjil">2024/2025 Ganjil</option>
                                 </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="U_yudisium">Tanggal Yudisium<span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" id="U_yudisium" name="tanggal_yudisium" required />
                             </div>
                             <div class="d-flex justify-content-end">
                                 <button type="submit" class="btn btn-primary">Simpan</button>

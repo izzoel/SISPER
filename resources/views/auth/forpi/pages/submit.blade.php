@@ -68,13 +68,13 @@
                                                 <option value="SARJANA FARMASI" @selected($mahasiswa->prodi == 'SARJANA FARMASI')>&nbsp;&nbsp;&nbsp;Sarjana Farmasi</option>
                                                 <option value="DIPLOMA TIGA FARMASI" @selected($mahasiswa->prodi == 'DIPLOMA TIGA FARMASI')>&nbsp;&nbsp;&nbsp;Diploma Tiga Farmasi</option>
                                                 <option value=" " disabled> </option>
-                                                <option disabled>-[Fakultas Ilmu Kesehatan dan Sains Teknologi ]-</option>
+                                                <option disabled>-[Fakultas Ilmu Kesehatan Dan Sains Teknologi ]-</option>
                                                 <option value="SARJANA ADMINISTRASI RUMAH SAKIT" @selected($mahasiswa->prodi == 'SARJANA ADMINISTRASI RUMAH SAKIT')>&nbsp;&nbsp;&nbsp;Sarjana Administrasi Rumah Sakit
                                                 </option>
                                                 <option value="SARJANA GIZI" @selected($mahasiswa->prodi == 'SARJANA GIZI')>&nbsp;&nbsp;&nbsp;Sarjana Gizi</option>
                                                 <option value="DIPLOMA TIGA ANALIS KESEHATAN" @selected($mahasiswa->prodi == 'DIPLOMA TIGA ANALIS KESEHATAN')>&nbsp;&nbsp;&nbsp;Diploma Tiga Analis Kesehatan</option>
                                                 <option value=" " disabled> </option>
-                                                <option disabled>-[Fakultas Ilmu Sosial dan Humaniora ]-</option>
+                                                <option disabled>-[Fakultas Ilmu Sosial Dan Humaniora ]-</option>
                                                 <option value="SARJANA HUKUM" @selected($mahasiswa->prodi == 'SARJANA HUKUM')>&nbsp;&nbsp;&nbsp;Sarjana Hukum</option>
                                                 <option value="SARJANA MANAJEMEN" @selected($mahasiswa->prodi == 'SARJANA MANAJEMEN')>&nbsp;&nbsp;&nbsp;Sarjana Manajemen</option>
                                                 <option value="SARJANA PENDIDIKAN GURU SEKOLAH DASAR" @selected($mahasiswa->prodi == 'SARJANA PENDIDIKAN GURU SEKOLAH DASAR')>&nbsp;&nbsp;&nbsp;Sarjana Pendidikan Guru Sekolah

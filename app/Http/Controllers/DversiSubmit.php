@@ -42,13 +42,13 @@ class DversiSubmit extends Controller
             };
             $fakultas = match ($mahasiswa->prodi) {
                 'DIPLOMA TIGA FARMASI' => 'Farmasi',
-                'DIPLOMA TIGA ANALIS KESEHATAN' => 'Ilmu Kesehatan dan Sains Teknologi',
+                'DIPLOMA TIGA ANALIS KESEHATAN' => 'Ilmu Kesehatan Dan Sains Teknologi',
                 'SARJANA FARMASI' => 'Farmasi',
-                'SARJANA ADMINISTRASI RUMAH SAKIT' => 'Ilmu Kesehatan dan Sains Teknologi',
-                'SARJANA GIZI' => 'Ilmu Kesehatan dan Sains Teknologi',
-                'SARJANA HUKUM' => 'Ilmu Sosial dan Humaniora',
-                'SARJANA MANAJEMEN' => 'Ilmu Sosial dan Humaniora',
-                'SARJANA PENDIDIKAN GURU SEKOLAH DASAR' => 'Ilmu Sosial dan Humaniora',
+                'SARJANA ADMINISTRASI RUMAH SAKIT' => 'Ilmu Kesehatan Dan Sains Teknologi',
+                'SARJANA GIZI' => 'Ilmu Kesehatan Dan Sains Teknologi',
+                'SARJANA HUKUM' => 'Ilmu Sosial Dan Humaniora',
+                'SARJANA MANAJEMEN' => 'Ilmu Sosial Dan Humaniora',
+                'SARJANA PENDIDIKAN GURU SEKOLAH DASAR' => 'Ilmu Sosial Dan Humaniora',
             };
             $setting = match (ucwords(strtolower($mahasiswa->prodi))) {
                 'Diploma Tiga Farmasi',

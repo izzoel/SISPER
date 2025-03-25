@@ -128,7 +128,6 @@
     <!-- Popover JS -->
     <script src="{{ asset('vendor/sneat/js/ui-popover.js') }}"></script>
 
-
     <!-- Toast JS -->
     <script src="{{ asset('vendor/sneat/js/ui-toasts.js') }}"></script>
 

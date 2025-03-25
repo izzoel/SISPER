@@ -94,7 +94,6 @@ class DversiEntry extends Controller
                     return \Carbon\Carbon::createFromFormat('Y-m-d', $mahasiswa->tanggal_yudisium)->translatedFormat('d F Y');
                 })
                 ->addColumn('aksi', function ($entry) {
-                    Log::info('Data Entry:', ['entry' => $entry]); // Debug ke log
                     $orderValue = 4; // Default jika tidak ada aksi
                     $buttons = '';
 
@@ -140,7 +139,7 @@ class DversiEntry extends Controller
 
     public function show()
     {
-        $data = Submit::select('periode_lulus', 'tanggal_yudisium')->distinct()->get();
+        $data = Mahasiswa::select('periode_lulus', 'tanggal_yudisium')->distinct()->get();
         return response()->json($data);
     }
 
@@ -165,7 +164,7 @@ class DversiEntry extends Controller
                 'data' => $mahasiswas // Kirim daftar mahasiswa agar bisa diproses AJAX
             ], 200);
         } catch (\Exception $e) {
-            Log::error("Error dalam print(): " . $e->getMessage());
+            session()->flash('fail', 'Gagal membuat ijazah!');
             return response()->json(['status' => 'error', 'message' => 'Gagal dibuat!'], 500);
         }
     }
@@ -283,45 +282,44 @@ class DversiEntry extends Controller
 
     public function pdf($nim)
     {
+        $mahasiswa = Mahasiswa::where('nim', $nim)->first();
+        $setting_fakultas = match ($mahasiswa->fakultas) {
+            'Farmasi',
+            'Ilmu Kesehatan Dan Sains Teknologi',
+            'Ilmu Sosial Dan Humaniora' => Fakultas::where('fakultas', $mahasiswa->fakultas)->first(),
+            default => null,
+        };
+
+        $setting_prodi = match (ucwords(strtolower($mahasiswa->prodi))) {
+            'Diploma Tiga Farmasi',
+            'Diploma Tiga Analis Kesehatan',
+            'Sarjana Farmasi',
+            'Sarjana Administrasi Rumah Sakit',
+            'Sarjana Gizi',
+            'Sarjana Hukum',
+            'Sarjana Manajemen',
+            'Sarjana Pendidikan Guru Sekolah Dasar' => Prodi::where('prodi', ucwords(strtolower($mahasiswa->prodi)))->first(),
+            default => null,
+        };
+
+        $setting = [
+            'prodi' => trim(str_replace(['Sarjana', 'Diploma Tiga'], '', $setting_prodi->prodi)),
+            'akreditasi' => trim(str_replace('Program Studi :', '', $setting_prodi->akreditasi)),
+            'no_akreditasi' => $setting_prodi->no_akreditasi,
+            'jenjang' => ($setting_prodi && preg_match('/\b(Sarjana|Diploma Tiga)\b/', $setting_prodi->prodi, $matches)) ? $matches[0] : '',
+            't_terbit' => Carbon::createFromFormat('Y-m-d', $setting_fakultas->tanggal_terbit)->translatedFormat('d F Y'),
+            'dekan' => $setting_fakultas->dekan,
+            'nik_dekan' => $setting_fakultas->nik,
+            'rektor' => Rektor::first()->nama,
+            'nik_rektor' => Rektor::first()->nik,
+        ];
+
+        $mahasiswa->update(['ijazah' => 'MENUNGGU VERIFIKASI']);
+
+        $newDocTitle = "IJAZAH--" . $mahasiswa->nama . "--" . date('d/m/Y H:i:s');
+        $newDocId = $this->googleService->ijazah($newDocTitle);
+
         try {
-
-            $mahasiswa = Mahasiswa::where('nim', $nim)->first();
-            $setting_fakultas = match ($mahasiswa->fakultas) {
-                'Farmasi',
-                'Ilmu Kesehatan Dan Sains Teknologi',
-                'Ilmu Sosial Dan Humaniora' => Fakultas::where('fakultas', $mahasiswa->fakultas)->first(),
-                default => null,
-            };
-
-            $setting_prodi = match (ucwords(strtolower($mahasiswa->prodi))) {
-                'Diploma Tiga Farmasi',
-                'Diploma Tiga Analis Kesehatan',
-                'Sarjana Farmasi',
-                'Sarjana Administrasi Rumah Sakit',
-                'Sarjana Gizi',
-                'Sarjana Hukum',
-                'Sarjana Manajemen',
-                'Sarjana Pendidikan Guru Sekolah Dasar' => Prodi::where('prodi', ucwords(strtolower($mahasiswa->prodi)))->first(),
-                default => null,
-            };
-
-            $setting = [
-                'prodi' => trim(str_replace(['Sarjana', 'Diploma Tiga'], '', $setting_prodi->prodi)),
-                'akreditasi' => trim(str_replace('Program Studi :', '', $setting_prodi->akreditasi)),
-                'no_akreditasi' => $setting_prodi->no_akreditasi,
-                'jenjang' => ($setting_prodi && preg_match('/\b(Sarjana|Diploma Tiga)\b/', $setting_prodi->prodi, $matches)) ? $matches[0] : '',
-                't_terbit' => Carbon::createFromFormat('Y-m-d', $setting_fakultas->tanggal_terbit)->translatedFormat('d F Y'),
-                'dekan' => $setting_fakultas->dekan,
-                'nik_dekan' => $setting_fakultas->nik,
-                'rektor' => Rektor::first()->nama,
-                'nik_rektor' => Rektor::first()->nik,
-            ];
-
-            $mahasiswa->update(['ijazah' => 'MENUNGGU VERIFIKASI']);
-
-            $newDocTitle = "IJAZAH--" . $mahasiswa->nama . "--" . date('d/m/Y H:i:s');
-            $newDocId = $this->googleService->ijazah($newDocTitle);
-
             Submit::updateOrCreate(
                 [
                     'nim' => $nim
@@ -372,7 +370,8 @@ class DversiEntry extends Controller
 
             return redirect()->back()->with('submit', 'Berhasil diterbitkan!');
         } catch (\Exception $e) {
-            Log::error("Error dalam print(): " . $e->getMessage());
+            Log::error("Error dalam membuat ijazah: " . $e->getMessage());
+            // Log::error("Error dalam membuat ijazah: " . $mahasiswa);
             return redirect()->back()->with('fail', 'Gagal dibuat!');
         }
     }

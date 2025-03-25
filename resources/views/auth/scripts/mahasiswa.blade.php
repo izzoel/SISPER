@@ -171,6 +171,7 @@
             $("#U_nik").val(data.nik);
             $("#U_pisn").val(data.pisn);
             $("#U_periode").val(data.periode_lulus);
+            $("#U_yudisium").val(data.tanggal_yudisium);
         });
 
         ["#U_nim", "#U_nama", "#U_tempat_lahir", "#U_alamat"].forEach(function(selector) {

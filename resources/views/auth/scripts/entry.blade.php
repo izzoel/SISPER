@@ -110,16 +110,30 @@
             }
 
             $.get("/{{ request()->segment(1) }}/entry/show/", function(data) {
+                let periodeLulusSet = new Set();
+                let tanggalYudisiumSet = new Set();
+
                 $("#periode_lulus").empty().append('<option selected disabled value="">--&nbsp;Pilih&nbsp;--</option>');
                 $("#tanggal_yudisium").empty().append('<option selected disabled value="">--&nbsp;Pilih&nbsp;--</option>');
 
                 data.forEach(function(item) {
+                    let periodeLulusValue = item.periode_lulus.replace(/\//g, '-');
                     let formattedTanggalYudisium = formatDate(item.tanggal_yudisium);
-                    $("#periode_lulus").append(`<option value="${item.periode_lulus.replace(/\//g, '-')}">${item.periode_lulus}</option>`);
-                    $("#tanggal_yudisium").append(`<option value="${item.tanggal_yudisium}">${formattedTanggalYudisium}</option>`);
+
+                    // Cek apakah nilai sudah ada dalam Set sebelum menambahkannya
+                    if (!periodeLulusSet.has(periodeLulusValue)) {
+                        periodeLulusSet.add(periodeLulusValue);
+                        $("#periode_lulus").append(`<option value="${periodeLulusValue}">${item.periode_lulus}</option>`);
+                    }
+
+                    if (!tanggalYudisiumSet.has(item.tanggal_yudisium)) {
+                        tanggalYudisiumSet.add(item.tanggal_yudisium);
+                        $("#tanggal_yudisium").append(`<option value="${item.tanggal_yudisium}">${formattedTanggalYudisium}</option>`);
+                    }
                 });
             });
-        })
+        });
+
 
 
         $('#formIjazah').submit(function(e) {
@@ -245,7 +259,7 @@
             $.get(pdfUrl, function() {
                 $('#table_' + '{{ request()->segment(2) }}').DataTable().ajax.reload(null, false);
             }).fail(function() {
-                alert("Gagal memperbarui status.");
+                location.reload();
             }).always(function() {
                 btn.html(originalHtml).prop('disabled', false);
             });
