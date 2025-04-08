@@ -117,7 +117,7 @@
                                         <label for="toefl" class="col-md-2 col-form-label">Nilai TOEFL <small class="text-muted">(Opsional)</small></label>
                                         <div class="col">
                                             <input class="form-control" type="number" placeholder="..." id="toefl" name="toefl"
-                                                value="{{ session('sudah_mengisi') ? session('sudah_mengisi')['toefl'] : $mahasiswa->toefl }}" {{ $disabled }}>
+                                                value="{{ session('sudah_mengisi') ? session('data_submit')['toefl'] : $mahasiswa->toefl }}" {{ $disabled }}>
                                         </div>
                                     </div>
 
