@@ -4,7 +4,7 @@
     $disabled = session('sudah_mengisi') ? 'disabled' : null;
     $hide = session('sudah_mengisi') ? 'd-none' : null;
     $color = session('sudah_mengisi') ? 'background-color: #eceef1' : 'background-color: #fff';
-    $tahun_masuk = session('sudah_mengisi') ? \Carbon\Carbon::parse(session('sudah_mengisi')['tahun_masuk'])->translatedFormat('Y') : $mahasiswa->tahun_masuk;
+    $tahun_masuk = session('sudah_mengisi') ? session('data_submit')['masuk'] : $mahasiswa->tahun_masuk;
     $kejuaraan = session('data_submit')['kejuaraan'] ?? '-';
     $sertifikat = session('data_submit')['sertifikat'] ?? '-';
     $beasiswa = session('data_submit')['beasiswa'] ?? '-';
