@@ -311,7 +311,6 @@
                 }
             });
 
-
             $('#' + '{{ request()->segment(1) }}' + 'Form').on('submit', async function(event) {
                 event.preventDefault();
 
