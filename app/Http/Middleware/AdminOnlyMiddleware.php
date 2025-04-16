@@ -19,7 +19,7 @@ class AdminOnlyMiddleware
         if (Auth::check() && Auth::user()->role === 'admin') {
             return $next($request);
         }
-
-        return response()->json(['error' => 'Anda tidak memiliki izin untuk mengakses halaman ini.'], 403);
+        return redirect('/');
+        // return response()->json(['error' => 'Anda tidak memiliki izin untuk mengakses halaman ini.'], 403);
     }
 }
