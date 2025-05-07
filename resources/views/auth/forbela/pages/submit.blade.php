@@ -49,11 +49,6 @@
                                         </div>
                                     </div>
                                     <div class="row mt-3">
-                                        {{-- <label for="nik" class="col-md-2 col-form-label">NIK</label>
-                                        <div class="col">
-                                            <input class="form-control" type="text" placeholder="..." id="nik" name="nik" required
-                                                value="{{ session('sudah_mengisi') ? strtoupper(session('sudah_mengisi')['nik']) : strtoupper($mahasiswa->nik) }}" disabled>
-                                        </div> --}}
                                         <label for="jenis" class="col-md-2 col-form-label">Jenis Kegiatan<span class="required text-danger">*</span></label>
                                         <div class="col">
                                             <select class="form-select" id="jenis" name="jenis" {{ $disabled }}>
