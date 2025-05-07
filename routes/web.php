@@ -117,6 +117,7 @@ Route::middleware([MenuMiddleware::class])->group(function () {
 
         Route::prefix('forbela')->group(function () {
             Route::get('/dashboard', [ForbelaController::class, 'dashboard'])->name('forbela_dashboard');
+            Route::get('/chart', [ForbelaController::class, 'chart'])->name('forbela_chart');
 
             Route::prefix('entry')->group(function () {
                 Route::get('/', [ForbelaEntry::class, 'index'])->name('forbela_entry');

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Mahasiswa;
 use App\Models\ForbelaSubmit as Submit;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -94,7 +93,6 @@ class ForbelaEntry extends Controller
 
         return view('auth.' . request()->segment(1) . '.pages.section');
     }
-
 
     public function status(Request $request)
     {

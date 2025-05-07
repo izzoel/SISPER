@@ -7,6 +7,10 @@
         var sudah = 'Sudah Diproses';
         var belum = 'Belum Dibuat';
         var jumlah = 'Total Mahasiswa';
+    } else if ('{{ $data['menuData']['menu'] }}' == 'FORBELA') {
+        var sudah = 'Sudah Mengisi';
+        var belum = 'Belum Mengisi';
+        var jumlah = 'Total Mahasiswa';
     }
     'use strict';
 
