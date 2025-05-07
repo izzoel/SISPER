@@ -1,6 +1,6 @@
 @php
     use Illuminate\Support\Str;
-
+    $selectedJenis = session('sudah_mengisi') ? session('data_submit')->jenis : '';
     $disabled = session('sudah_mengisi') ? 'disabled' : null;
     $hide = session('sudah_mengisi') ? 'd-none' : null;
     $color = session('sudah_mengisi') ? 'background-color: #eceef1' : 'background-color: #fff';
@@ -49,10 +49,18 @@
                                         </div>
                                     </div>
                                     <div class="row mt-3">
-                                        <label for="nik" class="col-md-2 col-form-label">NIK</label>
+                                        {{-- <label for="nik" class="col-md-2 col-form-label">NIK</label>
                                         <div class="col">
                                             <input class="form-control" type="text" placeholder="..." id="nik" name="nik" required
                                                 value="{{ session('sudah_mengisi') ? strtoupper(session('sudah_mengisi')['nik']) : strtoupper($mahasiswa->nik) }}" disabled>
+                                        </div> --}}
+                                        <label for="jenis" class="col-md-2 col-form-label">Jenis Kegiatan<span class="required text-danger">*</span></label>
+                                        <div class="col">
+                                            <select class="form-select" id="jenis" name="jenis" {{ $disabled }}>
+                                                <option disabled {{ $selectedJenis == '' ? 'selected' : '' }}>Pilih Jenis</option>
+                                                <option value="Eksperimen" {{ $selectedJenis == 'Eksperimen' ? 'selected' : '' }}>Eksperimen</option>
+                                                <option value="Non Eksperimen" {{ $selectedJenis == 'Non Eksperimen' ? 'selected' : '' }}>Non Eksperimen</option>
+                                            </select>
                                         </div>
                                         <label for="tanggal_penelitian" class="col-md-2 col-form-label">Rentang Tanggal Penelitian<span
                                                 class="required text-danger">*</span></label>
@@ -67,7 +75,8 @@
                                             <input class="form-control" type="email" placeholder="..." id="email" name="email"
                                                 value="{{ session('sudah_mengisi') ? session('data_submit')['email'] : '' }}" required {{ $disabled }}>
                                         </div>
-                                        <label for="pembayaran" class="col-md-2 col-form-label">Upload Bukti Pembayaran<span class="required text-danger">*</span></label>
+                                        <label id="labelPembayaran" for="pembayaran" class="col-md-2 col-form-label">Upload Bukti Pembayaran<span
+                                                class="required text-danger">*</span></label>
                                         <div class="col">
                                             <input class="form-control" type="file" id="pembayaran" name="pembayaran"
                                                 value="{{ session('sudah_mengisi') ? session('data_submit')['pembayaran'] : '' }}" required {{ $disabled }}>

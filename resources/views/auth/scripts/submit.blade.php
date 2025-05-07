@@ -552,6 +552,33 @@
                 },
             });
 
+            const jenisSelect = document.getElementById('jenis');
+            const pembayaranInput = document.getElementById('pembayaran');
+            const labelPembayaran = document.getElementById('labelPembayaran');
+
+            function togglePembayaranField() {
+                if (jenisSelect.value === 'Non Eksperimen') {
+                    pembayaranInput.disabled = true;
+                    pembayaranInput.removeAttribute('required');
+
+                    // Ganti tanda * menjadi (opsional)
+                    labelPembayaran.innerHTML = 'Upload Bukti Pembayaran <span class="text-muted">(opsional)</span>';
+                } else {
+                    pembayaranInput.disabled = false;
+                    pembayaranInput.setAttribute('required', true);
+
+                    // Kembalikan tanda *
+                    labelPembayaran.innerHTML = 'Upload Bukti Pembayaran<span class="required text-danger">*</span>';
+                }
+            }
+
+
+            // Jalankan saat halaman dimuat (jika session terisi)
+            togglePembayaranField();
+
+            // Jalankan saat pilihan jenis diubah
+            jenisSelect.addEventListener('change', togglePembayaranField);
+
         });
     }
 </script>

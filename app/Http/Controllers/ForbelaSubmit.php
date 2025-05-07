@@ -130,6 +130,7 @@ class ForbelaSubmit extends Controller
                 'tempat_lahir' => $mahasiswa->tempat_lahir,
                 'tanggal_lahir' => $mahasiswa->tanggal_lahir,
                 'nik' => $mahasiswa->nik,
+                'jenis' => $request->jenis,
                 'no_surat' => $no_surat_padded,
                 'tanggal_penelitian' =>  $request->tanggal_penelitian,
                 'email' => $request->email,

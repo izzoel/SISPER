@@ -12,6 +12,7 @@ class ForbelaSubmit extends Model
         'tempat_lahir',
         'tanggal_lahir',
         'nik',
+        'jenis',
         'no_surat',
         'tanggal_penelitian',
         'email',
