@@ -1,3 +1,11 @@
+@php
+    use Illuminate\Support\Str;
+
+    $disabled = session('sudah_mengisi') ? 'disabled' : null;
+    $hide = session('sudah_mengisi') ? 'd-none' : null;
+    $color = session('sudah_mengisi') ? 'background-color: #eceef1' : 'background-color: #fff';
+@endphp
+
 @include('auth.' . strtolower($data['menuData']['menu']) . '.modals.lapor')
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
@@ -49,25 +57,26 @@
                                         <label for="tanggal_penelitian" class="col-md-2 col-form-label">Rentang Tanggal Penelitian<span
                                                 class="required text-danger">*</span></label>
                                         <div class="col">
-                                            <input type="text" id="tanggal_penelitian" name="tanggal_penelitian" class="form-control" placeholder="Pilih Tanggal" value=""
-                                                required>
+                                            <input type="text" id="tanggal_penelitian" name="tanggal_penelitian" class="form-control" placeholder="Pilih Tanggal"
+                                                value="{{ session('sudah_mengisi') ? session('data_submit')->tanggal_penelitian : '' }}" required {{ $disabled }}>
                                         </div>
                                     </div>
                                     <div class="row mt-3">
                                         <label for="email" class="col-md-2 col-form-label">email<span class="required text-danger">*</span></label>
                                         <div class="col">
                                             <input class="form-control" type="email" placeholder="..." id="email" name="email"
-                                                value="{{ session('sudah_mengisi') ? session('sudah_mengisi')['email'] : $mahasiswa->email }}" required>
+                                                value="{{ session('sudah_mengisi') ? session('data_submit')['email'] : '' }}" required {{ $disabled }}>
                                         </div>
                                         <label for="pembayaran" class="col-md-2 col-form-label">Upload Bukti Pembayaran<span class="required text-danger">*</span></label>
                                         <div class="col">
-                                            <input class="form-control" type="file" id="pembayaran" name="pembayaran" required>
+                                            <input class="form-control" type="file" id="pembayaran" name="pembayaran"
+                                                value="{{ session('sudah_mengisi') ? session('data_submit')['pembayaran'] : '' }}" required {{ $disabled }}>
                                         </div>
                                     </div>
                                     <div class="row mt-3">
                                         <label for="judul" class="col-md-2 col-form-label">Judul Penelitian<span class="required text-danger">*</span></label>
                                         <div class="col">
-                                            <textarea class="form-control" placeholder="..." id="judul" rows="2" name="judul" required>{{ session('sudah_mengisi') ? session('data_submit')['judul'] : '' }}</textarea>
+                                            <textarea class="form-control" placeholder="..." id="judul" rows="2" name="judul" required {{ $disabled }}>{{ session('sudah_mengisi') ? session('data_submit')['judul'] : '' }}</textarea>
                                         </div>
                                     </div>
 
@@ -87,7 +96,7 @@
                                         @endif
                                     </div>
                                     <div class="d-flex justify-content-center mt-4">
-                                        <button type="submit" class="btn btn-primary">Kirim</button>
+                                        <button type="submit" class="btn btn-primary" {{ $disabled }}>Kirim</button>
                                     </div>
                                 </form>
                             </div>

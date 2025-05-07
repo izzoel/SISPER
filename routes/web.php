@@ -10,13 +10,12 @@ use App\Http\Controllers\ForpiLapor;
 use App\Http\Controllers\DversiEntry;
 use App\Http\Controllers\DversiLapor;
 use App\Http\Controllers\ForpiSubmit;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DversiSubmit;
 use App\Http\Controllers\ForbelaEntry;
+use App\Http\Controllers\ForbelaLapor;
 use App\Http\Controllers\ForpiSetting;
 use App\Http\Controllers\DversiSetting;
 use App\Http\Controllers\ForbelaSubmit;
-use App\Http\Middleware\MenuMiddleware;
 use App\Http\Controllers\ForbelaSetting;
 use App\Http\Controllers\ForpiMahasiswa;
 use App\Http\Controllers\DversiMahasiswa;
@@ -25,7 +24,9 @@ use App\Http\Controllers\DversiController;
 use App\Http\Controllers\ForbelaMahasiswa;
 use App\Http\Controllers\ForbelaController;
 use App\Http\Controllers\SettingController;
+use App\Http\Middleware\MenuMiddleware;
 use App\Http\Middleware\AdminOnlyMiddleware;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('guest.landing');
@@ -50,7 +51,9 @@ Route::middleware([MenuMiddleware::class])->group(function () {
     });
     Route::prefix('forbela')->group(function () {
         Route::get('/submit', [ForbelaSubmit::class, 'index'])->name('forbela_submit');
+        Route::get('/submit/show/{nim}', [ForbelaSubmit::class, 'show'])->name('forbela_submit_show');
         Route::post('/submit/store', [ForbelaSubmit::class, 'store'])->name('forbela_submit_store');
+        Route::post('/submit/lapor/{menu}/{nim}', [ForbelaSubmit::class, 'lapor'])->name('forbela_submit_lapor');
     });
     Route::prefix('dversi')->group(function () {
         Route::get('/submit', [DversiSubmit::class, 'index'])->name('dversi_submit');
@@ -94,7 +97,7 @@ Route::middleware([MenuMiddleware::class])->group(function () {
 
             // Setting
             Route::prefix('setting')->group(function () {
-                Route::get('/', [SettingController::class, 'index'])->name('forpi_setting');
+                Route::get('/', [ForpiSetting::class, 'index'])->name('forpi_setting');
                 Route::get('/fakultas', [ForpiSetting::class, 'fakultas'])->name('forpi_setting_fakultas');
                 Route::get('/prodi', [ForpiSetting::class, 'prodi'])->name('forpi_setting_prodi');
                 Route::get('/rektor', [ForpiSetting::class, 'rektor'])->name('forpi_setting_rektor');
@@ -142,9 +145,9 @@ Route::middleware([MenuMiddleware::class])->group(function () {
             Route::post('/nik/import', [ForpiNik::class, 'import'])->name('forbela_nik_import');
 
             Route::prefix('lapor')->group(function () {
-                Route::get('/', [ForpiLapor::class, 'index'])->name('forbela_lapor');
-                Route::get('/table', [ForpiLapor::class, 'table'])->name('forbela_lapor_table');
-                Route::get('/status', [ForpiLapor::class, 'status'])->name('forbela_lapor_status');;
+                Route::get('/', [ForbelaLapor::class, 'index'])->name('forbela_lapor');
+                Route::get('/table', [ForbelaLapor::class, 'table'])->name('forbela_lapor_table');
+                Route::get('/status', [ForbelaLapor::class, 'status'])->name('forbela_lapor_status');;
             });
 
             // Setting

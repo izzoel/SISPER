@@ -32,11 +32,25 @@ class ForbelaSubmit extends Controller
 
         try {
             $mahasiswa = Mahasiswa::where('nim', session('nim'))->first();
+            $sudah_mengisi = Submit::where('nim', session('nim'))->first();
+            $data_submit = Submit::where('nim', session('nim'))->first();
 
+            session(
+                [
+                    'sudah_mengisi' => $sudah_mengisi,
+                    'data_submit' => $data_submit
+                ]
+            );
             return view('auth.forbela.pages.section', compact('data', 'mahasiswa'));
         } catch (\Exception $e) {
             return redirect()->route('logout');
         }
+    }
+
+    function show($nim)
+    {
+        $mahasiswa = Submit::where('nim', $nim)->first();
+        return response()->json($mahasiswa);
     }
 
     public function store(Request $request)
@@ -145,5 +159,22 @@ class ForbelaSubmit extends Controller
 
         $this->googleService->replaceForbela($newDocId, $data);
         $this->googleService->shareDocumentWithEmail($newDocId, 'skpi.unbl@gmail.com');
+    }
+
+    public function lapor(Request $request, $menu)
+    {
+        try {
+            Lapor::create([
+                'nim' => $request->nim,
+                'lapor' => $request->lapor,
+                'menu' => $menu,
+                'status' => 'baru'
+            ]);
+
+            return redirect()->back()->with('success', 'Laporan berhasil dikirim!');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return redirect()->back()->with('fail', 'Gagal mengirim laporan!');
+        }
     }
 }
