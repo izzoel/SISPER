@@ -5,7 +5,7 @@
                 <div class="card-header d-flex align-items-center justify-content-between pb-0">
                     <div class="card-title mb-0">
                         <h5 class="m-0 me-2">Total Dokumen dibuat</h5>
-                        <a href="https://drive.google.com/drive/folders/1H_Ki52kX3Z3neamiH8X4Z_G-sROxKUHu?usp=sharing" target="_blank" class="btn btn-xs btn-outline-info">
+                        <a href="https://drive.google.com/drive/folders/1mK_GyajHO-kKfXOQ5FZcjtHAblB1Afi3?usp=sharing" target="_blank" class="btn btn-xs btn-outline-info">
                             Arsip FORBELA
                         </a>
                     </div>
