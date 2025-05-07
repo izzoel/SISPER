@@ -455,6 +455,104 @@
                 });
             });
         });
+    } else if ('{{ $data['menuData']['menu'] }}' == 'FORBELA') {
+        $(document).ready(function() {
+            $("#laporButton").click(function(e) {
+                e.preventDefault();
+                $("html, body").animate({
+                    scrollTop: 0
+                }, 100, function() {
+                    $(".laporNavbar").trigger("click");
+                });
+            });
+
+            $('#{{ request()->segment(1) }}Form').on('submit', async function(event) {
+                event.preventDefault(); // Mencegah submit langsung
+
+                const {
+                    value: accept
+                } = await Swal.fire({
+                    icon: "warning",
+                    title: "Kesesuaian Data",
+                    input: "checkbox",
+                    inputValue: 0,
+                    inputPlaceholder: 'Saya bersedia menanggung biaya dan konsekuensi jika terjadi kesalahan pada pengisian',
+                    confirmButtonText: 'Lanjutkan <i class="fa fa-arrow-right"></i>',
+                    inputValidator: (result) => {
+                        return !result && "Kamu harus menyetujui syarat dan ketentuan";
+                    }
+                });
+
+                if (!accept) return;
+
+                Swal.fire({
+                    title: 'Mengirim data...',
+                    html: 'Tungguin yaa, lagi dianterin kurir...',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                let formData = new FormData(this);
+                $.ajax({
+                    url: this.action,
+                    method: this.method,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        let timerInterval;
+                        Swal.fire({
+                            icon: "success",
+                            title: "Sipp! Udah dikirim!",
+                            html: "Anda akan logout dalam <b></b>",
+                            timer: 5000,
+                            timerProgressBar: true,
+                            didOpen: () => {
+                                Swal.showLoading();
+                                const timer = Swal.getPopup().querySelector("b");
+                                timerInterval = setInterval(() => {
+                                    timer.textContent = `${Swal.getTimerLeft()}`;
+                                }, 100);
+                            },
+                            willClose: () => {
+                                clearInterval(timerInterval);
+                                window.location.href = "{{ route('logout') }}";
+                            }
+                        });
+                    },
+                    error: function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Terjadi kesalahan saat mengirim data. Coba lagi!'
+                        });
+                    }
+                });
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            new AirDatepicker('#tanggal_penelitian', {
+                range: true, // Menyalakan fitur range tanggal
+                dateFormat: 'dd MMMM yyyy',
+                multipleDatesSeparator: " - ", // Pemisah tanggal range
+                autoClose: true,
+                locale: {
+                    days: ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'],
+                    daysShort: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
+                    daysMin: ['Mg', 'Sn', 'Sl', 'Rb', 'Km', 'Jm', 'Sb'],
+                    months: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+                    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+                    today: 'Hari Ini',
+                    clear: 'Hapus',
+                    firstDay: 1
+                },
+            });
+
+        });
     }
 </script>
 

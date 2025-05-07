@@ -28,7 +28,6 @@ class DversiMahasiswa extends Controller
             $mahasiswas = Mahasiswa::query();
 
             return DataTables::eloquent($mahasiswas)
-                ->addIndexColumn()
                 ->addColumn('nik', function ($mahasiswa) {
                     $statusClass = $mahasiswa->nik ? 'bg-label-primary' : 'bg-label-danger';
                     $statusText = $mahasiswa->nik ?: 'Belum';

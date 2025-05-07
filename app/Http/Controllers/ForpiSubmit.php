@@ -73,7 +73,6 @@ class ForpiSubmit extends Controller
 
     public function store(Request $request)
     {
-
         $romawiBulan = [
             '01' => 'I',
             '02' => 'II',
@@ -87,21 +86,6 @@ class ForpiSubmit extends Controller
             '10' => 'X',
             '11' => 'XI',
             '12' => 'XII',
-        ];
-
-        $bulanIndonesia = [
-            'Januari' => 'January',
-            'Februari' => 'February',
-            'Maret' => 'March',
-            'April' => 'April',
-            'Mei' => 'May',
-            'Juni' => 'June',
-            'Juli' => 'July',
-            'Agustus' => 'August',
-            'September' => 'September',
-            'Oktober' => 'October',
-            'November' => 'November',
-            'Desember' => 'December'
         ];
 
         $kejuaraan = $request->input('kejuaraan', []);
@@ -148,8 +132,6 @@ class ForpiSubmit extends Controller
         $array_beasiswa = $beasiswa_formatted ? implode("\n", $beasiswa_formatted) : '-';
         $array_organisasi = $organisasi_formatted ? implode("\n", $organisasi_formatted) : '-';
         try {
-
-
             $bulanAngka = Mahasiswa::where('nim', session('nim'))->first()->created_at->format('m');
             $t_bulan = $romawiBulan[$bulanAngka];
             $t_tahun = Mahasiswa::where('nim', session('nim'))->first()->created_at->format('Y');
@@ -157,9 +139,6 @@ class ForpiSubmit extends Controller
             $akreditasi = Prodi::where('prodi', $mahasiswa->prodi)->value('akreditasi');
             $no_akreditasi = Prodi::where('prodi', $mahasiswa->prodi)->value('no_akreditasi');
 
-            // $tanggal_formatted = str_replace(array_keys($bulanIndonesia), array_values($bulanIndonesia), $mahasiswa->tanggal_lahir);
-            // $tanggal_lahir = Carbon::createFromFormat('d F Y', $tanggal_formatted)->format('Y-m-d');
-            // $tanggal_lahir = Carbon::createFromFormat('Y-m-d', $mahasiswa->tanggal_lahir)->locale('id')->format('d F Y');
             $tanggal_lahir = Carbon::parse($mahasiswa->tanggal_lahir)->locale('id')->translatedFormat('d F Y');
 
             $newDocTitle = "SKPI--" . $mahasiswa->nama . "--" . date('d/m/Y H:i:s');
@@ -222,10 +201,6 @@ class ForpiSubmit extends Controller
                 'kaprodi' => session('kaprodi'),
                 'nik' => session('nik'),
             ];
-
-            $t = Carbon::parse($mahasiswa->tanggal_yudisium)->locale('id')->translatedFormat('Y');
-            $m = $request->masuk;
-            Log::info("DD: {$t} - {$m} = " . ($t - $m));
 
             $this->googleService->replaceText($newDocId, $data);
             $this->googleService->shareDocumentWithEmail($newDocId, 'skpi.unbl@gmail.com');

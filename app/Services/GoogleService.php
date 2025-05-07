@@ -5,21 +5,26 @@ namespace App\Services;
 use Exception;
 use Google\Client;
 use Google\Service\Docs;
+use App\Models\Laboran;
 use Google\Service\Drive;
 use Google\Service\Drive\DriveFile;
 use Illuminate\Support\Facades\Log;
 use Google\Service\Drive\Permission;
 use Illuminate\Support\Facades\Storage;
 
+
+
 class GoogleService
 {
     protected $docsService;
     protected $driveService;
     protected $templateId;
+    protected $templateForbela;
     protected $templateDiplomaTigaAnalisKesehatan;
     protected $templateDiplomaTigaFarmasi;
     protected $templateIjazah;
     protected $folderId;
+    protected $folderForbela;
     protected $folderDversi;
 
     public function __construct()
@@ -31,11 +36,61 @@ class GoogleService
         $this->docsService = new Docs($client);
         $this->driveService = new Drive($client);
         $this->templateId = env('GOOGLE_DOC_TEMPLATE_ID'); // ID Template Dokumen
+        $this->templateForbela = env('GOOGLE_DOC_TEMPLATE_FORBELA'); // ID Template Forbela
         $this->templateDiplomaTigaAnalisKesehatan = env('GOOGLE_DOC_TEMPLATE_DIPLOMA_TIGA_ANALIS_KESEHATAN');
         $this->templateDiplomaTigaFarmasi = env('GOOGLE_DOC_TEMPLATE_DIPLOMA_TIGA_FARMASI');
         $this->templateIjazah = env('GOOGLE_DOC_TEMPLATE_IJAZAH');
         $this->folderId = env('GOOGLE_DRIVE_FOLDER_ID');
+        $this->folderForbela = env('GOOGLE_DRIVE_FOLDER_FORBELA');
         $this->folderDversi = env('GOOGLE_DRIVE_FOLDER_DVERSI');
+    }
+
+    /**
+     * Upload file ke Google Drive
+     *
+     * @param \Illuminate\Http\UploadedFile $uploadedFile
+     * @param string $fileName
+     * @param string $folderId
+     * @param bool $makePublic
+     * @return array|null ['id' => fileId, 'url' => publicUrl]
+     */
+    public function uploadFileToDrive($uploadedFile, $fileName, $folderId, $makePublic = false)
+    {
+        try {
+            $fileMetadata = new DriveFile([
+                'name' => $fileName,
+                'parents' => [$folderId],
+            ]);
+
+            $content = file_get_contents($uploadedFile->getRealPath());
+
+            $file = $this->driveService->files->create($fileMetadata, [
+                'data' => $content,
+                'mimeType' => $uploadedFile->getClientMimeType(),
+                'uploadType' => 'multipart',
+                'fields' => 'id',
+            ]);
+
+            $fileId = $file->id;
+            $url = null;
+
+            if ($makePublic) {
+                $permission = new Permission([
+                    'type' => 'anyone',
+                    'role' => 'reader',
+                ]);
+                $this->driveService->permissions->create($fileId, $permission);
+                $url = "https://drive.google.com/file/d/{$fileId}/preview";
+            }
+
+            return [
+                'id' => $fileId,
+                'url' => $url,
+            ];
+        } catch (Exception $e) {
+            report($e);
+            return null;
+        }
     }
 
     public function exportPdf($documentId, $prodi, $periode_lulus, $mahasiswa)
@@ -127,8 +182,6 @@ class GoogleService
         }
     }
 
-
-
     public function shareDocument($documentId)
     {
         try {
@@ -158,7 +211,6 @@ class GoogleService
         }
     }
 
-
     public function duplicateDocument($newTitle, $prodi)
     {
         // Buat salinan dokumen di Google Drive
@@ -173,6 +225,17 @@ class GoogleService
         } else {
             $file = $this->driveService->files->copy($this->templateId, $copy);
         }
+
+        return $file->id; // ID dokumen yang baru dibuat
+    }
+    public function duplicateForbela($newTitle)
+    {
+        // Buat salinan dokumen di Google Drive
+        $copy = new DriveFile([
+            'name' => $newTitle, // Nama dokumen hasil duplikasi
+            'parents' => [$this->folderForbela],
+        ]);
+        $file = $this->driveService->files->copy($this->templateForbela, $copy);
 
         return $file->id; // ID dokumen yang baru dibuat
     }
@@ -211,6 +274,29 @@ class GoogleService
                     ],
                 ];
             }
+        }
+
+        $this->docsService->documents->batchUpdate($documentId, new \Google\Service\Docs\BatchUpdateDocumentRequest([
+            'requests' => $requests,
+        ]));
+    }
+
+    public function replaceForbela($documentId, $replacements)
+    {
+        $requests = [];
+
+        foreach ($replacements as $placeholder => $value) {
+            $placeholderText = "{{" . $placeholder . "}}";
+
+            $requests[] = [
+                'replaceAllText' => [
+                    'containsText' => [
+                        'text' => $placeholderText,
+                        'matchCase' => true,
+                    ],
+                    'replaceText' => $value,
+                ],
+            ];
         }
 
         $this->docsService->documents->batchUpdate($documentId, new \Google\Service\Docs\BatchUpdateDocumentRequest([

@@ -6,15 +6,11 @@
                     <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#M_S_mahasiswa">
                         &#10010; Mahasiswa
                     </button>
-                    <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#M_S_pisn">
-                        &#10010; PISN
-                    </button>
                     <button type="button" class="btn btn-danger mb-3" data-bs-toggle="modal" data-bs-target="#M_S_nik">
                         &#10010; NIK
                     </button>
 
                     @include('auth.' . request()->segment(1) . '.modals.mahasiswa')
-                    @include('auth.' . request()->segment(1) . '.modals.pisn')
                     @include('auth.' . request()->segment(1) . '.modals.nik')
 
                     <div class="card-text">
@@ -28,7 +24,7 @@
                                     <th>Prodi</th>
                                     <th>Periode Lulus</th>
                                     <th>Tangal Yudisium</th>
-                                    <th>Aksi</th>
+                                    <th>Periode Lulus</th>
                                 </tr>
                             </thead>
                         </table>

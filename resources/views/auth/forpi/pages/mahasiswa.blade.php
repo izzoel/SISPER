@@ -21,7 +21,6 @@
                         <table id="table_{{ request()->segment(2) }}" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>NIM</th>
                                     <th>Nama</th>
                                     <th>PISN</th>

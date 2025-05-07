@@ -1,77 +1,75 @@
 <script>
-    $('#table_' + '{{ request()->segment(2) }}').DataTable({
-        serverSide: true,
-        processing: true,
-        ajax: {
-            url: "{{ route(request()->segment(1) . '_entry_table') }}"
-        },
-        columns: [{
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex',
-                className: 'text-center',
-                orderable: false,
-                searchable: false
-            },
-            {
-                data: 'nim',
-                name: 'nim',
-                className: 'text-center'
-            },
-            {
-                data: 'nama',
-                name: 'nama'
-            },
-            {
-                data: 'status',
-                name: 'status',
-                className: 'text-center'
-            },
-            {
-                data: 'prodi',
-                name: 'prodi',
-                className: 'text-center'
-            },
-            {
-                data: 'periode_lulus',
-                name: 'periode_lulus',
-                className: 'text-center'
-            },
-            {
-                data: 'tanggal_yudisium',
-                name: 'tanggal_yudisium',
-                className: 'text-center'
-            },
-            {
-                data: 'aksi',
-                name: 'aksi',
-                className: 'text-center'
-            }
-        ],
-        order: [
-            [3, 'asc']
-        ],
-        dom: '<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>><"row mb-2"<"col-sm-12">><"row mb-2"<"col-sm-12"t>><"row mb-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex flex-row-reverse"p>>',
-        language: {
-            "lengthMenu": "Tampilkan _MENU_ baris",
-            "info": "Menampilkan _START_ ke _END_ dari _TOTAL_ baris",
-            "search": "Cari:",
-            "emptyTable": "Tidak ada data yang tersedia",
-            "zeroRecords": "Tidak ada data yang ditemukan"
-        },
-        lengthMenu: [
-            [10, 25, 50, 100, -1],
-            [10, 25, 50, 100, "Semua"]
-        ],
-        columnDefs: [{
-            responsivePriority: 1,
-            targets: -1
-        }, ]
-
-
-    });
-
-
     if ('{{ $data['menuData']['menu'] }}' == 'FORPI') {
+        $('#table_' + '{{ request()->segment(2) }}').DataTable({
+            serverSide: true,
+            processing: true,
+            ajax: {
+                url: "{{ route(request()->segment(1) . '_entry_table') }}"
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    className: 'text-center',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'nim',
+                    name: 'nim',
+                    className: 'text-center'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    className: 'text-center'
+                },
+                {
+                    data: 'prodi',
+                    name: 'prodi',
+                    className: 'text-center'
+                },
+                {
+                    data: 'periode_lulus',
+                    name: 'periode_lulus',
+                    className: 'text-center'
+                },
+                {
+                    data: 'tanggal_yudisium',
+                    name: 'tanggal_yudisium',
+                    className: 'text-center'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    className: 'text-center'
+                }
+            ],
+            order: [
+                [3, 'asc']
+            ],
+            dom: '<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>><"row mb-2"<"col-sm-12">><"row mb-2"<"col-sm-12"t>><"row mb-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex flex-row-reverse"p>>',
+            language: {
+                "lengthMenu": "Tampilkan _MENU_ baris",
+                "info": "Menampilkan _START_ ke _END_ dari _TOTAL_ baris",
+                "search": "Cari:",
+                "emptyTable": "Tidak ada data yang tersedia",
+                "zeroRecords": "Tidak ada data yang ditemukan"
+            },
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, "Semua"]
+            ],
+            columnDefs: [{
+                responsivePriority: 1,
+                targets: -1
+            }, ]
+
+
+        });
 
         $(document).on('click', '.resubmit-btn', function() {
             let btn = $(this);
@@ -96,8 +94,176 @@
             });
         });
 
+    } else if ('{{ $data['menuData']['menu'] }}' == 'FORBELA') {
+        $('#table_' + '{{ request()->segment(2) }}').DataTable({
+            serverSide: true,
+            processing: true,
+            ajax: {
+                url: "{{ route(request()->segment(1) . '_entry_table') }}"
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    className: 'text-center',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    className: 'text-center'
+                },
+                {
+                    data: 'pembayaran',
+                    name: 'pembayaran',
+                    className: 'text-center',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'email',
+                    name: 'email',
+                    className: 'text-center'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    className: 'text-center'
+                }
+            ],
+            order: [
+                [3, 'asc']
+            ],
+            dom: '<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>><"row mb-2"<"col-sm-12">><"row mb-2"<"col-sm-12"t>><"row mb-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex flex-row-reverse"p>>',
+            language: {
+                "lengthMenu": "Tampilkan _MENU_ baris",
+                "info": "Menampilkan _START_ ke _END_ dari _TOTAL_ baris",
+                "search": "Cari:",
+                "emptyTable": "Tidak ada data yang tersedia",
+                "zeroRecords": "Tidak ada data yang ditemukan"
+            },
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, "Semua"]
+            ],
+            columnDefs: [{
+                responsivePriority: 1,
+                targets: -1
+            }, ]
+
+
+        });
+        $(document).on('change', '.status-btn', function() {
+            let btn = $(this);
+            let id = btn.data('id');
+            let status = btn.is(':checked') ? 1 : 0;
+
+            $.get("{{ route(request()->segment(1) . '_entry_status') }}", {
+                    id: id,
+                    status: status
+                })
+                .done(function(response) {
+                    console.log(response.success);
+                    $('#table_' + '{{ request()->segment(2) }}').DataTable().ajax.reload(null, false);
+                })
+                .fail(function() {
+                    alert("Gagal memperbarui status.");
+                    btn.prop('checked', !status);
+                });
+        });
+        $(document).on('change', '.validasi-btn', function() {
+            let btn = $(this);
+            let id = btn.data('id');
+            let status = btn.is(':checked') ? 1 : 0;
+
+            $.get("{{ route(request()->segment(1) . '_entry_validasi') }}", {
+                    id: id,
+                    status: status
+                })
+                .done(function(response) {
+                    console.log(response.success);
+                    $('#table_' + '{{ request()->segment(2) }}').DataTable().ajax.reload(null, false);
+                })
+                .fail(function() {
+                    alert("Gagal memperbarui status.");
+                    btn.prop('checked', !status);
+                });
+        });
     } else if ('{{ $data['menuData']['menu'] }}' == 'DVERSI') {
-        // alert("{{ $data['menuData']['menu'] }}");
+        $('#table_' + '{{ request()->segment(2) }}').DataTable({
+            serverSide: true,
+            processing: true,
+            ajax: {
+                url: "{{ route(request()->segment(1) . '_entry_table') }}"
+            },
+            columns: [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    className: 'text-center',
+                    orderable: false,
+                    searchable: false
+                },
+                {
+                    data: 'nim',
+                    name: 'nim',
+                    className: 'text-center'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    className: 'text-center'
+                },
+                {
+                    data: 'prodi',
+                    name: 'prodi',
+                    className: 'text-center'
+                },
+                {
+                    data: 'periode_lulus',
+                    name: 'periode_lulus',
+                    className: 'text-center'
+                },
+                {
+                    data: 'tanggal_yudisium',
+                    name: 'tanggal_yudisium',
+                    className: 'text-center'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    className: 'text-center'
+                }
+            ],
+            order: [
+                [3, 'asc']
+            ],
+            dom: '<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>><"row mb-2"<"col-sm-12">><"row mb-2"<"col-sm-12"t>><"row mb-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex flex-row-reverse"p>>',
+            language: {
+                "lengthMenu": "Tampilkan _MENU_ baris",
+                "info": "Menampilkan _START_ ke _END_ dari _TOTAL_ baris",
+                "search": "Cari:",
+                "emptyTable": "Tidak ada data yang tersedia",
+                "zeroRecords": "Tidak ada data yang ditemukan"
+            },
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, "Semua"]
+            ],
+            columnDefs: [{
+                responsivePriority: 1,
+                targets: -1
+            }, ]
+
+
+        });
         $("#M_S_ijazah").on('show.bs.modal', function(e) {
             function formatDate(dateString) {
                 let [year, month, day] = dateString.split('-').map(Number);
@@ -133,8 +299,6 @@
                 });
             });
         });
-
-
 
         $('#formIjazah').submit(function(e) {
             e.preventDefault(); // Mencegah reload halaman
@@ -245,8 +409,6 @@
 
         });
 
-
-
         $(document).on('click', '.pdf-btn', function() {
             let btn = $(this);
             let originalHtml = btn.html(); // Simpan teks asli tombol
@@ -264,7 +426,5 @@
                 btn.html(originalHtml).prop('disabled', false);
             });
         });
-
-
     }
 </script>

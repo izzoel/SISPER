@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
-class ForpiMahasiswa extends Controller
+class ForbelaMahasiswa extends Controller
 {
     function index(Request $request)
     {

@@ -6,13 +6,6 @@
             url: "{{ route(request()->segment(1) . '_mahasiswa_table') }}"
         },
         columns: [{
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex',
-                className: 'text-center',
-                orderable: false,
-                searchable: false
-            },
-            {
                 data: 'nim',
                 name: 'nim',
                 className: 'text-center'

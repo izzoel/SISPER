@@ -47,29 +47,31 @@
                   </a>
               </li>
 
-              <!-- Mahasiswa -->
-              <li class="menu-item {{ request()->url() == url('/' . request()->segment(1) . '/mahasiswa') ? 'active' : '' }} ">
-                  <a href="{{ route(request()->segment(1) . '_mahasiswa') }}" class="menu-link">
-                      <i class="menu-icon tf-icons bx bx-user"></i>
-                      <div data-i18n="Mahasiswa">Mahasiswa</div>
-                  </a>
-              </li>
+              @if (Auth::user()->name != 'verifikator')
+                  <!-- Mahasiswa -->
+                  <li class="menu-item {{ request()->url() == url('/' . request()->segment(1) . '/mahasiswa') ? 'active' : '' }} ">
+                      <a href="{{ route(request()->segment(1) . '_mahasiswa') }}" class="menu-link">
+                          <i class="menu-icon tf-icons bx bx-user"></i>
+                          <div data-i18n="Mahasiswa">Mahasiswa</div>
+                      </a>
+                  </li>
 
-              <!-- Laporan -->
-              <li class="menu-item {{ request()->url() == url('/' . request()->segment(1) . '/lapor') ? 'active' : '' }} ">
-                  <a href="{{ route(request()->segment(1) . '_lapor') }}" class="menu-link">
-                      <i class="menu-icon tf-icons bx bx-comment-dots"></i>
-                      <div data-i18n="Laporan">Laporan</div>
-                  </a>
-              </li>
+                  <!-- Laporan -->
+                  <li class="menu-item {{ request()->url() == url('/' . request()->segment(1) . '/lapor') ? 'active' : '' }} ">
+                      <a href="{{ route(request()->segment(1) . '_lapor') }}" class="menu-link">
+                          <i class="menu-icon tf-icons bx bx-comment-dots"></i>
+                          <div data-i18n="Laporan">Laporan</div>
+                      </a>
+                  </li>
 
-              <!-- Setting -->
-              <li class="menu-item {{ request()->url() == url('/' . request()->segment(1) . '/setting') ? 'active' : '' }} ">
-                  <a href="{{ route(request()->segment(1) . '_setting') }}" class="menu-link">
-                      <i class="menu-icon tf-icons bx bx-cog"></i>
-                      <div data-i18n="Setting">Setting</div>
-                  </a>
-              </li>
+                  <!-- Setting -->
+                  <li class="menu-item {{ request()->url() == url('/' . request()->segment(1) . '/setting') ? 'active' : '' }} ">
+                      <a href="{{ route(request()->segment(1) . '_setting') }}" class="menu-link">
+                          <i class="menu-icon tf-icons bx bx-cog"></i>
+                          <div data-i18n="Setting">Setting</div>
+                      </a>
+                  </li>
+              @endif
 
               <li class="menu-item">
                   <a href="{{ route('logout') }}" class="menu-link">

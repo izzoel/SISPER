@@ -20,6 +20,9 @@ class MenuMiddleware
         if ($request->segment(1) == 'forpi') {
             $version = '3.0';
             $about = 'Formulir Pengajuan Surat Keterangan Pendamping Ijazah';
+        } elseif ($request->segment(1) == 'forbela') {
+            $version = '1.0';
+            $about = 'Formulir Pengajuan Bebas Lab';
         } elseif ($request->segment(1) == 'dversi') {
             $version = '2.0';
             $about = 'Digital Verifikasi Biodata Ijazah';
@@ -46,6 +49,8 @@ class MenuMiddleware
                 $menuData['segment2'] = strtoupper($request->segment(2)) ?? '';
             } else {
                 if ($request->segment(1) == 'forpi') {
+                    $menuData['description'] = $about;
+                } elseif ($request->segment(1) == 'forbela') {
                     $menuData['description'] = $about;
                 } elseif ($request->segment(1) == 'dversi') {
                     $menuData['description'] = $about;

@@ -147,6 +147,46 @@
         ],
     });
 
+    $('#table_' + '{{ request()->segment(1) }}_' + 'setting_kalaboratorium').DataTable({
+        serverSide: true,
+        processing: true,
+        ajax: {
+            url: "{{ route(request()->segment(1) . '_setting_kalaboratorium') }}"
+        },
+        columns: [{
+                data: 'nama',
+                name: 'nama',
+            },
+            {
+                data: 'nik',
+                name: 'nik',
+                className: 'text-center'
+            },
+            {
+                data: 'jabatan',
+                name: 'jabatan',
+                className: 'text-center'
+            },
+            {
+                data: 'aksi',
+                name: 'aksi',
+                className: 'text-center'
+            }
+        ],
+        dom: '<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>><"row mb-2"<"col-sm-12">><"row mb-2"<"col-sm-12"t>><"row mb-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex flex-row-reverse"p>>',
+        language: {
+            "lengthMenu": "Tampilkan _MENU_ baris",
+            "info": "Menampilkan _START_ ke _END_ dari _TOTAL_ baris",
+            "search": "Cari:",
+            "emptyTable": "Tidak ada data yang tersedia",
+            "zeroRecords": "Tidak ada data yang ditemukan"
+        },
+        lengthMenu: [
+            [10, 25, 50, 100, -1],
+            [10, 25, 50, 100, "Semua"]
+        ],
+    });
+
     $(document).on('click', '.U_B_fakultas', function() {
         let id = $(this).data("fakultas").split('-').pop();
 
@@ -188,6 +228,19 @@
         $.get("/{{ request()->segment(1) }}/setting/rektor/show/" + id, function(data) {
             $("#R_nama").val(data.nama);
             $("#R_nik").val(data.nik);
+        });
+
+    });
+    $(document).on('click', '.U_B_kalaboratorium', function() {
+        let id = $(this).data("kalaboratorium").split('-').pop();
+
+        $(".modalKalaboratorium").attr("id", "M_U_kalaboratorium-" + id);
+        $("#M_U_kalaboratorium-" + id).modal('show');
+        $("#U_kalaboratorium").attr('action', "/{{ request()->segment(1) }}/setting/kalaboratorium/update/" + id);
+
+        $.get("/{{ request()->segment(1) }}/setting/kalaboratorium/show/" + id, function(data) {
+            $("#K_nama").val(data.nama);
+            $("#K_nik").val(data.nik);
         });
 
     });

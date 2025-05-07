@@ -17,6 +17,11 @@
 
     <!-- AOS CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/aos/css/aos.css') }}" />
+
+    <!-- Select2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css">
+
 </head>
 
 <body>
@@ -50,7 +55,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6" data-aos="fade-down" data-aos-delay="200">
-                    <a class="btn text-start p-0 banner" href="" role="button">
+                    <a class="btn text-start p-0 banner forbela" role="button">
                         <div class="card mb-3">
                             <div class="row g-0">
                                 <div class="col-md-4">
@@ -177,8 +182,12 @@
     <!-- SweetAlert2 JS -->
     <script src="{{ asset('vendor/sweetalert2/js/sweetalert2.js') }}"></script>
 
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <!-- Login scripts -->
     <script src="{{ asset('scripts/sw-login-forpi.js') }}"></script>
+    <script src="{{ asset('scripts/sw-login-forbela.js') }}"></script>
     <script src="{{ asset('scripts/sw-login-dversi.js') }}"></script>
 
 
