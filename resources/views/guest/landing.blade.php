@@ -67,7 +67,7 @@
                                         <button id="forbela" type="button" class="btn btn-danger mb-2" style="background-color: #0f8500; border-color: #0f8500">
                                             FORBELA
                                         </button>
-                                        <p class="card-text"><small>Formulir Keterangan Bebas Lab</small></p>
+                                        <p class="card-text"><small>Formulir Surat Keterangan Bebas Lab</small></p>
                                     </div>
                                 </div>
                             </div>
@@ -127,7 +127,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6">
-                    <a class="btn text-start p-0 w-100" role="button">
+                    <a class="btn text-start p-0 w-100 forbela" role="button">
                         <div class="card mb-3">
                             <div class="row d-flex align-items-center flex-nowrap">
                                 <!-- Gambar -->

@@ -60,7 +60,7 @@ class ForbelaEntry extends Controller
 
                     return $url
                         ? '<a href="' . $url . '" target="_blank"><button type="button" class="btn btn-sm btn-primary">' . $icon . ' ' . $label . '</button></a>'
-                        : '-';
+                        : '<span class="badge rounded-pill bg-label-primary"><i>Non Eksperimen</i></span>';
                 })
 
 

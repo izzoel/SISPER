@@ -1,3 +1,14 @@
+@php
+    $menu = $data['menuData']['menu'];
+    $description = $data['menuData']['description'];
+    $segment2 = $data['menuData']['segment2'] ?? null;
+
+    // Ganti jika menu == description
+    if ($menu === $description) {
+        $description = 'ADMIN';
+    }
+@endphp
+
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
         <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
@@ -11,13 +22,13 @@
             </li>
             <div class="text-muted fw-semibold px-2 fs-5"> / </div>
             <li>
-                <a class="nav-link">{{ $data['menuData']['menu'] }}</a>
+                <a class="nav-link">{{ $menu }}</a>
             </li>
             <div class="d-none d-sm-block text-muted fw-semibold px-2 fs-5"> / </div>
-            <li class="d-none d-sm-block nav-link text-nowrap ">{{ $data['menuData']['description'] }}</li>
-            @if (!empty($data['menuData']['segment2']))
+            <li class="d-none d-sm-block nav-link text-nowrap ">{{ $description }}</li>
+            @if (!empty($segment2))
                 <div class="text-muted fw-semibold px-2 fs-5"> / </div>
-                <li class="d-none d-sm-block nav-link text-nowrap ">{{ $data['menuData']['segment2'] }}</li>
+                <li class="d-none d-sm-block nav-link text-nowrap ">{{ $segment2 }}</li>
             @endif
         </ul>
     </div>
