@@ -27,6 +27,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Middleware\MenuMiddleware;
 use App\Http\Middleware\AdminOnlyMiddleware;
 use Illuminate\Support\Facades\Route;
+use App\Mail\ForbelaMail;
 
 Route::get('/', function () {
     return view('guest.landing');
@@ -124,6 +125,7 @@ Route::middleware([MenuMiddleware::class])->group(function () {
 
             Route::prefix('entry')->group(function () {
                 Route::get('/', [ForbelaEntry::class, 'index'])->name('forbela_entry');
+                Route::get('/email', [ForbelaEntry::class, 'email'])->name('forbela_entry_email');
                 Route::get('/table', [ForbelaEntry::class, 'table'])->name('forbela_entry_table');
                 Route::get('/status', [ForbelaEntry::class, 'status'])->name('forbela_entry_status');
                 Route::get('/validasi', [ForbelaEntry::class, 'validasi'])->name('forbela_entry_validasi');

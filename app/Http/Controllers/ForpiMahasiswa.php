@@ -36,7 +36,7 @@ class ForpiMahasiswa extends Controller
 
                     return '<span class="badge rounded-pill ' . $statusClass . '">' . $statusText . '</span>';
                 })
-                ->addColumn('pisn', function ($mahasiswa) {
+                ->editColumn('pisn', function ($mahasiswa) {
                     $statusClass = $mahasiswa->pisn ? 'bg-label-primary' : 'bg-label-danger';
                     $statusText = $mahasiswa->pisn ?: 'Belum';
 

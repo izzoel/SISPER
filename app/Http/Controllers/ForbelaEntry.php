@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use App\Mail\ForbelaMail;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\ForbelaSubmit as Submit;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
+use App\Models\ForbelaSubmit as Submit;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class ForbelaEntry extends Controller
@@ -18,6 +25,43 @@ class ForbelaEntry extends Controller
 
         $entries = Submit::all();
         return view('auth.' . request()->segment(1) . '.pages.section', compact('data', 'entries'));
+    }
+
+    public function email(Request $request)
+    {
+        $entry = Submit::find($request->id);
+
+        $data = [
+            'nama' => $request->input('nama', $entry->nama),
+        ];
+
+        $url = $entry->surat;
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            // Simpan sementara di storage (misal: storage/app/temp/)
+            $nama = $data['nama'];
+            $tanggal = now()->locale('id')->translatedFormat('d F Y');
+
+            $filename = 'temp/' . Str::random(10) . '.pdf';
+            Storage::put($filename, $response->body());
+
+            // Path absolut untuk attachment
+            $path = storage_path('app/private/' . $filename);
+            $attachment = strtoupper("FORBELA -- {$nama} -- {$tanggal}.pdf");
+            // Kirim email dengan attachment (nama lampiran disesuaikan)
+            Mail::to($entry->email)->send(
+                (new ForbelaMail($data))->attach($path, [
+                    'as' => $attachment,
+                    'mime' => 'application/pdf',
+                ])
+            );
+            Storage::delete($filename);
+
+            return response()->json(['success' => 'Email dengan berhasil dikirim!']);
+        } else {
+            return response()->json(['error' => 'Gagal mengunduh lampiran.'], 500);
+        }
     }
 
     public function table()
@@ -39,12 +83,19 @@ class ForbelaEntry extends Controller
 
             return DataTables::eloquent($entries)
                 ->addIndexColumn()
-                ->addColumn('status', function ($entry) {
+                ->editColumn('status', function ($entry) {
                     $statusClass = $entry->status == 'BARU' ? 'bg-label-danger'
                         : ($entry->status == 'DITINJAU' ? 'bg-label-warning' : 'bg-label-success');
 
                     return '<span class="badge rounded-pill ' . $statusClass . '">'
                         . ($entry->status ? $entry->status : 'Ditinjau') . '</span>';
+                })
+                ->editColumn('email', function ($entry) {
+                    $statusClass = $entry->status == 'BARU' ? 'bg-label-danger'
+                        : ($entry->status == 'DITINJAU' ? 'bg-label-warning' : 'bg-label-success');
+
+                    return '<span class="badge rounded-pill ' . $statusClass . ' text-lowercase">'
+                        . $entry->email . '</span>';
                 })
                 ->addColumn('pembayaran', function ($entry) use ($user) {
                     // Tentukan URL dan label link
@@ -87,7 +138,7 @@ class ForbelaEntry extends Controller
                 })
 
 
-                ->rawColumns(['status', 'pembayaran', 'aksi'])
+                ->rawColumns(['status', 'email', 'pembayaran', 'aksi'])
                 ->make(true);
         }
 
@@ -111,7 +162,6 @@ class ForbelaEntry extends Controller
     public function validasi(Request $request)
     {
         $submit = Submit::find($request->id);
-
         if ($submit) {
             $submit->status = $request->status ? 'VALID' : 'DITINJAU';
             $submit->save();

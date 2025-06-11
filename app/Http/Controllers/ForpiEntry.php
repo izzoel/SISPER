@@ -28,14 +28,14 @@ class ForpiEntry extends Controller
 
             return DataTables::eloquent($entries)
                 ->addIndexColumn()
-                ->addColumn('status', function ($entry) {
+                ->editColumn('status', function ($entry) {
                     $statusClass = $entry->status == 'BARU' ? 'bg-label-warning'
                         : ($entry->status == 'SUDAH PRINT' ? 'bg-label-success' : 'bg-label-danger');
 
                     return '<span class="badge rounded-pill ' . $statusClass . '">'
                         . ($entry->status ? $entry->status : 'Belum') . '</span>';
                 })
-                ->addColumn('aksi', function ($entry) {
+                ->editColumn('aksi', function ($entry) {
                     return '<button class="btn btn-sm btn-info resubmit-btn" data-nim="' . $entry->nim . '" 
                             data-url="' . route('forpi_entry_resubmit', $entry->nim) . '"><i class="bx bx-refresh"></i>
                         </button>
@@ -45,6 +45,23 @@ class ForpiEntry extends Controller
                             data-doc="' . $entry->dokumen . '">
                             <i class="bx bx-printer"></i> Print
                         </button>';
+                })
+                ->editColumn('aksi', function ($entry) {
+                    return '<button class="btn btn-sm btn-info resubmit-btn" data-nim="' . $entry->nim . '" 
+                            data-url="' . route('forpi_entry_resubmit', $entry->nim) . '"><i class="bx bx-refresh"></i>
+                        </button>
+                    <button class="btn btn-sm btn-primary print-btn" 
+                            data-nim="' . $entry->nim . '" 
+                            data-url="' . route('forpi_entry_print', $entry->nim) . '" 
+                            data-doc="' . $entry->dokumen . '">
+                            <i class="bx bx-printer"></i> Print
+                        </button>';
+                })
+                ->editColumn('new', function ($entry) {
+                    return 'asda';
+                })
+                ->orderColumn('new', function ($query, $direction) {
+                    $query->orderBy('status', $direction);
                 })
                 ->rawColumns(['status', 'aksi'])
                 ->make(true);

@@ -43,8 +43,8 @@
                     className: 'text-center'
                 },
                 {
-                    data: 'aksi',
-                    name: 'aksi',
+                    data: 'new',
+                    name: 'new',
                     className: 'text-center'
                 }
             ],
@@ -180,19 +180,58 @@
             let id = btn.data('id');
             let status = btn.is(':checked') ? 1 : 0;
 
-            $.get("{{ route(request()->segment(1) . '_entry_validasi') }}", {
-                    id: id,
-                    status: status
-                })
-                .done(function(response) {
-                    console.log(response.success);
-                    $('#table_' + '{{ request()->segment(2) }}').DataTable().ajax.reload(null, false);
-                })
-                .fail(function() {
-                    alert("Gagal memperbarui status.");
+            // Tentukan teks konfirmasi berdasarkan status
+            let confirmText = status === 1 ?
+                'Surat akan dikirim ke email mahasiswa.' :
+                'Status validasi akan diubah.';
+
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: confirmText,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, lanjutkan',
+                cancelButtonText: 'Batal',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Lanjutkan proses update status
+                    $.get("{{ route(request()->segment(1) . '_entry_validasi') }}", {
+                            id: id,
+                            status: status
+                        })
+                        .done(function(response) {
+                            console.log(response.success);
+
+                            // Kirim email
+                            if (status === 1) {
+                                $.get("{{ url(request()->segment(1) . '/entry/email') }}", {
+                                    id: id,
+                                    status: status
+                                }).done(function(emailResponse) {
+                                    console.log("Email sent");
+                                }).fail(function() {
+                                    console.warn("Gagal mengirim email.");
+                                });
+                            }
+
+                            // Reload tabel
+                            $('#table_' + '{{ request()->segment(2) }}').DataTable().ajax.reload(null, false);
+
+                            Swal.fire('Berhasil!', 'Perubahan berhasil diproses.', 'success');
+                        })
+                        .fail(function() {
+                            btn.prop('checked', !status); // Balik toggle
+                            Swal.fire('Gagal!', 'Gagal memperbarui status.', 'error');
+                        });
+                } else {
+                    // Kembalikan toggle ke posisi semula
                     btn.prop('checked', !status);
-                });
+                }
+            });
         });
+
+
     } else if ('{{ $data['menuData']['menu'] }}' == 'DVERSI') {
         $('#table_' + '{{ request()->segment(2) }}').DataTable({
             serverSide: true,
