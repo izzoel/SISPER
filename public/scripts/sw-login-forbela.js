@@ -50,7 +50,7 @@ $(document).ready(function() {
           }
         });
       } else {
-        Swal.showValidationMessage(`NIM atau PISN Salah!`);
+        Swal.showValidationMessage(`NIM atau NIK Salah!`);
       }
     } catch (error) {
       Swal.showValidationMessage(`Request failed: ${error}`);
