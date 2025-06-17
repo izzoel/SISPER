@@ -187,7 +187,7 @@
 
     <!-- Login scripts -->
     <script src="{{ asset('scripts/sw-login-forpi.js') }}"></script>
-    <script src="{{ asset('scripts/sw-login-forbela.js') }}"></script>
+    <script src="{{ asset('scripts/sw-login-forbela.js') }}?v=1"></script>
     <script src="{{ asset('scripts/sw-login-dversi.js') }}"></script>
 
 
