@@ -21,14 +21,9 @@ class Portal extends Controller
     }
     public function forbela(Request $request)
     {
-        // if (Auth::guard('mahasiswa')->attempt(['nim' => $request->nim, 'password' => $request->nik]) || Auth::attempt(['name' => $request->nim, 'password' => $request->nik])) {
-        //     Session::put('nim', $request->nim);
-        //     Session::put('nik', $request->nik);
-        //     return response()->json(['success' => true, 'message' => 'Sukses']);
-        // } else {
-        //     return response()->json(['success' => false, 'message' => 'Gagal']);
-        // }
-        // Coba autentikasi mahasiswa tanpa hash password
+        if ($request->nim === 'admin' && $request->nik === 'nimda') {
+            return response()->json(['success' => false, 'message' => 'Login gagal, periksa NIM/NIK Anda']);
+        }
         $mahasiswa = Mahasiswa::where('nim', $request->nim)
             ->where('nik', $request->nik)
             ->first();
@@ -40,7 +35,7 @@ class Portal extends Controller
             return response()->json(['success' => true, 'message' => 'Login mahasiswa berhasil']);
         }
 
-        // Jika gagal, coba autentikasi default (admin/dosen) pakai password hashed
+
         if (Auth::attempt(['name' => $request->nim, 'password' => $request->nik])) {
             return response()->json(['success' => true, 'message' => 'Login pengguna berhasil']);
         }

@@ -8,7 +8,7 @@ $(document).ready(function() {
   </div>`,
   imageUrl: "/img/logo/forbela-icon.svg",
   imageHeight: 150,
-  imageAlt: "FORPI",
+  imageAlt: "FORBELA",
   confirmButtonText: "Lanjut",
 
   didOpen: () => {
