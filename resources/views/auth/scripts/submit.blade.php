@@ -523,6 +523,8 @@
                         });
                     },
                     error: function() {
+                        console.log("Terjadi kesalahan saat mengirim data:", arguments);
+
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
