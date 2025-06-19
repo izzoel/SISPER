@@ -42,9 +42,9 @@ class ForbelaMahasiswa extends Controller
 
                     return '<span class="badge rounded-pill ' . $statusClass . '">' . $statusText . '</span>';
                 })
-                ->addColumn('tanggal_yudisium', function ($mahasiswa) {
-                    return \Carbon\Carbon::createFromFormat('Y-m-d', $mahasiswa->tanggal_yudisium)->translatedFormat('d F Y');
-                })
+                // ->addColumn('tanggal_yudisium', function ($mahasiswa) {
+                //     return \Carbon\Carbon::createFromFormat('Y-m-d', $mahasiswa->tanggal_yudisium)->translatedFormat('d F Y');
+                // })
                 ->addColumn('aksi', function ($mahasiswa) {
                     return '<a type="button" class="U_B_mahasiswa text-info" data-nim="#M_U_mahasiswa-' . $mahasiswa->nim . '">
                         <span class="tf-icons bx bx-edit"></span> Edit
@@ -125,6 +125,7 @@ class ForbelaMahasiswa extends Controller
 
             return back()->with('success', 'Data berhasil diimport!');
         } catch (\Exception $e) {
+            Log::error("Error dalam print(): " . $e->getMessage());
             return back()->with('fail', 'Import Gagal!');
         }
     }
