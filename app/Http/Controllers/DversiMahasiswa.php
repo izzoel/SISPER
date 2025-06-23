@@ -45,7 +45,6 @@ class DversiMahasiswa extends Controller
                         ? \Carbon\Carbon::parse($mahasiswa->tanggal_yudisium)->translatedFormat('d F Y')
                         : '-';
                 })
-
                 ->addColumn('aksi', function ($mahasiswa) {
                     return '<a type="button" class="U_B_mahasiswa text-info" data-nim="#M_U_mahasiswa-' . $mahasiswa->nim . '">
                         <span class="tf-icons bx bx-edit"></span> Edit
