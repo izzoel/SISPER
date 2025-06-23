@@ -1,69 +1,195 @@
 <script>
-    $('#table_' + '{{ request()->segment(2) }}').DataTable({
-        serverSide: true,
-        processing: true,
-        ajax: {
-            url: "{{ route(request()->segment(1) . '_mahasiswa_table') }}"
-        },
-        columns: [{
-                data: 'nim',
-                name: 'nim',
-                className: 'text-center'
+    if ('{{ $data['menuData']['menu'] }}' == 'FORPI') {
+        $('#table_' + '{{ request()->segment(2) }}').DataTable({
+            serverSide: true,
+            processing: true,
+            ajax: {
+                url: "{{ route(request()->segment(1) . '_mahasiswa_table') }}"
             },
-            {
-                data: 'nama',
-                name: 'nama'
+            columns: [{
+                    data: 'nim',
+                    name: 'nim',
+                    className: 'text-center'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'pisn',
+                    name: 'pisn',
+                    className: 'text-center',
+                    orderable: true,
+                },
+                {
+                    data: 'nik',
+                    name: 'nik',
+                    className: 'text-center'
+                },
+                {
+                    data: 'prodi',
+                    name: 'prodi',
+                    className: 'text-center'
+                },
+                {
+                    data: 'periode_lulus',
+                    name: 'periode_lulus',
+                    className: 'text-center'
+                },
+                {
+                    data: 'tanggal_yudisium',
+                    name: 'tanggal_yudisium',
+                    className: 'text-center'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    className: 'text-center'
+                }
+            ],
+            dom: '<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>><"row mb-2"<"col-sm-12">><"row mb-2"<"col-sm-12"t>><"row mb-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex flex-row-reverse"p>>',
+            language: {
+                "lengthMenu": "Tampilkan _MENU_ baris",
+                "info": "Menampilkan _START_ ke _END_ dari _TOTAL_ baris",
+                "search": "Cari:",
+                "emptyTable": "Tidak ada data yang tersedia",
+                "zeroRecords": "Tidak ada data yang ditemukan"
             },
-            {
-                data: 'pisn',
-                name: 'pisn',
-                className: 'text-center',
-                orderable: true,
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, "Semua"]
+            ],
+            columnDefs: [{
+                responsivePriority: 1,
+                targets: -1
+            }]
+        });
+    } else if ('{{ $data['menuData']['menu'] }}' == 'DVERSI') {
+        $('#table_' + '{{ request()->segment(2) }}').DataTable({
+            serverSide: true,
+            processing: true,
+            ajax: {
+                url: "{{ route(request()->segment(1) . '_mahasiswa_table') }}"
             },
-            {
-                data: 'nik',
-                name: 'nik',
-                className: 'text-center'
+            columns: [{
+                    data: 'nim',
+                    name: 'nim',
+                    className: 'text-center'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'pisn',
+                    name: 'pisn',
+                    className: 'text-center',
+                    orderable: true,
+                },
+                {
+                    data: 'nik',
+                    name: 'nik',
+                    className: 'text-center'
+                },
+                {
+                    data: 'prodi',
+                    name: 'prodi',
+                    className: 'text-center'
+                },
+                {
+                    data: 'periode_lulus',
+                    name: 'periode_lulus',
+                    className: 'text-center'
+                },
+                {
+                    data: 'tanggal_yudisium',
+                    name: 'tanggal_yudisium',
+                    className: 'text-center'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    className: 'text-center'
+                }
+            ],
+            dom: '<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>><"row mb-2"<"col-sm-12">><"row mb-2"<"col-sm-12"t>><"row mb-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex flex-row-reverse"p>>',
+            language: {
+                "lengthMenu": "Tampilkan _MENU_ baris",
+                "info": "Menampilkan _START_ ke _END_ dari _TOTAL_ baris",
+                "search": "Cari:",
+                "emptyTable": "Tidak ada data yang tersedia",
+                "zeroRecords": "Tidak ada data yang ditemukan"
             },
-            {
-                data: 'prodi',
-                name: 'prodi',
-                className: 'text-center'
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, "Semua"]
+            ],
+            columnDefs: [{
+                responsivePriority: 1,
+                targets: -1
+            }]
+        });
+    } else if ('{{ $data['menuData']['menu'] }}' == 'FORBELA') {
+        $('#table_' + '{{ request()->segment(2) }}').DataTable({
+            serverSide: true,
+            processing: true,
+            ajax: {
+                url: "{{ route(request()->segment(1) . '_mahasiswa_table') }}"
             },
-            {
-                data: 'periode_lulus',
-                name: 'periode_lulus',
-                className: 'text-center'
+            columns: [{
+                    data: 'nim',
+                    name: 'nim',
+                    className: 'text-center'
+                },
+                {
+                    data: 'nama',
+                    name: 'nama'
+                },
+                {
+                    data: 'pisn',
+                    name: 'pisn',
+                    className: 'text-center',
+                    orderable: true,
+                },
+                {
+                    data: 'nik',
+                    name: 'nik',
+                    className: 'text-center'
+                },
+                {
+                    data: 'prodi',
+                    name: 'prodi',
+                    className: 'text-center'
+                },
+                {
+                    data: 'periode_lulus',
+                    name: 'periode_lulus',
+                    className: 'text-center'
+                },
+                {
+                    data: 'aksi',
+                    name: 'aksi',
+                    className: 'text-center'
+                }
+            ],
+            dom: '<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>><"row mb-2"<"col-sm-12">><"row mb-2"<"col-sm-12"t>><"row mb-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex flex-row-reverse"p>>',
+            language: {
+                "lengthMenu": "Tampilkan _MENU_ baris",
+                "info": "Menampilkan _START_ ke _END_ dari _TOTAL_ baris",
+                "search": "Cari:",
+                "emptyTable": "Tidak ada data yang tersedia",
+                "zeroRecords": "Tidak ada data yang ditemukan"
             },
-            {
-                data: 'tanggal_yudisium',
-                name: 'tanggal_yudisium',
-                className: 'text-center'
-            },
-            {
-                data: 'aksi',
-                name: 'aksi',
-                className: 'text-center'
-            }
-        ],
-        dom: '<"row mb-2"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>><"row mb-2"<"col-sm-12">><"row mb-2"<"col-sm-12"t>><"row mb-2"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6 d-flex flex-row-reverse"p>>',
-        language: {
-            "lengthMenu": "Tampilkan _MENU_ baris",
-            "info": "Menampilkan _START_ ke _END_ dari _TOTAL_ baris",
-            "search": "Cari:",
-            "emptyTable": "Tidak ada data yang tersedia",
-            "zeroRecords": "Tidak ada data yang ditemukan"
-        },
-        lengthMenu: [
-            [10, 25, 50, 100, -1],
-            [10, 25, 50, 100, "Semua"]
-        ],
-        columnDefs: [{
-            responsivePriority: 1,
-            targets: -1
-        }]
-    });
-
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, "Semua"]
+            ],
+            columnDefs: [{
+                responsivePriority: 1,
+                targets: -1
+            }]
+        });
+    }
     $(document).on('click', '.print-btn', function() {
         let btn = $(this);
         let printUrl = btn.data('url');

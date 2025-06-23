@@ -24,7 +24,7 @@
                                     <th>Prodi</th>
                                     <th>Periode Lulus</th>
                                     {{-- <th>Tangal Yudisium</th> --}}
-                                    <th>Periode Lulus</th>
+                                    {{-- <th>Periode Lulus</th> --}}
                                 </tr>
                             </thead>
                         </table>
