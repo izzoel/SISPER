@@ -218,18 +218,51 @@
 
             let form = $(this);
             let formData = new FormData(this);
+            let totalRows = 100; // simulasi, nanti diganti otomatis
+            let currentRow = 0;
 
-            // Tampilkan loading SweetAlert2
+            // Ambil jumlah baris excel (opsional, kalau bisa dari Excel rows)
+            const fileInput = form.find('input[type="file"]')[0];
+            const file = fileInput.files[0];
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const lines = e.target.result.split("\n").length;
+                totalRows = lines - 1; // dikurangi header
+                $('#total-row').text(totalRows);
+            };
+            reader.readAsText(file);
+
+
+            // --- SweetAlert loading + progress ---
             Swal.fire({
-                title: 'Ngupload data...',
-                html: 'Bentaran yaa...',
+                title: 'Mengimpor data...',
+                html: `
+                <div class="progress mt-3" style="height: 20px;">
+                    <div id="progress-bar" class="progress-bar" style="width:0%">0%</div>
+                </div>
+                <div class="mt-2">Importing <span id="current-row">0</span> dari <span id="total-row">${totalRows}</span> data...</div>
+            `,
                 allowOutsideClick: false,
                 didOpen: () => {
                     Swal.showLoading();
+
+                    // Simulasi progres
+                    let interval = setInterval(() => {
+                        if (currentRow >= totalRows) {
+                            clearInterval(interval);
+                            return;
+                        }
+                        currentRow++;
+                        let percent = Math.round((currentRow / totalRows) * 100);
+                        $('#progress-bar').css('width', percent + '%').text(percent + '%');
+                        $('#current-row').text(currentRow);
+                    }, 250); // 150ms per baris → 100 baris ≈ 15 detik
+
                 }
             });
 
-            // Kirim form dengan AJAX
+            // Kirim AJAX
             $.ajax({
                 url: form.attr("action"),
                 type: form.attr("method"),
@@ -244,26 +277,21 @@
                         timer: 2000,
                         showConfirmButton: false
                     }).then(() => {
-                        location.reload(); // Reload halaman setelah sukses
+                        location.reload();
                     });
                 },
                 error: function(xhr) {
-                    let errorMessage = "Terjadi kesalahan saat mengirim data.";
-
-                    // Jika server mengembalikan response JSON dengan message error
-                    if (xhr.responseJSON && xhr.responseJSON.message) {
-                        errorMessage = xhr.responseJSON.message;
-                    }
                     Swal.fire({
                         icon: 'error',
                         title: 'Gagal!',
-                        text: 'Terjadi kesalahan saat mengirim data.',
+                        text: 'Terjadi kesalahan saat mengimpor data.',
                         footer: 'Error: ' + xhr.status + ' ' + xhr.statusText
                     });
                 }
             });
         });
     });
+
 
 
     $(document).on('click', '.U_B_mahasiswa', function() {

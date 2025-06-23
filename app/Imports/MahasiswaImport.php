@@ -18,10 +18,16 @@ class MahasiswaImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
+        Log::info('Mulai proses import mahasiswa.');
         $mahasiswa = Mahasiswa::where('nim', $row['nim'])->first();
         // $DversiEntry = DversiSubmit::where('nim', $row['nim'])->first();
 
-        $prodi = strtoupper(str_contains($row['prodi'], 'D3') ? str_replace('D3', 'DIPLOMA TIGA', $row['prodi']) : $row['prodi']);
+        // $prodi = strtoupper(str_contains($row['prodi'], 'D3') ? str_replace('D3', 'DIPLOMA TIGA', $row['prodi']) : $row['prodi']);
+
+        $prodi = strtoupper($row['prodi']);
+        $prodi = str_replace('D3', 'DIPLOMA TIGA', $prodi);
+        $prodi = str_replace('S1', 'SARJANA', $prodi);
+
 
         $fakultas = match ($prodi) {
             'DIPLOMA TIGA FARMASI', 'D3 FARMASI' => 'Farmasi',
@@ -48,29 +54,44 @@ class MahasiswaImport implements ToModel, WithHeadingRow
         // Konversi tanggal (gunakan optional() untuk menghindari error jika kosong)
         $tanggal_lahir = !empty($row['tanggal_lahir']) ? Carbon::createFromFormat('d/m/Y', $row['tanggal_lahir'])->format('Y-m-d') : null;
         $tanggal_yudisium = !empty($row['tanggal_yudisium']) ? Carbon::createFromFormat('d/m/Y', $row['tanggal_yudisium'])->format('Y-m-d') : null;
+        Log::info('Tanggal lahir dan yudisium', [
+            'nim' => $row['nim'],
+            'tanggal_lahir' => $tanggal_lahir,
+            'tanggal_yudisium' => $tanggal_yudisium
+        ]);
 
         if ($mahasiswa) {
-            // Update Mahasiswa jika sudah ada
-            $mahasiswa->update([
-                'nim'  => $row['nim'],
-                'nama' => $row['nama'],
-                'tempat_lahir' => strtoupper($row['tempat_lahir']),
-                'kelamin' => $row['kelamin'],
-                'tanggal_lahir' => $tanggal_lahir,
-                'fakultas' => $fakultas,
-                'prodi' => $prodi,
-                'gelar' => $gelar,
-                'no_hp' => $row['no_hp'],
-                'status' => $row['status'],
-                'alamat' => $row['alamat'],
-                'pisn' => $row['pisn'],
-                'periode_lulus' => $row['periode_lulus'],
-                'tanggal_yudisium' => $tanggal_yudisium
-            ]);
+            try {
+                $mahasiswa->update([
+                    'nim'  => $row['nim'],
+                    'nama' => $row['nama'],
+                    'tempat_lahir' => strtoupper($row['tempat_lahir']),
+                    'kelamin' => $row['kelamin'],
+                    'tanggal_lahir' => $tanggal_lahir,
+                    'fakultas' => $fakultas,
+                    'prodi' => $prodi,
+                    'gelar' => $gelar,
+                    'no_hp' => $row['no_hp'],
+                    'status' => $row['status'],
+                    'alamat' => $row['alamat'],
+                    'pisn' => $row['pisn'],
+                    'periode_lulus' => $row['periode_lulus'],
+                    'tanggal_yudisium' => $tanggal_yudisium
+                ]);
+
+                Log::info('Mahasiswa updated', [
+                    'nim' => $row['nim'],
+                    'nama' => $row['nama']
+                ]);
+            } catch (\Exception $e) {
+                Log::error('Gagal update mahasiswa', [
+                    'nim' => $row['nim'] ?? null,
+                    'error' => $e->getMessage()
+                ]);
+            }
         } else {
             try {
-
-                return new Mahasiswa([
+                $newMahasiswa = new Mahasiswa([
                     'nim'  => $row['nim'],
                     'nama' => $row['nama'],
                     'password' => bcrypt($row['nim']),
@@ -89,9 +110,20 @@ class MahasiswaImport implements ToModel, WithHeadingRow
                     'foto' => rand(0, 11),
                     'role' => 'mahasiswa'
                 ]);
+
+                $newMahasiswa->save(); // simpan ke database
+                return $newMahasiswa;
+                Log::info('Mahasiswa saved', [
+                    'nim' => $row['nim'],
+                    'nama' => $row['nama']
+                ]);
             } catch (\Exception $e) {
                 Log::error('Gagal insert data mahasiswa dengan NIM ' . $row['nim'] . ': ' . $e->getMessage());
             }
         }
+        Log::info('Mahasiswa import', [
+            'nim' => $row['nim'],
+            'nama' => $row['nama']
+        ]);
     }
 }

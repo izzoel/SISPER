@@ -15,27 +15,8 @@ class Mahasiswa extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'nim',
-        'nama',
-        'password',
-        'tempat_lahir',
-        'kelamin',
-        'tanggal_lahir',
-        'fakultas',
-        'prodi',
-        'gelar',
-        'no_hp',
-        'status',
-        'skpi',
-        'ijazah',
-        'alamat',
-        'nik',
-        'pisn',
-        'periode_lulus',
-        'tanggal_yudisium',
-        'foto'
-    ];
+    protected $guarded = [];
+
 
     /**
      * The attributes that should be hidden for serialization.
