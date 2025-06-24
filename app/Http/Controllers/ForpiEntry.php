@@ -46,23 +46,6 @@ class ForpiEntry extends Controller
                             <i class="bx bx-printer"></i> Print
                         </button>';
                 })
-                ->editColumn('aksi', function ($entry) {
-                    return '<button class="btn btn-sm btn-info resubmit-btn" data-nim="' . $entry->nim . '" 
-                            data-url="' . route('forpi_entry_resubmit', $entry->nim) . '"><i class="bx bx-refresh"></i>
-                        </button>
-                    <button class="btn btn-sm btn-primary print-btn" 
-                            data-nim="' . $entry->nim . '" 
-                            data-url="' . route('forpi_entry_print', $entry->nim) . '" 
-                            data-doc="' . $entry->dokumen . '">
-                            <i class="bx bx-printer"></i> Print
-                        </button>';
-                })
-                ->editColumn('new', function ($entry) {
-                    return 'asda';
-                })
-                ->orderColumn('new', function ($query, $direction) {
-                    $query->orderBy('status', $direction);
-                })
                 ->rawColumns(['status', 'aksi'])
                 ->make(true);
         }

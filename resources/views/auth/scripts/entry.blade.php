@@ -43,8 +43,8 @@
                     className: 'text-center'
                 },
                 {
-                    data: 'new',
-                    name: 'new',
+                    data: 'aksi',
+                    name: 'aksi',
                     className: 'text-center'
                 }
             ],
