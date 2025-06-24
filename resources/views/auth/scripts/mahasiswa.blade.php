@@ -203,7 +203,6 @@
         });
     });
 
-
     $("#M_S_mahasiswa").on('show.bs.modal', function(e) {
         ["#S_nim", "#S_nama", "#S_tempat_lahir", "#S_alamat"].forEach(function(selector) {
             $(selector).on('keyup', function() {
@@ -291,8 +290,6 @@
             });
         });
     });
-
-
 
     $(document).on('click', '.U_B_mahasiswa', function() {
         let nim = $(this).data("nim").split('-').pop();

@@ -80,6 +80,7 @@
                                         <select class="form-select" id="periode_lulus" name="periode_lulus" required>
                                             <option selected disabled>-- Pilih --</option>
                                             <option value="2024/2025 Ganjil">2024/2025 Ganjil</option>
+                                            <option value="2024/2025 Genap">2024/2025 Genap</option>
                                         </select>
                                     </div>
                                     <div class="mb-3">
@@ -198,6 +199,7 @@
                                 <select class="form-select" id="U_periode" name="periode_lulus" required>
                                     <option selected disabled>-- Pilih --</option>
                                     <option value="2024/2025 Ganjil">2024/2025 Ganjil</option>
+                                    <option value="2024/2025 Genap">2024/2025 Genap</option>
                                 </select>
                             </div>
                             <div class="mb-3">
