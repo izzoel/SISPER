@@ -11,8 +11,8 @@
                         <table id="table_{{ request()->segment(2) }}" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th class="text-start" data-priority="3">#</th>
-                                    <th>Nama</th>
+                                    <th>NIM</th>
+                                    <th data-priority="1">Nama</th>
                                     <th>Status</th>
                                     @if (Auth::check() && Auth::user()->name == 'verifikator')
                                         <th>Surat</th>

@@ -27,7 +27,6 @@ class ForpiEntry extends Controller
             $entries = Submit::query();
 
             return DataTables::eloquent($entries)
-                ->addIndexColumn()
                 ->editColumn('status', function ($entry) {
                     $statusClass = $entry->status == 'BARU' ? 'bg-label-warning'
                         : ($entry->status == 'SUDAH PRINT' ? 'bg-label-success' : 'bg-label-danger');

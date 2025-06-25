@@ -16,9 +16,8 @@
                         <table id="table_{{ request()->segment(2) }}" class="table table-striped table-bordered dt-responsive nowrap" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th class="text-start" data-priority="3">#</th>
                                     <th>NIM</th>
-                                    <th>Nama</th>
+                                    <th data-priority="1">Nama</th>
                                     <th>Status</th>
                                     <th>Prodi</th>
                                     <th>Periode Lulus</th>

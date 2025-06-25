@@ -7,13 +7,6 @@
                 url: "{{ route(request()->segment(1) . '_entry_table') }}"
             },
             columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex',
-                    className: 'text-center',
-                    orderable: false,
-                    searchable: false
-                },
-                {
                     data: 'nim',
                     name: 'nim',
                     className: 'text-center'
@@ -102,11 +95,9 @@
                 url: "{{ route(request()->segment(1) . '_entry_table') }}"
             },
             columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex',
-                    className: 'text-center',
-                    orderable: false,
-                    searchable: false
+                    data: 'nim',
+                    name: 'nim',
+                    className: 'text-center'
                 },
                 {
                     data: 'nama',
@@ -132,7 +123,9 @@
                 {
                     data: 'aksi',
                     name: 'aksi',
-                    className: 'text-center'
+                    className: 'text-center',
+                    orderable: false,
+                    searchable: false
                 }
             ],
             order: [
@@ -250,13 +243,6 @@
                 url: "{{ route(request()->segment(1) . '_entry_table') }}"
             },
             columns: [{
-                    data: 'DT_RowIndex',
-                    name: 'DT_RowIndex',
-                    className: 'text-center',
-                    orderable: false,
-                    searchable: false
-                },
-                {
                     data: 'nim',
                     name: 'nim',
                     className: 'text-center'

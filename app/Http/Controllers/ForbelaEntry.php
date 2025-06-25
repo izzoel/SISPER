@@ -84,7 +84,6 @@ class ForbelaEntry extends Controller
             }
 
             return DataTables::eloquent($entries)
-                ->addIndexColumn()
                 ->editColumn('status', function ($entry) {
                     $statusClass = $entry->status == 'BARU' ? 'bg-label-danger'
                         : ($entry->status == 'DITINJAU' ? 'bg-label-warning'
@@ -126,7 +125,6 @@ class ForbelaEntry extends Controller
 
                     // Atur checkbox checked sesuai kondisi
                     $checked = 'checked'; // default dicentang
-
                     if (
                         ($user->name === 'verifikator' && $entry->status === 'DITINJAU') ||
                         ($user->name !== 'verifikator' && $entry->status === 'BARU')
@@ -134,25 +132,29 @@ class ForbelaEntry extends Controller
                         $checked = ''; // tidak dicentang
                     }
 
-                    // Atur jika harus disabled (user bukan verifikator dan status VALID)
-                    $disabled = ($user->name !== 'verifikator' && $entry->status === 'VALID') ? 'disabled' : '';
+                    $resubmitButton = '';
+                    if ($user->name != 'verifikator') {
+                        $resubmitButton = '
+                            <button class="btn btn-sm btn-info resubmit-btn" data-nim="' . $entry->nim . '" 
+                                data-url="' . route('forbela_entry_resubmit', $entry->nim) . '">
+                                <i class="bx bx-refresh"></i>
+                            </button>';
+                    }
 
                     return '
-    <div class="d-flex align-items-center gap-2">
-        <button class="btn btn-sm btn-info resubmit-btn" data-nim="' . $entry->nim . '" 
-            data-url="' . route('forbela_entry_resubmit', $entry->nim) . '">
-            <i class="bx bx-refresh"></i>
-        </button>
-        <div class="form-switch m-0">
-            <input 
-                class="' . $inputClass . ' form-check-input" 
-                type="checkbox" 
-                data-id="' . $entry->id . '" 
-                ' . ($entry->status !== 'RESUBMIT' ? $checked : '') . '>
-        </div>
-    </div>';
+                        <td class="align-middle">
+                            <div class="d-flex justify-content-center align-items-center gap-2">
+                                ' . $resubmitButton . '
+                                <div class="form-switch m-0 d-flex align-items-center">
+                                    <input 
+                                        class="' . $inputClass . ' form-check-input" 
+                                        type="checkbox" 
+                                        data-id="' . $entry->id . '" 
+                                        ' . ($entry->status !== 'RESUBMIT' ? $checked : '') . '>
+                                </div>
+                            </div>
+                        </td>';
                 })
-
 
                 ->rawColumns(['status', 'email', 'pembayaran', 'aksi'])
                 ->make(true);
