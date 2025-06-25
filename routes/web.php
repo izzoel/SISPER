@@ -129,6 +129,7 @@ Route::middleware([MenuMiddleware::class])->group(function () {
                 Route::get('/table', [ForbelaEntry::class, 'table'])->name('forbela_entry_table');
                 Route::get('/status', [ForbelaEntry::class, 'status'])->name('forbela_entry_status');
                 Route::get('/validasi', [ForbelaEntry::class, 'validasi'])->name('forbela_entry_validasi');
+                Route::get('/resubmit/{nim}', [ForbelaEntry::class, 'resubmit'])->name('forbela_entry_resubmit');
             });
 
             Route::prefix('mahasiswa')->group(function () {

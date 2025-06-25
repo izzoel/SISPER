@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Mail\ForbelaMail;
+use App\Models\Mahasiswa;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -72,7 +73,8 @@ class ForbelaEntry extends Controller
                 $entries = Submit::query()->where(function ($query) {
                     $query->where('status', 'DITINJAU')
                         ->orWhere('status', 'BARU')
-                        ->orWhere('status', 'VALID');
+                        ->orWhere('status', 'VALID')
+                        ->orWhere('status', 'RESUBMIT');
                 });
             } else {
                 $entries = Submit::query()->where(function ($query) {
@@ -85,18 +87,21 @@ class ForbelaEntry extends Controller
                 ->addIndexColumn()
                 ->editColumn('status', function ($entry) {
                     $statusClass = $entry->status == 'BARU' ? 'bg-label-danger'
-                        : ($entry->status == 'DITINJAU' ? 'bg-label-warning' : 'bg-label-success');
+                        : ($entry->status == 'DITINJAU' ? 'bg-label-warning'
+                            : ($entry->status == 'RESUBMIT' ? 'bg-label-secondary' : 'bg-label-success'));
 
                     return '<span class="badge rounded-pill ' . $statusClass . '">'
-                        . ($entry->status ? $entry->status : 'Ditinjau') . '</span>';
+                        . ($entry->status ?: 'Ditinjau') . '</span>';
                 })
                 ->editColumn('email', function ($entry) {
                     $statusClass = $entry->status == 'BARU' ? 'bg-label-danger'
-                        : ($entry->status == 'DITINJAU' ? 'bg-label-warning' : 'bg-label-success');
+                        : ($entry->status == 'DITINJAU' ? 'bg-label-warning'
+                            : ($entry->status == 'RESUBMIT' ? 'bg-label-secondary' : 'bg-label-success'));
 
                     return '<span class="badge rounded-pill ' . $statusClass . ' text-lowercase">'
                         . $entry->email . '</span>';
                 })
+
                 ->addColumn('pembayaran', function ($entry) use ($user) {
                     // Tentukan URL dan label link
                     if ($user->name === 'verifikator') {
@@ -132,9 +137,20 @@ class ForbelaEntry extends Controller
                     // Atur jika harus disabled (user bukan verifikator dan status VALID)
                     $disabled = ($user->name !== 'verifikator' && $entry->status === 'VALID') ? 'disabled' : '';
 
-                    return '<div class="form-switch">
-                        <input class="' . $inputClass . ' form-check-input" type="checkbox" data-id="' . $entry->id . '" ' . $checked . ' ' . $disabled . '>
-                    </div>';
+                    return '
+    <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-info resubmit-btn" data-nim="' . $entry->nim . '" 
+            data-url="' . route('forbela_entry_resubmit', $entry->nim) . '">
+            <i class="bx bx-refresh"></i>
+        </button>
+        <div class="form-switch m-0">
+            <input 
+                class="' . $inputClass . ' form-check-input" 
+                type="checkbox" 
+                data-id="' . $entry->id . '" 
+                ' . ($entry->status !== 'RESUBMIT' ? $checked : '') . '>
+        </div>
+    </div>';
                 })
 
 
@@ -170,5 +186,13 @@ class ForbelaEntry extends Controller
         }
 
         return response()->json(['error' => 'Gagal memperbarui status.'], 400);
+    }
+
+    public function resubmit($nim)
+    {
+        $resubmit = Submit::where('nim', $nim)->first();
+
+        $resubmit->update(['status' => 'RESUBMIT']);
+        return redirect()->back()->with('submit', 'Mengubah status ke resubmit!');
     }
 }

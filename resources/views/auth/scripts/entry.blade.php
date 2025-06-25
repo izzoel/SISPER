@@ -230,6 +230,16 @@
                 }
             });
         });
+        $(document).on('click', '.resubmit-btn', function() {
+            let btn = $(this);
+            let resubmitUrl = btn.data('url');
+
+            $.get(resubmitUrl, function() {
+                $('#table_' + '{{ request()->segment(2) }}').DataTable().ajax.reload(null, false);
+            }).fail(function() {
+                alert("Gagal memperbarui status.");
+            });
+        });
 
 
     } else if ('{{ $data['menuData']['menu'] }}' == 'DVERSI') {

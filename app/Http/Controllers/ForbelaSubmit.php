@@ -32,7 +32,7 @@ class ForbelaSubmit extends Controller
 
         try {
             $mahasiswa = Mahasiswa::where('nim', session('nim'))->first();
-            $sudah_mengisi = Submit::where('nim', session('nim'))->first();
+            $sudah_mengisi = Submit::where('nim', session('nim'))->whereIn('status', ['BARU', 'DITINJAU'])->first();
             $data_submit = Submit::where('nim', session('nim'))->first();
 
             session(
