@@ -2,28 +2,27 @@
     $('#table_' + '{{ request()->segment(2) }}').DataTable({
         serverSide: true,
         processing: true,
+
         ajax: {
             url: "{{ route(request()->segment(1) . '_lapor_table') }}"
         },
         columns: [{
-                data: 'DT_RowIndex',
-                name: 'DT_RowIndex',
-                className: 'text-center',
-                orderable: false,
-                searchable: false
-            },
-            {
                 data: 'nim',
                 name: 'nim',
+                className: 'text-wrap',
+                searchable: true,
             },
             {
                 data: 'lapor',
                 name: 'lapor',
+                className: 'text-wrap',
+                searchable: true
             },
             {
                 data: 'status',
                 name: 'status',
-                className: 'text-center'
+                className: 'text-center',
+                searchable: true,
             },
             {
                 data: 'aksi',
@@ -43,6 +42,9 @@
             [10, 25, 50, 100, -1],
             [10, 25, 50, 100, "Semua"]
         ],
+        responsive: {
+            details: false
+        }
 
     });
 
