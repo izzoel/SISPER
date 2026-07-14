@@ -19,8 +19,8 @@ class ForbelaMahasiswa extends Controller
             'title' => env('APP_NAME') . ' | ' . strtoupper(request()->segment(1)) . ' | ' . strtoupper(request()->segment(2)),
             'menuData' => $request->get('menuData')
         ];
-
-        $mahasiswas = Mahasiswa::all();
+        $mahasiswas = Mahasiswa::whereYear('created_at', '>', 2025)->get();
+        // $mahasiswas = Mahasiswa::all();
         return view('auth.' . request()->segment(1) . '.pages.section', compact('data', 'mahasiswas'));
     }
 
