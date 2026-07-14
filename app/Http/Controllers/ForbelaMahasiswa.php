@@ -19,15 +19,15 @@ class ForbelaMahasiswa extends Controller
             'title' => env('APP_NAME') . ' | ' . strtoupper(request()->segment(1)) . ' | ' . strtoupper(request()->segment(2)),
             'menuData' => $request->get('menuData')
         ];
-        $mahasiswas = Mahasiswa::whereYear('created_at', '>', 2025)->get();
-        // $mahasiswas = Mahasiswa::all();
+        $mahasiswas = Mahasiswa::all();
         return view('auth.' . request()->segment(1) . '.pages.section', compact('data', 'mahasiswas'));
     }
 
     public function table()
     {
         if (request()->ajax()) {
-            $mahasiswas = Mahasiswa::query();
+            #TODO dibuat filter berdasarkan angkatan
+            $mahasiswas = Mahasiswa::query()->where('created_at', '>', '2025-12-30 23:59:39');
 
             return DataTables::eloquent($mahasiswas)
                 ->addColumn('nik', function ($mahasiswa) {
